@@ -8,7 +8,7 @@ public class Game {
   private List<String> stations;
   private String helpMessage;
   private String tryAgainMessage;
-//  private Directions direction;
+  private Directions direction;
 
 
   public void Game(Player player, String welcomeMessage, String helpMessage, String tryAgainMessage ) {
@@ -17,8 +17,8 @@ public class Game {
     this.helpMessage = helpMessage;
     this.tryAgainMessage = tryAgainMessage;
     this.stations = new ArrayList<>();
-//    this.direction = direction;
-//
+    this.direction = direction;
+
   }
   public void tryAgain(){
 
@@ -54,13 +54,13 @@ public class Game {
     return tryAgainMessage;
   }
 
-//  public Directions getDirection() {
-//    return direction;
-//  }
-//
-//  public void setDirection(Directions direction) {
-//    this.direction = direction;
-//  }
+  public Directions getDirection() {
+    return direction;
+  }
+
+  public void setDirection(Directions direction) {
+    this.direction = direction;
+  }
 
   public void setStations(String station) {
     this.stations.add(station);
