@@ -33,6 +33,7 @@ public class InputValidator {
         result = false;
       }
     }
+
     return result;
   }
 
@@ -62,6 +63,7 @@ public class InputValidator {
       inputVerb = "go";
       isVerb = true;
     }
+
     return isVerb;
   }
 
@@ -77,6 +79,7 @@ public class InputValidator {
       inputNoun = noun.toLowerCase();
       isNoun = true;
     }
+
     return isNoun;
   }
 }
