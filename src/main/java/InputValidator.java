@@ -8,11 +8,12 @@ public class InputValidator {
   private String[] input = new String[2];
   private String inputVerb;
   private String inputNoun;
-  private final String[] pickUpVerbs = {"pickup", "acquire", "search"};
-  private final String[] mapVerbs = {"use", "open"};
+  private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab"};
+  private final String[] mapVerbs = {"use", "open", "view"};
   private final String[] navigationVerbs = {"go", "travel", "walk", "move"};
   private final String[] nouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
+  Directions[] directions = Directions.values();
 
   /**
    * isValid Method takes input string and populates private field that hold a proper input.
@@ -21,17 +22,24 @@ public class InputValidator {
    */
   public boolean isValid(String input) {
     boolean result = false;
+    boolean verbCondition = false;
+    boolean nounCondition = false;
+    String tempVerb;
+    String tempNoun;
     String[] unfilteredString = input.split(" ");
     for (String str : unfilteredString) {
-      boolean verbCondition = isAValidVerb(str);
-      boolean nounCondition = isAValidNoun(str);
-      if (verbCondition && nounCondition) {
-        this.input[0] = inputVerb;
-        this.input[1] = inputNoun;
-        result = true;
-      } else {
-        result = false;
+      if (!verbCondition){
+        verbCondition = isAValidVerb(str);
+      } else if (!nounCondition) {
+        nounCondition = isAValidNoun(str);
       }
+    }
+    if (verbCondition && nounCondition) {
+      this.input[0] = inputVerb;
+      this.input[1] = inputNoun;
+      result = true;
+    } else {
+      result = false;
     }
 
     return result;
@@ -79,7 +87,31 @@ public class InputValidator {
       inputNoun = noun.toLowerCase();
       isNoun = true;
     }
-
+    // TODO: 12/9/2022 check for enum values
     return isNoun;
+  }
+
+  private boolean validCombination(){
+    boolean result = false;
+    switch (input[0]){
+      case "pickup":
+        if(isAValidNoun(input[1])){
+          result = true;
+        }
+        break;
+      case "open":
+        if(input[1].equals("map")){
+          result = true;
+        }
+        break;
+      case "go":
+        if(Arrays.asList(directions).contains(input[1].toUpperCase())){
+          // TODO: 12/9/2022 complete logic for checking for valid direction
+        }
+        break;
+      default:
+        result = false;
+    }
+    return result;
   }
 }
