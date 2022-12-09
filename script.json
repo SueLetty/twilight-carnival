@@ -2,6 +2,8 @@
   "welcome":"Welcome to Twilight Carnival!",
   "introduction": "You’re at the carnival with your friends after one too many drinks you end up falling asleep in a ball pit. Once you awake later on that evening, you notice that the carnival has changed into something not so welcoming. Journey through the carnival to find four keys to help you escape the Twilight Carnival!",
   "directions": "Go North, Go South, Go East, Go West",
-  "tools": "Choose one of the items to defeat the monster. If you select the wrong item then you will be defeated."
-
+  "tools": "Choose one of the items to defeat the monster. If you select the wrong item then you will be defeated.",
+  "win message": "You hear, \"Thank you for visiting, come again, and bring your friends.\" \n\nYou turn around, you wake up.",
+  "Help": "1. Go [direction] (example: go north, go south, go west, go east)\n2. Pickup [ItemName] (example: pickup map)\n3. View map (if you have a map in your inventory) ",
+  "play again": "Do you want to play again? (y/n)"
 }
