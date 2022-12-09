@@ -1,3 +1,5 @@
+package com.twilightCarnival.controller;
+
 public class Monster {
   private String name;
   private boolean status;

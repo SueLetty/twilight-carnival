@@ -1,3 +1,5 @@
+package com.twilightCarnival.controller;
+
 import java.util.HashMap;
 
 public class Station {
