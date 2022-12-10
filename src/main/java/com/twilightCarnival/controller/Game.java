@@ -1,7 +1,7 @@
 package com.twilightCarnival.controller;
 
-import com.twilightCarnival.controller.Directions;
-import com.twilightCarnival.controller.Player;
+import com.twilightCarnival.model.Directions;
+import com.twilightCarnival.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 

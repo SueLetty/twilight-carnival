@@ -1,4 +1,4 @@
-package com.twilightCarnival.controller;
+package com.twilightCarnival.model;
 
 import java.util.HashSet;
 
