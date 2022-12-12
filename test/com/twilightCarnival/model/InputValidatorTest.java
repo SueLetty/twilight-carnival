@@ -30,10 +30,10 @@ public class InputValidatorTest {
   @Test
   public void isValid_checking_wrong_input_strings() {
     String invalid1 = "sprint Northwest";
-    String invalid2 = "go SouthEast";
+    String validWordsInvalidCombo = "go key";
 
     assertFalse(validator.isValid(invalid1));
-    assertFalse(validator.isValid(invalid2));
+    assertFalse(validator.isValid(validWordsInvalidCombo));
   }
 
   @Test

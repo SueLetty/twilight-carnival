@@ -7,18 +7,19 @@ import java.util.Arrays;
  */
 public class InputValidator {
 
-  private String[] input = new String[2];
+  private final String[] input = new String[2];
   private String inputVerb;
   private String inputNoun;
-  private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab"};
-  private final String[] mapVerbs = {"use", "open", "view"};
-  private final String[] navigationVerbs = {"go", "travel", "walk", "move"};
+  private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab", "pick-up"};
+  private final String[] mapVerbs = {"use", "open", "view", "render"};
+  private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
   private final String[] nouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
-  Directions[] directions = Directions.values();
+  private final Directions[] directions = Directions.values();
 
   /**
    * isValid Method takes input string and populates private field that hold a proper input.
+   *  It does not handle conjunctions.
    * @param input String the user inputs for an action of using an item or moving.
    * @return boolean that states the input is valid and the input is put in a String[] input field.
    */
@@ -30,7 +31,7 @@ public class InputValidator {
     String tempNoun;
     String[] unfilteredString = input.split(" ");
     for (String str : unfilteredString) {
-      if (!verbCondition){
+      if (!verbCondition) {
         verbCondition = isAValidVerb(str);
       } else if (!nounCondition) {
         nounCondition = isAValidNoun(str);
@@ -39,8 +40,16 @@ public class InputValidator {
     if (verbCondition && nounCondition) {
       this.input[0] = inputVerb;
       this.input[1] = inputNoun;
-      result = true;
+
+      if (validCombination()) {
+        result = true;
+      } else {
+        System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
+        System.out.println("Try something like:\n \t> open map\n \t> go north\n");
+      }
     } else {
+      System.out.println("Could not collect a valid input.");
+      System.out.println("Try something like:\n \t> pickup map\n \t> go south\n");
       result = false;
     }
 
@@ -49,6 +58,7 @@ public class InputValidator {
 
   /**
    * getInput() gets the field String[] input, that holds 2 strings for proper verb[0] and noun[1].
+   *
    * @return String[] input. [0] verb, [1] noun.
    */
   public String[] getInput() {
@@ -58,6 +68,7 @@ public class InputValidator {
   /**
    * isAValidVerb(String verb) called to check if input is a proper whitelisted verb to be assigned
    * to String[] input;
+   *
    * @param verb String value to be checked if it is a whitelisted verb.
    * @return boolean value if the string passed is whitelisted verb.
    */
@@ -80,6 +91,7 @@ public class InputValidator {
   /**
    * isAValidNoun(String noun) called to check if input is a proper whitelisted noun to be assigned
    * to String[] input.
+   *
    * @param noun String value to be checked if it is a whitelisted noun.
    * @return boolean value if the string passed is whitelisted noun.
    */
@@ -92,30 +104,31 @@ public class InputValidator {
       inputNoun = noun.toUpperCase();
       isNoun = true;
     }
-    // TODO: 12/9/2022 check for enum values
     return isNoun;
   }
 
   /**
-   * validCombination that will check for valid input combo.
-   * @return boolean if the combination is valid.
+   * validCombination that will check for valid input combination.
+   *  Current valid combinations is tied to keywords given to input[0] during isAValid[Noun/Verb]()
+   *  methods.
+   * @return boolean if the combination is valid/invalid.
    */
-  private boolean validCombination(){
+  private boolean validCombination() {
     boolean result = false;
-    switch (input[0]){
+    switch (input[0]) {
       case "pickup":
-        if(isAValidNoun(input[1])){
+        if (isAValidNoun(input[1])) {
           result = true;
         }
         break;
       case "open":
-        if(input[1].equals("map")){
+        if (input[1].equals("map")) {
           result = true;
         }
         break;
       case "go":
-        if(Arrays.asList(directions).toString().contains(input[1].toUpperCase())){
-          // TODO: 12/9/2022 complete logic for checking for valid direction
+        if (Arrays.asList(directions).toString().contains(input[1].toUpperCase())) {
+          result = true;
         }
         break;
       default:
