@@ -88,6 +88,9 @@ public class InputValidator {
     if (Arrays.asList(nouns).contains(noun.toLowerCase())) {
       inputNoun = noun.toLowerCase();
       isNoun = true;
+    } else if (Arrays.asList(directions).toString().contains(noun.toUpperCase())) {
+      inputNoun = noun.toUpperCase();
+      isNoun = true;
     }
     // TODO: 12/9/2022 check for enum values
     return isNoun;
@@ -111,7 +114,7 @@ public class InputValidator {
         }
         break;
       case "go":
-        if(Arrays.asList(directions).contains(input[1].toUpperCase())){
+        if(Arrays.asList(directions).toString().contains(input[1].toUpperCase())){
           // TODO: 12/9/2022 complete logic for checking for valid direction
         }
         break;
