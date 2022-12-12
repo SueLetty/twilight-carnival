@@ -7,15 +7,15 @@ import java.util.Arrays;
  */
 public class InputValidator {
 
-  private String[] input = new String[2];
+  private final String[] input = new String[2];
   private String inputVerb;
   private String inputNoun;
-  private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab"};
-  private final String[] mapVerbs = {"use", "open", "view"};
-  private final String[] navigationVerbs = {"go", "travel", "walk", "move"};
+  private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab", "pick-up"};
+  private final String[] mapVerbs = {"use", "open", "view", "render"};
+  private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
   private final String[] nouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
-  Directions[] directions = Directions.values();
+  private final Directions[] directions = Directions.values();
 
   /**
    * isValid Method takes input string and populates private field that hold a proper input.
