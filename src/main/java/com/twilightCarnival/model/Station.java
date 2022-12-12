@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public class Station {
   private String name;
-  private String monster;
+  private Monster monster;
   private String[] tools;
   private String item;
   private HashMap<String, String> surroundings;
   private String unreachableDirectionMessage;
 
-  public Station(String name, String monster, String[] tools, String item, HashMap<String,
+  public Station(String name, Monster monster, String[] tools, String item, HashMap<String,
       String> surroundings, String unreachableDirectionMessage){
     this.name = name;
     this.monster = monster;
@@ -24,7 +24,7 @@ public class Station {
     return name;
   }
 
-  public String getMonster() {
+  public Monster getMonster() {
     return monster;
   }
 
@@ -44,7 +44,7 @@ public class Station {
     return unreachableDirectionMessage;
   }
 
-  public void setMonster(String monster) {
+  public void setMonster(Monster monster) {
     this.monster = monster;
   }
 

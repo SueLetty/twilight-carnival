@@ -11,16 +11,7 @@ public class Play {
     if(input.nextLine().equals("y")){
       System.out.println("Game started!");
       Game game = new Game();
-      System.out.println("Do you need help?");
-      input = new Scanner(System.in);
-      if(input.nextLine().equals("help")){
-        game.help();
-      }
-      System.out.println("Do you need help?");
-      input = new Scanner(System.in);
-      if(input.nextLine().equals("quit")){
-        game.quit();
-      }
+      game.display();
 
     }
 
