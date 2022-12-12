@@ -123,6 +123,10 @@ public class Game {
     return player;
   }
 
+  /**
+   * Players are presented with a Title.Splash Screen
+   * @return a welcome message
+   */
   public String getWelcomeMessage() {
     return welcomeMessage;
   }
