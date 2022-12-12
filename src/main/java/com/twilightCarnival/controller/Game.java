@@ -104,6 +104,10 @@ public class Game {
     System.out.println("Do you want to play again?");
 
   }
+
+  /**
+   * when the user type "quit", it quits the game
+   */
   public void quit(){
     System.exit(1);
 
