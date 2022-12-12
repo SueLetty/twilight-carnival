@@ -48,8 +48,8 @@
     "surroundings": {
       "North": "NULL",
       "South": "Ball Pit",
-      "East": "Gift Shop",
-      "West": "Safe Area"
+      "East": "Safe Area",
+      "West": "Gift Shop"
     },
     "monster": {
       "Name": "Cotton Candy Monster",
@@ -71,9 +71,9 @@
     "Item": "Map",
     "surroundings": {
       "North": "NULL",
-      "South": "NULL",
-      "East": "Gift Shop",
-      "West": "Safe Area"
+      "South": "Popcorn Stand",
+      "East": "NULL",
+      "West": "Cotton Candy Stand"
     },
     "monster": {
       "Name": "NULL",
@@ -96,7 +96,7 @@
     },
     "monster": {
       "Name": "Popcorn Snake",
-      "Weakness": "broom",
+      "Weakness": "Popcorn Snake",
       "LostMessage": "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.",
       "WinMessage": "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
       "Key": "Bronze Key",
