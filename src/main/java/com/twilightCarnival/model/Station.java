@@ -1,3 +1,5 @@
+package com.twilightCarnival.model;
+
 import java.util.HashMap;
 
 public class Station {

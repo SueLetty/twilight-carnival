@@ -1,3 +1,5 @@
+package com.twilightCarnival.model;
+
 import java.util.Arrays;
 
 /**
