@@ -93,6 +93,10 @@ public class InputValidator {
     return isNoun;
   }
 
+  /**
+   * validCombination that will check for valid input combo.
+   * @return boolean if the combination is valid.
+   */
   private boolean validCombination(){
     boolean result = false;
     switch (input[0]){
