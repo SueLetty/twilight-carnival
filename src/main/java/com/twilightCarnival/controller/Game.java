@@ -207,7 +207,9 @@ public class Game {
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
           player.setCurrentLocation(s.getSurroundings().get(direction));
-          System.out.println(player.getCurrentLocation());
+          System.out.print("\033[H\033[2J");
+          System.out.flush();
+          status();
           return;
         }
         else{
