@@ -8,8 +8,8 @@ public class Player {
   private final int NUMBER_OF_TOKENS = 3;
   private String currentLocation;
 
-  public Player(HashSet<String> inventory){
-    this.inventory = inventory;
+  public Player(){
+    this.inventory = new HashSet<>();
     token = NUMBER_OF_TOKENS;
     currentLocation = "Ball Pit";
   }
@@ -17,12 +17,23 @@ public class Player {
     return inventory.contains("map");
   }
 
+  public String displayInventory(){
+    String result="";
+    if(getInventory().size()!=0){
+      for(String item: inventory){
+        result += item + " ";
+      }
+    }
+
+    return result;
+  }
   public int numberOfKeys(){
     return hasMap() ? inventory.size() -1: inventory.size();
   }
   public HashSet<String> getInventory() {
     return inventory;
   }
+
 
   public void setInventory(HashSet<String> inventory) {
     this.inventory = inventory;
