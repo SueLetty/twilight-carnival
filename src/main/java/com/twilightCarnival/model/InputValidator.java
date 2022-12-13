@@ -117,7 +117,7 @@ public class InputValidator {
     boolean result = false;
     switch (input[0]) {
       case "pickup":
-        if (isAValidNoun(input[1])) {
+        if (Arrays.asList(nouns).contains(input[1].toLowerCase())) {
           result = true;
         }
         break;
