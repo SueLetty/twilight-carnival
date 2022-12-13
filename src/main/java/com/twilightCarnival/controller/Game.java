@@ -119,12 +119,20 @@ public class Game {
     System.out.println("Available command: go [direction]");
     System.out.println("If there is an item, pickup [item name]");
     System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+    System.out.println("=============================================================================================");
+
   }
 
   public void viewMap(){
     if(player.hasMap()){
-      //todo
-
+      System.out.println("Your current location surroundings are: ");
+      for(Station s: stations){
+        if(s.getName().equals(player.getCurrentLocation())){
+          for(String direction: s.getSurroundings().keySet()){
+            System.out.println(direction + ": " + s.getSurroundings().get(direction));
+          }
+        }
+      }
     }else{
       System.out.println("You don't have a map to view.");
     }
