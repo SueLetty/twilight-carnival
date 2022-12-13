@@ -1,5 +1,6 @@
 package com.twilightCarnival.controller;
 
+import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
 import java.util.Scanner;
 
@@ -56,9 +57,11 @@ public class StartGame {
       // TODO: 12/13/2022 get current location and check for items to pickup
       // call status here?, message below might not display.
       System.out.printf("You picked up the %s and added it to your inventory", noun);
-      game.getPlayer().setInventory(noun);
+      game.getItem(noun);
+      game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
       // TODO: 12/13/2022 change locations
+      game.changingLocation(Directions.valueOf(noun));
     }
   }
 }
