@@ -14,7 +14,7 @@ public class Player {
     currentLocation = "Ball Pit";
   }
   public boolean hasMap(){
-    return inventory.contains("map");
+    return inventory.contains("Map");
   }
 
   public String displayInventory(){
@@ -35,8 +35,8 @@ public class Player {
   }
 
 
-  public void setInventory(HashSet<String> inventory) {
-    this.inventory = inventory;
+  public void setInventory(String item) {
+    this.inventory.add(item);
   }
 
   public int getToken() {

@@ -13,12 +13,10 @@ public class Play {
       Game game = new Game();
       game.display();
       game.status();
+      game.viewMap();
+      game.getPlayer().setInventory("Map");
+      game.viewMap();
 
     }
-
-
-
-
-
   }
 }
