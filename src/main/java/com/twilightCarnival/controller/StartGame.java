@@ -13,7 +13,7 @@ public class StartGame {
     Scanner input = new Scanner(System.in);
     if(input.nextLine().equalsIgnoreCase("y")){
       game.display();
-      game.status();  //need to override?
+      game.status(); // TODO: 12/13/2022 timer? for introduction
       userInput();
       System.out.println("Do you want to play again? (y/n)");
       input = new Scanner(System.in);
@@ -42,19 +42,18 @@ public class StartGame {
       userChoice = input.nextLine();
       if (userChoice.equals("")){
         System.out.println("Please enter a command.");
-      } else if (userChoice.toLowerCase().equals("help")) {
+      } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
-      } else if (userChoice.toLowerCase().equals("quit")) {
+      } else if (userChoice.equalsIgnoreCase("quit")) {
         game.quit();
       } else if (validator.isValid(userChoice)) {
+
         validInput = validator.getInput();
         operation(validInput[0], validInput[1]);
-        game.status();
-        // verb is in validInput[0]
-        // noun is in validInput[1]
-        // use validInput to do something
+        //game.status();
         continue;
       }
+
     }
   }
 
@@ -70,7 +69,6 @@ public class StartGame {
       game.getItem(noun);
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
-
       game.changingLocation(Directions.valueOf(noun));
     }
   }
