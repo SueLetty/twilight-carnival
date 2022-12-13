@@ -21,11 +21,11 @@ public class Player {
     String result="";
     if(getInventory().size()!=0){
       for(String item: inventory){
-        result += item + " ";
+        result += item + ", ";
       }
     }
 
-    return result;
+    return result.replaceAll(", $","");
   }
   public int numberOfKeys(){
     return hasMap() ? inventory.size() -1: inventory.size();

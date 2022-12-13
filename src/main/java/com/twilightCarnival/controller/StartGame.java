@@ -11,13 +11,25 @@ public class StartGame {
   public void start(){
     System.out.println("Do you want to play a new Game? (y/n)");
     Scanner input = new Scanner(System.in);
-    if(input.nextLine().equals("y")){
-      System.out.println("Game started!");
+    if(input.nextLine().equalsIgnoreCase("y")){
       game.display();
       game.status();  //need to override?
       userInput();
+      System.out.println("Do you want to play again? (y/n)");
+      input = new Scanner(System.in);
+      if(input.nextLine().equalsIgnoreCase("y")){
+        game.playAgain();
+      }
+
+    }else{
+      System.out.println("Are you sure?(y/n)");
+      input = new Scanner(System.in);
+      if(input.nextLine().equals("y")){
+        game.quit();
+      }else{
+        game.playAgain();
+      }
     }
-    game.quit();
   }
 
 
@@ -54,13 +66,11 @@ public class StartGame {
         System.out.println("You do not have a map.");
       }
     } else if (verb.equals("pickup")) {
-      // TODO: 12/13/2022 get current location and check for items to pickup
-      // call status here?, message below might not display.
-      System.out.printf("You picked up the %s and added it to your inventory", noun);
+
       game.getItem(noun);
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
-      // TODO: 12/13/2022 change locations
+
       game.changingLocation(Directions.valueOf(noun));
     }
   }
