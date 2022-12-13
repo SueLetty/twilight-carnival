@@ -137,7 +137,7 @@ public class Game {
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
         System.out.println("There is a " + s.getMonster());
-        System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
         s.displayTools();
       }
 
