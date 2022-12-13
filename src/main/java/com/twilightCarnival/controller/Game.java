@@ -4,7 +4,6 @@ import com.twilightCarnival.model.Monster;
 import com.twilightCarnival.model.Player;
 
 import com.twilightCarnival.model.Station;
-import com.twilightCarnival.view.Play;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,6 @@ public class Game {
   private String helpMessage;
   private String tryAgainMessage;
   private Directions direction;
-//  private List<String> inputs;
   private Monster cottonCandyMonster;
   private Monster balloonDog;
   private Monster popcornSnake;
@@ -47,17 +45,17 @@ public class Game {
   private Station dreamlandGate;
   public Game() {
     player = new Player();
+    tryAgainMessage = "Do you want to play again?(y/n)";
     welcomeMessage = "Welcome to Twilight Carnival!";
     helpMessage = "1. Go [direction] (example: go north, go south, go west, go east)\n2. Pickup [ItemName] (example: pickup map)\n3. View map (if you have a map in your inventory) ";
-//    player = new Player();
     stations = new ArrayList<>();
     cottonCandyMonster = new Monster("Cotton Candy Monster", "water","Gold Key",
                           "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a key. You pick it up.",
                           "The Cotton Candy Monster did not like that. The Monster grabs you spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.");
-    balloonDog = new Monster("Balloon Dog","needle","Silver Key",
+    balloonDog = new Monster("Balloon Dog Monster","needle","Silver Key",
                           "Quickly you prick the Balloon dog with a needle, and it drops a key. You pick it up.",
                           "lets out a continuous cry. You are quickly surrounded by other balloon animals and they grab you. You start to float away to never to be seen again. Game Over.");
-    popcornSnake = new Monster("Popcorn Snake","Popcorn Snake","Bronze Key",
+    popcornSnake = new Monster("Popcorn Snake Monster","Popcorn Snake","Bronze Key",
                           "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
                           "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.");
     ballPitSurroundings.put(Directions.NORTH, "Cotton Candy Stand");
@@ -83,10 +81,10 @@ public class Game {
 
     dreamlandGateSurroundings.put(Directions.NORTH, "Ball Pit");
     cottonCandyStand = new Station("Cotton Candy Stand", cottonCandyMonster,cottonCandyTools, null,cottonCandyStandSurroundings, "There is a pile of paper cones");
-    hotDogStand = new Station("Hot Dog Stand", null,null, "Master Key",hotDogStandSurroundings, "There is a pile of mustard bottles");
+    hotDogStand = new Station("Hot Dog Stand", null,null, "master key",hotDogStandSurroundings, "There is a pile of mustard bottles");
     popcornStand = new Station("Popcorn Stand", popcornSnake,popcornSnakeTools, null,popcornStandSurroundings, "There is a pile of kernels paper bags");
     giftShop = new Station("Gift Shop", balloonDog,balloonDogTools, null,giftShopSurroundings, "There is a pile of bobble heads");
-    safeArea = new Station("Safe Area", null,null, "Map",safeAreaSurroundings, "There is a pile of peanuts");
+    safeArea = new Station("Safe Area", null,null, "map",safeAreaSurroundings, "There is a pile of peanuts");
     ballPit = new Station("Ball Pit", null,null, null,ballPitSurroundings, null);
     dreamlandGate = new Station("Dreamland Gate",null,null, null,dreamlandGateSurroundings, "There is wrought iron fencing");
 
@@ -103,19 +101,23 @@ public class Game {
     winMessage = "You hear, \"Thank you for visiting, come again, and bring your friends.\" \n\nYou turn around, you wake up.";
     instructionForTools = "Choose one of the items to defeat the monster. If you select the wrong item then you will be defeated.";
   }
-  public void tryAgain(){
-    System.out.println("Do you want to play again?(y/n)");
-    Scanner scanner = new Scanner(System.in);
-    if(scanner.nextLine().equals("y")){
-      StartGame startGame = new StartGame();
-    }
-    quit();
+  public void playAgain(){
+
+    StartGame startGame = new StartGame();
+    startGame.start();
+
 
   }
   public void getItem(String item){
+
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.hasItem() && item.equals(s.getItem())){
+        System.out.printf("You picked up the %s and added it to your inventory\n", item);
         player.setInventory(s.getItem());
+        s.setItem(null);
+        return;
+      } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem()== null){
+        System.out.println("There is no items you can pickup.");
       }
     }
   }
@@ -136,9 +138,9 @@ public class Game {
         System.out.println("You can pickup " + s.getItem());
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
-        System.out.println("There is a " + s.getMonster());
-        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
-        s.displayTools();
+        System.out.println("There is a " + s.getMonster().getName());
+//        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
+//        s.displayTools();
       }
 
     }
@@ -165,7 +167,7 @@ public class Game {
    * when the user type "quit", it quits the game
    */
   public void quit(){
-    System.out.println("Thank you for playing the game.");
+    System.out.println("Thank you! Have a great day!");
     System.exit(0);
 
   }
@@ -205,6 +207,8 @@ public class Game {
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
           player.setCurrentLocation(s.getSurroundings().get(direction));
+          System.out.println(player.getCurrentLocation());
+          return;
         }
         else{
           System.out.println(s.getUnreachableDirectionMessage());
