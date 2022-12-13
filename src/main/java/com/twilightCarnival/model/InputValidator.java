@@ -98,7 +98,12 @@ public class InputValidator {
   private boolean isAValidNoun(String noun) {
     boolean isNoun = false;
     if (Arrays.asList(nouns).contains(noun.toLowerCase())) {
-      inputNoun = noun.toLowerCase();
+      if (noun.equalsIgnoreCase("key")){
+        inputNoun = "master key";
+      }
+      else {
+        inputNoun = noun.toLowerCase();
+      }
       isNoun = true;
     } else if (Arrays.asList(directions).toString().contains(noun.toUpperCase())) {
       inputNoun = noun.toUpperCase();
