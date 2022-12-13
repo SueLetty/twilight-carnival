@@ -1,0 +1,150 @@
+[
+  {
+    "name": "Ball Pit",
+    "Item": "NULL",
+    "surroundings": {
+      "North": "Cotton Candy Stand",
+      "South": "Dreamland Gate",
+      "East": "Popcorn Stand",
+      "West": "Hot Dog Stand"
+    },
+    "monster": {
+      "Name": "NULL",
+      "Weakness": "NULL",
+      "LostMessage": "NULL",
+      "WinMessage": "NULL",
+      "Key": "NULL",
+      "tools": "NULL"
+    },
+    "unReachableDirection": "NULL"
+  },
+  {
+    "name": "Gift Shop",
+    "Item": "NULL",
+    "surroundings": {
+      "North": "NULL",
+      "South": "Hot Dog Stand",
+      "East": "Cotton Candy Stand",
+      "West": "NULL"
+    },
+    "monster": {
+      "Name": "Balloon Dog",
+      "Weakness": "needle",
+      "LostMessage": "lets out a continuous cry. You are quickly surrounded by other balloon animals and they grab you. You start to float away to never to be seen again. Game Over.",
+      "WinMessage": "Quickly you prick the Balloon dog with a needle, and it drops a key. You pick it up.",
+      "Key": "Silver Key",
+      "tools": [
+        "needle",
+        "rubber duck",
+        "soda",
+        "water"
+      ]
+    },
+    "unReachableDirection": "a pile of bobble heads"
+  },
+  {
+    "name": "Cotton Candy Stand",
+    "Item": "NULL",
+    "surroundings": {
+      "North": "NULL",
+      "South": "Ball Pit",
+      "East": "Safe Area",
+      "West": "Gift Shop"
+    },
+    "monster": {
+      "Name": "Cotton Candy Monster",
+      "Weakness": "water",
+      "LostMessage": "The Cotton Candy Monster did not like that. The Monster grabs you spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.",
+      "WinMessage": "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a key. You pick it up.",
+      "Key": "Gold Key",
+      "tools": [
+        "fork",
+        "sugar",
+        "cup",
+        "water"
+      ]
+    },
+    "unReachableDirection": "a pile of paper cones"
+  },
+  {
+    "name": "Safe Area",
+    "Item": "Map",
+    "surroundings": {
+      "North": "NULL",
+      "South": "Popcorn Stand",
+      "East": "NULL",
+      "West": "Cotton Candy Stand"
+    },
+    "monster": {
+      "Name": "NULL",
+      "Weakness": "NULL",
+      "LostMessage": "NULL",
+      "WinMessage": "NULL",
+      "Key": "NULL",
+      "tools": "NULL"
+    },
+    "unReachableDirection": "a pile of peanuts"
+  },
+  {
+    "name": "Popcorn Stand",
+    "Item": "NULL",
+    "surroundings": {
+      "North": "Safe Area",
+      "South": "NULL",
+      "East": "NULL",
+      "West": "Ball Pit"
+    },
+    "monster": {
+      "Name": "Popcorn Snake",
+      "Weakness": "Popcorn Snake",
+      "LostMessage": "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.",
+      "WinMessage": "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
+      "Key": "Bronze Key",
+      "tools": [
+        "broom",
+        "candy",
+        "butter",
+        "cup"
+      ]
+    },
+    "unReachableDirection": "a pile of kernels paper bags"
+  },
+  {
+    "name": "Hot Dog Stand",
+    "Item": "master key",
+    "surroundings": {
+      "North": "Gift Shop",
+      "South": "NULL",
+      "East": "Ball Pit",
+      "West": "NULL"
+    },
+    "monster": {
+      "Name": "NULL",
+      "Weakness": "NULL",
+      "LostMessage": "NULL",
+      "WinMessage": "NULL",
+      "Key": "NULL",
+      "tools": "NULL"
+    },
+    "unReachableDirection": "a pile of mustard bottles"
+  },
+  {
+    "name": "Dreamland Gate",
+    "Item": "NULL",
+    "surroundings": {
+      "North": "Ball Pit",
+      "South": "NULL",
+      "East": "NULL",
+      "West": "NULL"
+    },
+    "monster": {
+      "Name": "NULL",
+      "Weakness": "NULL",
+      "LostMessage": "NULL",
+      "WinMessage": "NULL",
+      "Key": "NULL",
+      "tools": "NULL"
+    },
+    "unReachableDirection": "wrought iron fencing"
+  }
+]

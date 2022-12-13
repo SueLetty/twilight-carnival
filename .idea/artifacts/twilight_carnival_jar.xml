@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="twilight-carnival:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/twilight_carnival_jar</output-path>
+    <root id="archive" name="project.jar">
+      <element id="module-output" name="twilight-carnival" />
+    </root>
+  </artifact>
+</component>
