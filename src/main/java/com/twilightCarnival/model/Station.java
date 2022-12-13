@@ -19,7 +19,18 @@ public class Station {
     this.surroundings = surroundings;
     this.unreachableDirectionMessage = unreachableDirectionMessage;
   }
+  public boolean hasMonster(){
 
+    return getMonster() == null ? false: true;
+  }
+  public boolean hasItem(){
+    return getItem() == null ? false: true;
+  }
+  public void displayTools(){
+    for(int i = 0; i < getTools().length; i++){
+      System.out.println(i+1 + ", " + getTools()[i]);
+    }
+  }
   public String getName() {
     return name;
   }

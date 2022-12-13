@@ -107,18 +107,41 @@ public class Game {
     System.out.println("Do you want to play again?(y/n)");
     Scanner scanner = new Scanner(System.in);
     if(scanner.nextLine().equals("y")){
-      Play play = new Play();
+      StartGame startGame = new StartGame();
     }
     quit();
 
   }
+  public void getItem(String item){
+    for(Station s: stations){
+      if(s.getName().equals(player.getCurrentLocation()) && s.hasItem() && item.equals(s.getItem())){
+        player.setInventory(s.getItem());
+      }
+    }
+  }
   public void status(){
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
-    System.out.println("=============================================================================================");
+    System.out.println("=============================================================================================\n\n");
     System.out.println("Available command: go [direction]");
-    System.out.println("If there is an item, pickup [item name]");
-    System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+    System.out.println("=============================================================================================");
+
+    for(Station s: stations){
+      if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){
+        System.out.println("There is a map in your inventory.");
+        System.out.println("You can view map");
+      }
+      if(s.getName().equals(player.getCurrentLocation()) && s.hasItem()){
+        System.out.println("There is a " + s.getItem());
+        System.out.println("You can pickup " + s.getItem());
+      }
+      if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
+        System.out.println("There is a " + s.getMonster());
+        System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+        s.displayTools();
+      }
+
+    }
     System.out.println("=============================================================================================");
 
   }
@@ -156,6 +179,22 @@ public class Game {
 
   }
 
+  public void defeatMonster(int input){
+
+    for(Station s:stations){
+      if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
+        if(s.getTools()[input-1].equals(s.getMonster().getWeakness())){
+          System.out.println(s.getMonster().getWinMessage());
+          getPlayer().setInventory(s.getItem());
+        }else{
+          System.out.println(s.getMonster().getLostMessage());
+        }
+        return;
+      }
+    }
+
+
+  }
 
   public Player getPlayer() {
     return player;
