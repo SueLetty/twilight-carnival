@@ -14,7 +14,7 @@ public class Player {
     currentLocation = "Ball Pit";
   }
   public boolean hasMap(){
-    return inventory.contains("Map");
+    return inventory.contains("map");
   }
 
   public String displayInventory(){
