@@ -30,13 +30,13 @@ public class Game {
   private String[] balloonDogTools = new String[]{"needle", "rubber duck", "soda", "water"};
   private String[] popcornSnakeTools = new String[]{"broom", "candy", "butter", "cup"};
 
-  private HashMap<String, String> ballPitSurroundings = new HashMap<>();
-  private HashMap<String, String> giftShopSurroundings = new HashMap<>();
-  private HashMap<String, String> cottonCandyStandSurroundings = new HashMap<>();
-  private HashMap<String, String> safeAreaSurroundings = new HashMap<>();
-  private HashMap<String, String> popcornStandSurroundings = new HashMap<>();
-  private HashMap<String, String> hotDogStandSurroundings = new HashMap<>();
-  private HashMap<String, String> dreamlandGateSurroundings = new HashMap<>();
+  private HashMap<Directions, String> ballPitSurroundings = new HashMap<>();
+  private HashMap<Directions, String> giftShopSurroundings = new HashMap<>();
+  private HashMap<Directions, String> cottonCandyStandSurroundings = new HashMap<>();
+  private HashMap<Directions, String> safeAreaSurroundings = new HashMap<>();
+  private HashMap<Directions, String> popcornStandSurroundings = new HashMap<>();
+  private HashMap<Directions, String> hotDogStandSurroundings = new HashMap<>();
+  private HashMap<Directions, String> dreamlandGateSurroundings = new HashMap<>();
 
   private Station cottonCandyStand;
   private Station hotDogStand;
@@ -60,28 +60,28 @@ public class Game {
     popcornSnake = new Monster("Popcorn Snake","Popcorn Snake","Bronze Key",
                           "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
                           "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.");
-    ballPitSurroundings.put("North", "Cotton Candy Stand");
-    ballPitSurroundings.put("South", "Dreamland Gate");
-    ballPitSurroundings.put("East", "Popcorn Stand");
-    ballPitSurroundings.put("West", "Hot Dog Stand");
+    ballPitSurroundings.put(Directions.NORTH, "Cotton Candy Stand");
+    ballPitSurroundings.put(Directions.SOUTH, "Dreamland Gate");
+    ballPitSurroundings.put(Directions.EAST, "Popcorn Stand");
+    ballPitSurroundings.put(Directions.WEST, "Hot Dog Stand");
 
-    giftShopSurroundings.put("South", "Hot Dog Stand");
-    giftShopSurroundings.put("East", "Cotton Candy Stand");
+    giftShopSurroundings.put(Directions.SOUTH, "Hot Dog Stand");
+    giftShopSurroundings.put(Directions.EAST, "Cotton Candy Stand");
 
-    cottonCandyStandSurroundings.put("South", "Ball Pit");
-    cottonCandyStandSurroundings.put("East", "Safe Area");
-    cottonCandyStandSurroundings.put("West", "Gift Shop");
+    cottonCandyStandSurroundings.put(Directions.SOUTH, "Ball Pit");
+    cottonCandyStandSurroundings.put(Directions.EAST, "Safe Area");
+    cottonCandyStandSurroundings.put(Directions.WEST, "Gift Shop");
 
-    safeAreaSurroundings.put("South", "Popcorn Stand");
-    safeAreaSurroundings.put("West", "Cotton Candy Stand");
+    safeAreaSurroundings.put(Directions.SOUTH, "Popcorn Stand");
+    safeAreaSurroundings.put(Directions.WEST, "Cotton Candy Stand");
 
-    popcornStandSurroundings.put("North", "Safe Area");
-    popcornStandSurroundings.put("West", "Ball Pit");
+    popcornStandSurroundings.put(Directions.NORTH, "Safe Area");
+    popcornStandSurroundings.put(Directions.WEST, "Ball Pit");
 
-    hotDogStandSurroundings.put("North", "Gift Shop");
-    hotDogStandSurroundings.put("East", "Ball Pit");
+    hotDogStandSurroundings.put(Directions.NORTH, "Gift Shop");
+    hotDogStandSurroundings.put(Directions.EAST, "Ball Pit");
 
-    dreamlandGateSurroundings.put("North", "Ball Pit");
+    dreamlandGateSurroundings.put(Directions.NORTH, "Ball Pit");
     cottonCandyStand = new Station("Cotton Candy Stand", cottonCandyMonster,cottonCandyTools, null,cottonCandyStandSurroundings, "There is a pile of paper cones");
     hotDogStand = new Station("Hot Dog Stand", null,null, "Master Key",hotDogStandSurroundings, "There is a pile of mustard bottles");
     popcornStand = new Station("Popcorn Stand", popcornSnake,popcornSnakeTools, null,popcornStandSurroundings, "There is a pile of kernels paper bags");
@@ -137,7 +137,7 @@ public class Game {
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
         System.out.println("There is a " + s.getMonster());
-        System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
         s.displayTools();
       }
 
@@ -151,7 +151,7 @@ public class Game {
       System.out.println("Your current location surroundings are: ");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
-          for(String direction: s.getSurroundings().keySet()){
+          for(Directions direction: s.getSurroundings().keySet()){
             System.out.println(direction + ": " + s.getSurroundings().get(direction));
           }
         }
@@ -199,6 +199,21 @@ public class Game {
   public Player getPlayer() {
     return player;
   }
+
+  public void changingLocation(Directions direction){
+    for(Station s: stations){
+      if(s.getName().equals(player.getCurrentLocation())){
+        if(s.getSurroundings().containsKey(direction)){
+          player.setCurrentLocation(s.getSurroundings().get(direction));
+        }
+        else{
+          System.out.println(s.getUnreachableDirectionMessage());
+        }
+
+      }
+    }
+  }
+
 
   /**
    * Players are presented with a Title.Splash Screen
