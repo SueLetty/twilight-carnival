@@ -12,6 +12,7 @@ public class Play {
       System.out.println("Game started!");
       Game game = new Game();
       game.display();
+      game.status();
 
     }
 

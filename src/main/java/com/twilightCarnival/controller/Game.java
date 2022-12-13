@@ -4,9 +4,11 @@ import com.twilightCarnival.model.Monster;
 import com.twilightCarnival.model.Player;
 
 import com.twilightCarnival.model.Station;
+import com.twilightCarnival.view.Play;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
 
@@ -44,6 +46,7 @@ public class Game {
   private Station ballPit;
   private Station dreamlandGate;
   public Game() {
+    player = new Player();
     welcomeMessage = "Welcome to Twilight Carnival!";
     helpMessage = "1. Go [direction] (example: go north, go south, go west, go east)\n2. Pickup [ItemName] (example: pickup map)\n3. View map (if you have a map in your inventory) ";
 //    player = new Player();
@@ -101,15 +104,38 @@ public class Game {
     instructionForTools = "Choose one of the items to defeat the monster. If you select the wrong item then you will be defeated.";
   }
   public void tryAgain(){
-    System.out.println("Do you want to play again?");
+    System.out.println("Do you want to play again?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    if(scanner.nextLine().equals("y")){
+      Play play = new Play();
+    }
+    quit();
 
+  }
+  public void status(){
+    System.out.println("=============================================================================================");
+    System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
+    System.out.println("=============================================================================================");
+    System.out.println("Available command: go [direction]");
+    System.out.println("If there is an item, pickup [item name]");
+    System.out.println("if there is a monster, choose one of the tools display. Type 1, 2, 3, or 4");
+  }
+
+  public void viewMap(){
+    if(player.hasMap()){
+      //todo
+
+    }else{
+      System.out.println("You don't have a map to view.");
+    }
   }
 
   /**
    * when the user type "quit", it quits the game
    */
   public void quit(){
-    System.exit(1);
+    System.out.println("Thank you for playing the game.");
+    System.exit(0);
 
   }
   public void help(){
