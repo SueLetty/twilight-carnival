@@ -273,6 +273,21 @@ public class Game {
     return stations;
   }
 
+  /**
+   * getCurrentStation gets the current station the player is located in. we could always track it
+   * in a field, but this was created in absence of that.
+   * @return current station.
+   */
+  public Station getCurrentStation(){
+    Station currentStation = null;
+    for (Station station: stations){
+      if (station.getName().equalsIgnoreCase(player.getCurrentLocation())){
+        currentStation = station;
+      }
+    }
+    return currentStation;
+  }
+
   public String getHelpMessage() {
     return helpMessage;
   }

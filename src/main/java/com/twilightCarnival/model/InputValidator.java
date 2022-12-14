@@ -13,8 +13,10 @@ public class InputValidator {
   private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab", "pick-up"};
   private final String[] mapVerbs = {"use", "open", "view", "render"};
   private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
-  private final String[] nouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
+  private final String[] pickupNouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
+  private final String[] combatNouns = {"water", "needle", "broom"};
+  private final String[] combatNumbers = {"1", "2", "3", "4"};
   private final Directions[] directions = Directions.values();
 
   /**
@@ -27,32 +29,36 @@ public class InputValidator {
     boolean result = false;
     boolean verbCondition = false;
     boolean nounCondition = false;
-    String tempVerb;
-    String tempNoun;
+
     String[] unfilteredString = input.split(" ");
-    for (String str : unfilteredString) {
-      if (!verbCondition) {
-        verbCondition = isAValidVerb(str);
-      } else if (!nounCondition) {
-        nounCondition = isAValidNoun(str);
+    if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
+      this.input[0] = "combat";
+      this.input[1] = unfilteredString[0];
+      result = true;
+    }else {
+      for (String str : unfilteredString) {
+        if (!verbCondition) {
+          verbCondition = isAValidVerb(str);
+        } else if (!nounCondition) {
+          nounCondition = isAValidNoun(str);
+        }
       }
-    }
-    if (verbCondition && nounCondition) {
-      this.input[0] = inputVerb;
-      this.input[1] = inputNoun;
+      if (verbCondition && nounCondition) {
+        this.input[0] = inputVerb;
+        this.input[1] = inputNoun;
 
-      if (validCombination()) {
-        result = true;
+        if (validCombination()) {
+          result = true;
+        } else {
+          System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
+          System.out.println("Try something like:\n \t> open map\n \t> go north\n");
+        }
       } else {
-        System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
-        System.out.println("Try something like:\n \t> open map\n \t> go north\n");
+        System.out.println("Could not collect a valid input.");
+        System.out.println("Try something like:\n \t> pickup map\n \t> go south\n");
+        result = false;
       }
-    } else {
-      System.out.println("Could not collect a valid input.");
-      System.out.println("Try something like:\n \t> pickup map\n \t> go south\n");
-      result = false;
     }
-
     return result;
   }
 
@@ -97,7 +103,7 @@ public class InputValidator {
    */
   private boolean isAValidNoun(String noun) {
     boolean isNoun = false;
-    if (Arrays.asList(nouns).contains(noun.toLowerCase())) {
+    if (Arrays.asList(pickupNouns).contains(noun.toLowerCase())) {
       if (noun.equalsIgnoreCase("key")){
         inputNoun = "master key";
       }
@@ -122,7 +128,7 @@ public class InputValidator {
     boolean result = false;
     switch (input[0]) {
       case "pickup":
-        if (Arrays.asList(nouns).contains(input[1].toLowerCase())) {
+        if (Arrays.asList(pickupNouns).contains(input[1].toLowerCase())) {
           result = true;
         }
         break;
@@ -140,5 +146,35 @@ public class InputValidator {
         result = false;
     }
     return result;
+  }
+
+  // TODO: 12/14/2022 implement robust conversion of combat. Maybe call validCombination() and adjust it for combat
+  /**
+   * convertCombatInput() gets the user's integer choice and converts it into proper checks for
+   * combat against applicable monster.
+   * @param choice int input when prompted dialogue.
+   * @param station for which the tools and monster are, get the information to conclude results.
+   * @return intended combat string for input[0] and input[1] to be handled.
+   */
+  public String[] convertCombatInput(int choice, Station station){
+    String monsterWeakness = station.getMonster().getWeakness().toLowerCase();
+    String[] tools = station.getTools();
+    String output = "";
+    switch (choice) {
+      case 1:
+        output = "";
+        break;
+      case 2:
+        output = "";
+        break;
+      case 3:
+        output = "";
+        break;
+      case 4:
+        output = "";
+        break;
+    }
+
+    return null;
   }
 }

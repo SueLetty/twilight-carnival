@@ -111,14 +111,19 @@ public class StartGame {
         }
 
       } else if (validator.isValid(userChoice)) {
-
         validInput = validator.getInput();
+        if(validInput[0].equalsIgnoreCase("combat")){
+          // TODO: 12/14/2022 convert input
+          String[] combatInput = validator.convertCombatInput(Integer.parseInt(validInput[1]), game.getCurrentStation());
+
+        }
         operation(validInput[0], validInput[1]);
       }
 
     }
   }
 
+  // TODO: 12/14/2022 handle the combat input
   /**
    * operation handles the logic of valid input and carries out desired action.
    * @param verb is a filtered verb handled by InputValidator.isValid()
