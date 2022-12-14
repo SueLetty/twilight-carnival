@@ -4,10 +4,13 @@ import java.util.HashMap;
 
 public class Station {
   private String name;
-  private Monster monster;
-  private String[] tools;
   private String item;
+  private Monster monster;
   private HashMap<Directions, String> surroundings;
+
+  private String[] tools;
+
+
   private String unreachableDirectionMessage;
 
   public Station(String name, Monster monster, String[] tools, String item, HashMap<Directions,

@@ -114,8 +114,6 @@ public class StartGame {
 
         validInput = validator.getInput();
         operation(validInput[0], validInput[1]);
-        //game.status();
-        continue;
       }
 
     }

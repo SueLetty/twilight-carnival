@@ -2,11 +2,15 @@ package com.twilightCarnival.model;
 
 public class Monster {
   private String name;
-  private boolean status;
   private String weakness;
-  private String key;
-  private String winMessage;
   private String lostMessage;
+  private String winMessage;
+  private String key;
+  private boolean status;
+
+
+
+
 
   public Monster(String name, String weakness, String key, String winMessage, String lostMessage){
     this.name = name;
