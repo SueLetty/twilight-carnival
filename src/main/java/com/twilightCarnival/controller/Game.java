@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Game {
 
   private Player player;
@@ -139,8 +140,8 @@ public class Game {
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
         System.out.println("There is a " + s.getMonster().getName());
-//        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
-//        s.displayTools();
+        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
+        s.displayTools();
       }
 
     }
@@ -180,21 +181,32 @@ public class Game {
 
   }
 
-  public void defeatMonster(int input){
+  public boolean isMonsterDefeated(int input){
 
     for(Station s:stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
         if(s.getTools()[input-1].equals(s.getMonster().getWeakness())){
           System.out.println(s.getMonster().getWinMessage());
           getPlayer().setInventory(s.getItem());
+          return true;
         }else{
           System.out.println(s.getMonster().getLostMessage());
+          if(player.getToken() > 0){
+            System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+            Scanner scanner  =new Scanner(System.in);
+
+            if(scanner.next().equalsIgnoreCase("y")){
+              player.setToken(player.getToken()-1);
+            }else{
+              System.out.println("You can move to different station.");
+            }
+          }
         }
-        return;
+
       }
     }
 
-
+    return false;
   }
 
   public Player getPlayer() {
