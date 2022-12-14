@@ -7,7 +7,7 @@ import com.twilightCarnival.model.Station;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Stack;
 
 public class Game {
 
@@ -43,6 +43,9 @@ public class Game {
   private Station safeArea;
   private Station ballPit;
   private Station dreamlandGate;
+
+  private Stack<String> stationsVisited = new Stack<>();
+
   public Game() {
     player = new Player();
     tryAgainMessage = "Do you want to play again?(y/n)";
@@ -95,6 +98,8 @@ public class Game {
     stations.add(safeArea);
     stations.add(ballPit);
     stations.add(dreamlandGate);
+
+    stationsVisited.push(ballPit.getName());
 
     welcomeMessage = "Welcome to Twilight Carnival!";
     introduction = "You’re at the carnival with your friends after one too many drinks you end up falling asleep in a ball pit. \nOnce you awake later on that evening, you notice that the carnival has changed into something not so welcoming. \nJourney through the carnival to find four keys to help you escape the Twilight Carnival!";
@@ -154,7 +159,11 @@ public class Game {
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
-            System.out.println(direction + ": " + s.getSurroundings().get(direction));
+            if(hasBeenVisited()){
+              System.out.println(direction + ": " + "\u001B[32m" + s.getSurroundings().get(direction) + "\u001B[0m");
+            }else {
+              System.out.println(direction + ": " + "\u001B[31m" + s.getSurroundings().get(direction) + "\u001B[0m");
+            }
           }
         }
       }
@@ -206,6 +215,7 @@ public class Game {
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
           player.setCurrentLocation(s.getSurroundings().get(direction));
+          trackLocation();
           System.out.print("\033[H\033[2J");
           System.out.flush();
           status();
@@ -219,6 +229,22 @@ public class Game {
     }
   }
 
+  /**
+   * Method tracks the current player and adds it to the stationsVisited.
+   */
+  private void trackLocation(){
+    if(!hasBeenVisited()){
+      stationsVisited.push(player.getCurrentLocation());
+    }
+  }
+
+  /**
+   * hasBeenVisited() to determine if a station has been visited.
+   * @return true if station has been visited, otherwise false.
+   */
+  private boolean hasBeenVisited(){
+    return stationsVisited.contains(player.getCurrentLocation());
+  }
 
   /**
    * Players are presented with a Title.Splash Screen
