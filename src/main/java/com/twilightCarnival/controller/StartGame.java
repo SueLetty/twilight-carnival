@@ -102,7 +102,14 @@ public class StartGame {
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
       } else if (userChoice.equalsIgnoreCase("quit")) {
-        game.quit();
+        System.out.println("Are you sure you want to quit?(y/n)");
+        if(input.nextLine().equals("y")) {
+          game.quit();
+          }
+        else {
+          System.out.println("Thanks for staying with us! Please enter a command to continue");
+        }
+
       } else if (validator.isValid(userChoice)) {
 
         validInput = validator.getInput();
