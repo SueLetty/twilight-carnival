@@ -99,8 +99,6 @@ public class Game {
     stations.add(ballPit);
     stations.add(dreamlandGate);
 
-    stationsVisited.push(ballPit.getName());
-
     welcomeMessage = "Welcome to Twilight Carnival!";
     introduction = "You’re at the carnival with your friends after one too many drinks you end up falling asleep in a ball pit. \nOnce you awake later on that evening, you notice that the carnival has changed into something not so welcoming. \nJourney through the carnival to find four keys to help you escape the Twilight Carnival!";
     winMessage = "You hear, \"Thank you for visiting, come again, and bring your friends.\" \n\nYou turn around, you wake up.";
@@ -153,16 +151,24 @@ public class Game {
 
   }
 
+  /**
+   * viewMap() will display the locations adjacent to the player's current location.
+   *  It will color red if not visited before and green if previously visted.
+   *  red = \u001B[31m
+   *  green = \u001B[32m
+   */
   public void viewMap(){
     if(player.hasMap()){
       System.out.println("Your current location surroundings are: ");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
-            if(hasBeenVisited()){
-              System.out.println(direction + ": " + "\u001B[32m" + s.getSurroundings().get(direction) + "\u001B[0m");
+            String adjacentLocation = s.getSurroundings().get(direction);
+            if(hasBeenVisited(adjacentLocation)){
+              System.out.println(direction + ": " + "\u001B[32m" + adjacentLocation + "\u001B[0m");
             }else {
-              System.out.println(direction + ": " + "\u001B[31m" + s.getSurroundings().get(direction) + "\u001B[0m");
+              System.out.println(direction + ": " + "\u001B[31m" + adjacentLocation + "\u001B[0m");
+
             }
           }
         }
@@ -210,12 +216,18 @@ public class Game {
     return player;
   }
 
+  /**
+   * changingLocations will change the player's current location to chosen valid location.
+   *  stationsVisited is tracked here through trackLocation() method call. Needs to be called before
+   *  setting new location.
+   * @param direction the user wants to move.
+   */
   public void changingLocation(Directions direction){
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
-          player.setCurrentLocation(s.getSurroundings().get(direction));
           trackLocation();
+          player.setCurrentLocation(s.getSurroundings().get(direction));
           System.out.print("\033[H\033[2J");
           System.out.flush();
           status();
@@ -233,17 +245,18 @@ public class Game {
    * Method tracks the current player and adds it to the stationsVisited.
    */
   private void trackLocation(){
-    if(!hasBeenVisited()){
-      stationsVisited.push(player.getCurrentLocation());
+    if(!hasBeenVisited(player.getCurrentLocation())){
+      stationsVisited.push(player.getCurrentLocation().toLowerCase());
     }
   }
 
   /**
-   * hasBeenVisited() to determine if a station has been visited.
-   * @return true if station has been visited, otherwise false.
+   * hasBeenVisited() will check if the location has been tracked in stationsVisited.
+   * @param location to searched in tracked locations.
+   * @return true if visited, otherwise false.
    */
-  private boolean hasBeenVisited(){
-    return stationsVisited.contains(player.getCurrentLocation());
+  private boolean hasBeenVisited(String location){
+    return stationsVisited.contains(location.toLowerCase());
   }
 
   /**
