@@ -7,7 +7,7 @@ import com.twilightCarnival.model.Station;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Stack;
 
 public class Game {
 
@@ -43,6 +43,9 @@ public class Game {
   private Station safeArea;
   private Station ballPit;
   private Station dreamlandGate;
+
+  private Stack<String> stationsVisited = new Stack<>();
+
   public Game() {
     player = new Player();
     tryAgainMessage = "Do you want to play again?(y/n)";
@@ -148,13 +151,25 @@ public class Game {
 
   }
 
+  /**
+   * viewMap() will display the locations adjacent to the player's current location.
+   *  It will color red if not visited before and green if previously visted.
+   *  red = \u001B[31m
+   *  green = \u001B[32m
+   */
   public void viewMap(){
     if(player.hasMap()){
       System.out.println("Your current location surroundings are: ");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
-            System.out.println(direction + ": " + s.getSurroundings().get(direction));
+            String adjacentLocation = s.getSurroundings().get(direction);
+            if(hasBeenVisited(adjacentLocation)){
+              System.out.println(direction + ": " + "\u001B[32m" + adjacentLocation + "\u001B[0m");
+            }else {
+              System.out.println(direction + ": " + "\u001B[31m" + adjacentLocation + "\u001B[0m");
+
+            }
           }
         }
       }
@@ -201,10 +216,17 @@ public class Game {
     return player;
   }
 
+  /**
+   * changingLocations will change the player's current location to chosen valid location.
+   *  stationsVisited is tracked here through trackLocation() method call. Needs to be called before
+   *  setting new location.
+   * @param direction the user wants to move.
+   */
   public void changingLocation(Directions direction){
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
+          trackLocation();
           player.setCurrentLocation(s.getSurroundings().get(direction));
           System.out.print("\033[H\033[2J");
           System.out.flush();
@@ -219,6 +241,23 @@ public class Game {
     }
   }
 
+  /**
+   * Method tracks the current player and adds it to the stationsVisited.
+   */
+  private void trackLocation(){
+    if(!hasBeenVisited(player.getCurrentLocation())){
+      stationsVisited.push(player.getCurrentLocation().toLowerCase());
+    }
+  }
+
+  /**
+   * hasBeenVisited() will check if the location has been tracked in stationsVisited.
+   * @param location to searched in tracked locations.
+   * @return true if visited, otherwise false.
+   */
+  private boolean hasBeenVisited(String location){
+    return stationsVisited.contains(location.toLowerCase());
+  }
 
   /**
    * Players are presented with a Title.Splash Screen
