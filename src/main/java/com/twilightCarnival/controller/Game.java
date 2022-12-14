@@ -176,7 +176,6 @@ public class Game {
 
   }
   public void display(){
-    System.out.println(getWelcomeMessage());
     System.out.println(getIntroduction());
 
   }
