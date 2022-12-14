@@ -182,25 +182,12 @@ public class Game {
   }
 
   public boolean isMonsterDefeated(int input){
-
     for(Station s:stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
         if(s.getTools()[input-1].equals(s.getMonster().getWeakness())){
-          System.out.println(s.getMonster().getWinMessage());
-          getPlayer().setInventory(s.getItem());
+//          System.out.println(s.getMonster().getWinMessage());
+//          getPlayer().setInventory(s.getItem());
           return true;
-        }else{
-          System.out.println(s.getMonster().getLostMessage());
-          if(player.getToken() > 0){
-            System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
-            Scanner scanner  =new Scanner(System.in);
-
-            if(scanner.next().equalsIgnoreCase("y")){
-              player.setToken(player.getToken()-1);
-            }else{
-              System.out.println("You can move to different station.");
-            }
-          }
         }
 
       }
