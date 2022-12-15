@@ -34,7 +34,6 @@ public class Script {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       Gson gson = new Gson();
       script = gson.fromJson(reader, Script.class);
-      System.out.println(script.getHelp());
 
     } catch (IOException e) {
       e.printStackTrace();

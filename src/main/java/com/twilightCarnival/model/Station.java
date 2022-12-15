@@ -29,9 +29,7 @@ public class Station {
     }
   }
 
-  public boolean hasItem(){
-    return getItem() == "NULL" ? false: true;
-  }
+
   public String getName() {
     return name;
   }

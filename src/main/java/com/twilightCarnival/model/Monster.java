@@ -8,7 +8,7 @@ public class Monster {
   private String key;
   private boolean status;
   public Monster(){
-
+    status = true;
   }
   public Monster(String name, String weakness,  String lostMessage,String winMessage, String key){
     this.name = name;
@@ -16,6 +16,7 @@ public class Monster {
     this.key = key;
     this.winMessage = winMessage;
     this.lostMessage = lostMessage;
+    this.status = true;
 
   }
 

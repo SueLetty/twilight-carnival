@@ -2,10 +2,7 @@ package com.twilightCarnival.controller;
 
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
-import javax.xml.validation.Validator;
 
 public class StartGame {
 
@@ -66,25 +63,6 @@ public class StartGame {
     game.status();
     userInput();
 
-    // TODO: 12/14/2022 Put try again in a separate method?
-//    if(){
-//      game.status();
-//      userInput();
-//      System.out.println("Do you want to play again? (y/n)");
-//      input = new Scanner(System.in);
-//      if(input.nextLine().equalsIgnoreCase("y")){
-//        game.playAgain();
-//      }
-//
-//    }else{
-//      System.out.println("Are you sure?(y/n)");
-//      input = new Scanner(System.in);
-//      if(input.nextLine().equals("y")){
-//        game.quit();
-//      }else{
-//        game.playAgain();
-//      }
-//    }
   }
 
 
@@ -104,15 +82,27 @@ public class StartGame {
         System.out.println("Please enter a command.");
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
-      } else if (userChoice.equalsIgnoreCase("quit")) {
-        System.out.println("Are you sure you want to quit?(y/n)");
-        if(input.nextLine().equals("y")) {
-          game.quit();
-          }
-        else {
-          System.out.println("Thanks for staying with us! Please enter a command to continue");
+      } else if (userChoice.equalsIgnoreCase("unlock")){
+        if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+          game.win();
+        }else{
+          System.out.println("It would be best if I used these keys at the Dream Land Gate.");
         }
 
+      }else if (userChoice.equalsIgnoreCase("quit")) {
+        System.out.println("Are you sure you want to quit?(y/n)");
+        boolean condition = false;
+        do {
+
+          if(input.nextLine().equalsIgnoreCase("y")) {
+            game.quit();
+          }else if(input.nextLine().equalsIgnoreCase("n")){
+            System.out.println("Thanks for staying with us! Please enter a command to continue");
+          } else {
+            System.out.println("That is not valid input. Please type y or n.");
+            condition = true;
+          }
+        }while(condition);
       } else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1], validator);
@@ -124,8 +114,10 @@ public class StartGame {
   // TODO: 12/14/2022 handle the combat input
   /**
    * operation handles the logic of valid input and carries out desired action.
-   * @param verb is a filtered verb handled by InputValidator.isValid()
-   * @param noun filtered noun handled by InputValidator.isValid()
+   *
+   * @param verb      is a filtered verb handled by InputValidator.isValid()
+   * @param noun      filtered noun handled by InputValidator.isValid()
+   * @param validator
    */
   private void operation(String verb, String noun, InputValidator validator){
     if (verb.equals("open") && noun.equals("map")){
@@ -140,8 +132,8 @@ public class StartGame {
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
       game.changingLocation(Directions.valueOf(noun));
-    } else if (verb.equals("use") && validator.isCombatTool(noun)) {
-      // TODO: 12/15/2022 combat logic calls
+    } else if (verb.equals("use")){
+      game.defeatMonsterOrLoseGame(noun);
     }
   }
 }
