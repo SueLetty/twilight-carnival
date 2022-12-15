@@ -3,7 +3,9 @@ package com.twilightCarnival.controller;
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
+import javax.xml.validation.Validator;
 
 public class StartGame {
 
@@ -97,6 +99,7 @@ public class StartGame {
     String userChoice = "";
     while (true){
       userChoice = input.nextLine();
+      validator.generateCombatTools(game.getCurrentStation());
       if (userChoice.equals("")){
         System.out.println("Please enter a command.");
       } else if (userChoice.equalsIgnoreCase("help")) {
@@ -112,12 +115,7 @@ public class StartGame {
 
       } else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
-        if(validInput[0].equalsIgnoreCase("combat")){
-          // TODO: 12/14/2022 convert input
-          String[] combatInput = validator.convertCombatInput(Integer.parseInt(validInput[1]), game.getCurrentStation());
-
-        }
-        operation(validInput[0], validInput[1]);
+        operation(validInput[0], validInput[1], validator);
       }
 
     }
@@ -129,7 +127,7 @@ public class StartGame {
    * @param verb is a filtered verb handled by InputValidator.isValid()
    * @param noun filtered noun handled by InputValidator.isValid()
    */
-  private void operation(String verb, String noun){
+  private void operation(String verb, String noun, InputValidator validator){
     if (verb.equals("open") && noun.equals("map")){
       if (game.getPlayer().hasMap()){
         game.viewMap();
@@ -142,6 +140,8 @@ public class StartGame {
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
       game.changingLocation(Directions.valueOf(noun));
+    } else if (verb.equals("use") && validator.isCombatTool(noun)) {
+      // TODO: 12/15/2022 combat logic calls
     }
   }
 }
