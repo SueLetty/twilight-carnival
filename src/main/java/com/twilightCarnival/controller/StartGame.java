@@ -2,6 +2,7 @@ package com.twilightCarnival.controller;
 
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StartGame {
@@ -115,7 +116,6 @@ public class StartGame {
         System.out.println("You do not have a map.");
       }
     } else if (verb.equals("pickup")) {
-
       game.getItem(noun);
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
