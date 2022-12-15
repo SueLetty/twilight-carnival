@@ -5,6 +5,7 @@ import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 
 
@@ -30,9 +31,18 @@ public class Game {
 
   }
   public void playAgain(){
-    StartGame startGame = new StartGame();
-    startGame.start();
-
+    System.out.println(getTryAgainMessage());
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      StartGame startGame = new StartGame();
+      startGame.start();
+    }else if(input.equalsIgnoreCase("n")){
+      quit();
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      playAgain();
+    }
   }
   public void getItem(String item){
 
@@ -59,15 +69,16 @@ public class Game {
         System.out.println("There is a map in your inventory.");
         System.out.println("You can view map.");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && !s.getItem().equals("NULL")){
+      if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
         System.out.println("There is a " + s.getItem() + ".");
         System.out.println("You can pickup " + s.getItem() + ".");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && s.getMonster().getName() != null){
+      if(s.getName().equals(player.getCurrentLocation())  && s.getMonster().getName() != null && s.getMonster().isAlive()){
         System.out.println("There is a " + s.getMonster().getName() + "!");
         System.out.println("Choose one of the tools displayed to defeat the" + " " +s.getMonster().getName() + "." + " " + "Example: use water.");
         s.displayTools();
       }
+
 
     }
     System.out.println("=============================================================================================");
@@ -105,8 +116,19 @@ public class Game {
    * when the user type "quit", it quits the game
    */
   public void quit(){
-    System.out.println("Thank you! Have a great day!");
-    System.exit(0);
+    System.out.println("Do you really want to quit the game?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      System.out.println("Thank you! Have a great day!");
+      System.exit(0);
+    }else if(input.equalsIgnoreCase("n")){
+      System.out.println("Thanks for staying with us! Please enter a command to continue");
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      quit();
+    }
+
 
   }
   public void help(){
@@ -127,11 +149,71 @@ public class Game {
 
       }
     }
-
     return false;
   }
+  public void defeatMonsterOrLoseGame(String noun){
+    if(isMonsterDefeated(noun)){
+      for(Station s:stations){
+        if(s.getName().equals(player.getCurrentLocation())){
+          s.getMonster().setStatus(false);
+          player.setInventory(s.getMonster().getKey());
+          System.out.println(s.getMonster().getWinMessage());
+          System.out.println("You earned a " + s.getMonster().getKey()+".");
+          System.out.println("It is in your inventory now.");
+          s.getMonster().setKey(null);
+          return;
 
+        }
+      }
 
+    }else{
+      if(player.getToken() > 0){
+        System.out.println("You have " + player.getToken() + " tokens.");
+        boolean condition = false;
+        do{
+          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+          Scanner scanner = new Scanner(System.in);
+          String input = scanner.nextLine();
+          if(input.equalsIgnoreCase("y")){
+            System.out.println("Choose a tool to defeat monster. Example: use water");
+            player.setToken(player.getToken()-1);
+            condition = false;
+          }else if(input.equalsIgnoreCase("n")){
+            System.out.println("You can explore other stations.");
+            condition = false;
+          } else{
+            System.out.println("That is not valid input. Please type y or n.");
+            condition = true;
+          }
+        }while(condition);
+      }else{
+        for(Station s:stations){
+          if(s.getName().equals(player.getCurrentLocation())){
+            System.out.println(s.getMonster().getLostMessage());
+            playAgain();
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  public void win(){
+    if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+      if(player.getInventory().contains("master key")
+          && player.getInventory().contains("gold key")
+          && player.getInventory().contains("silver key")
+          && player.getInventory().contains("bronze key")){
+        System.out.println(getWinMessage());
+        playAgain();
+      }
+
+    }
+    System.out.println("You don't have enough keys to escape."
+        + "\nYou need to go to defeat monsters and earn more keys."
+        + "\nYou need four keys to open Dreamland Gate to escape.");
+
+  }
   /**
    * changingLocations will change the player's current location to chosen valid location.
    *  stationsVisited is tracked here through trackLocation() method call. Needs to be called before
@@ -156,6 +238,7 @@ public class Game {
       }
     }
   }
+
 
   /**
    * Method tracks the current player and adds it to the stationsVisited.
