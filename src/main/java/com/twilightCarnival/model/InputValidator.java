@@ -15,7 +15,7 @@ public class InputValidator {
   private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
   private final String[] pickupNouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
-  private final String[] combatNouns = {"water", "needle", "broom"};
+  private String[] combatNouns = null;
   private final String[] combatNumbers = {"1", "2", "3", "4"};
   private final Directions[] directions = Directions.values();
 
@@ -32,9 +32,8 @@ public class InputValidator {
 
     String[] unfilteredString = input.split(" ");
     if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
-      this.input[0] = "combat";
-      this.input[1] = unfilteredString[0];
-      result = true;
+      System.out.println("Try keyword \"use\" with an [item].");
+      result = false;
     }else {
       for (String str : unfilteredString) {
         if (!verbCondition) {
@@ -114,6 +113,9 @@ public class InputValidator {
     } else if (Arrays.asList(directions).toString().contains(noun.toUpperCase())) {
       inputNoun = noun.toUpperCase();
       isNoun = true;
+    } else if (Arrays.asList(combatNouns).toString().contains(noun.toLowerCase())) {
+      inputNoun = noun.toLowerCase();
+      isNoun = true;
     }
     return isNoun;
   }
@@ -126,6 +128,9 @@ public class InputValidator {
    */
   private boolean validCombination() {
     boolean result = false;
+    if (Arrays.asList(combatNouns).contains(input[1])){
+      input[0] = "use";
+    }
     switch (input[0]) {
       case "pickup":
         if (Arrays.asList(pickupNouns).contains(input[1].toLowerCase())) {
@@ -142,39 +147,48 @@ public class InputValidator {
           result = true;
         }
         break;
+      case "use":
+        if(Arrays.asList(pickupNouns).contains(input[1].toLowerCase())
+            || Arrays.asList(combatNouns).contains(input[1].toLowerCase())){
+          result = true;
+        }
+        break;
       default:
         result = false;
     }
     return result;
   }
 
-  // TODO: 12/14/2022 implement robust conversion of combat. Maybe call validCombination() and adjust it for combat
   /**
-   * convertCombatInput() gets the user's integer choice and converts it into proper checks for
-   * combat against applicable monster.
-   * @param choice int input when prompted dialogue.
-   * @param station for which the tools and monster are, get the information to conclude results.
-   * @return intended combat string for input[0] and input[1] to be handled.
+   * generateCombatTools is called to populate the combatNouns for proper input to be used for combat.
+   * Dynamic for per room.
+   * @param station for which the tools and monster are, get the information to assign to field.
    */
-  public String[] convertCombatInput(int choice, Station station){
-    String monsterWeakness = station.getMonster().getWeakness().toLowerCase();
+  public void generateCombatTools(Station station){
     String[] tools = station.getTools();
-    String output = "";
-    switch (choice) {
-      case 1:
-        output = "";
-        break;
-      case 2:
-        output = "";
-        break;
-      case 3:
-        output = "";
-        break;
-      case 4:
-        output = "";
-        break;
+    if (tools != null){
+      for (int i = 0; i < tools.length; i++){
+        tools[i] = tools[i].toLowerCase();
+      }
+    }
+    combatNouns = tools;
+  }
+
+  /**
+   * Check if a combat tool exists in the dynamic generated combatNouns array. Might be redundant.
+   * @param noun weapon/tool to be used against a monster.
+   * @return if the tool exists in the room.
+   */
+  public boolean isCombatTool(String noun){
+    boolean result = false;
+    if(combatNouns == null){
+      result = false;
     }
 
-    return null;
+    assert combatNouns != null;
+    if(Arrays.asList(combatNouns).contains(noun.toLowerCase())){
+      result = true;
+    }
+    return result;
   }
 }
