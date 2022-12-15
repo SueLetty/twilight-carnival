@@ -1,7 +1,9 @@
 package com.twilightCarnival.model;
 
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,23 +19,15 @@ public class SetMap {
     this.stations = stations;
   }
   public void load(){
+
     try {
-      // create Gson instance
+      String fileName = "locationInfo.json";
       Gson gson = new Gson();
+      Reader reader = Files.newBufferedReader(Paths.get(fileName));
+      stations = gson.fromJson(reader, new TypeToken<List<Station>>() {}.getType());
 
-      // create a reader
-      Reader reader = Files.newBufferedReader(Paths.get("locationInfo.json"));
-
-      // convert JSON array to list of users
-       stations = new Gson().fromJson(reader, new TypeToken<List<Station>>() {}.getType());
-
-      // print users
-//      for(Station s: stations){
-//        System.out.println(s);
-//      }
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -41,9 +35,11 @@ public class SetMap {
     return stations;
   }
 
-  public static void main(String[] args) {
-    SetMap map = new SetMap();
-    map.load();
-
-  }
+//  public static void main(String[] args) {
+//    SetMap map = new SetMap();
+//    map.load();
+//    for(Station s: map.getStations()){
+//      System.out.println("Item: " + s.getItem());
+//    }
+//  }
 }
