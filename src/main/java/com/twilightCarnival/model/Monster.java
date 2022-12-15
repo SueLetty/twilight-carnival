@@ -7,12 +7,10 @@ public class Monster {
   private String winMessage;
   private String key;
   private boolean status;
+  public Monster(){
 
-
-
-
-
-  public Monster(String name, String weakness, String key, String winMessage, String lostMessage){
+  }
+  public Monster(String name, String weakness,  String lostMessage,String winMessage, String key){
     this.name = name;
     this.weakness = weakness;
     this.key = key;

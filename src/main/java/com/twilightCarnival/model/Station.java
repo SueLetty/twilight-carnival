@@ -5,41 +5,39 @@ import java.util.HashMap;
 public class Station {
   private String name;
   private String item;
+  private String[] villain;
   private Monster monster;
-  private HashMap<Directions, String> surroundings;
-
+  private String[] surroundings = new String[4];
   private String[] tools;
 
 
-  private String unreachableDirectionMessage;
+  private String unReachableDirection;
 
-  public Station(String name, Monster monster, String[] tools, String item, HashMap<Directions,
-      String> surroundings, String unreachableDirectionMessage){
+  public Station(String name, String[] villain, String[] tools, String item, String[] surroundings, String unReachableDirection){
     this.name = name;
-    this.monster = monster;
+    this.villain = villain;
+    this.monster = setMonster(this.villain);
     this.tools = tools;
     this.item = item;
     this.surroundings = surroundings;
-    this.unreachableDirectionMessage = unreachableDirectionMessage;
+    this.unReachableDirection = unReachableDirection;
   }
-  public boolean hasMonster(){
 
-    return getMonster() == null ? false: true;
-  }
-  public boolean hasItem(){
-    return getItem() == null ? false: true;
-  }
   public void displayTools(){
     for(int i = 0; i < getTools().length; i++){
-      System.out.println(i+1 + ", " + getTools()[i]);
+      System.out.println(i+1 + ". " + getTools()[i]);
     }
+  }
+
+  public boolean hasItem(){
+    return getItem() == "NULL" ? false: true;
   }
   public String getName() {
     return name;
   }
 
-  public Monster getMonster() {
-    return monster;
+  public Monster getMonster(){
+    return this.monster;
   }
 
   public String[] getTools() {
@@ -51,15 +49,38 @@ public class Station {
   }
 
   public HashMap<Directions, String> getSurroundings() {
-    return surroundings;
+    HashMap<Directions, String> result = new HashMap<>();
+    if(surroundings[0].length() > 0){
+      result.put(Directions.NORTH, surroundings[0]);
+    }
+    if(surroundings[1].length() > 0){
+      result.put(Directions.SOUTH, surroundings[1]);
+    }
+    if(surroundings[2].length() > 0){
+      result.put(Directions.EAST, surroundings[2]);
+    }
+    if(surroundings[3].length() > 0){
+      result.put(Directions.WEST, surroundings[3]);
+    }
+
+    return result;
   }
+
 
   public String getUnreachableDirectionMessage() {
-    return unreachableDirectionMessage;
+    return unReachableDirection;
   }
 
-  public void setMonster(Monster monster) {
-    this.monster = monster;
+  public Monster setMonster(String[] villain) {
+    if(villain.length > 0){
+      this.monster = new Monster(villain[0], villain[1], villain[2],villain[3],villain[4]);
+      return this.monster;
+    }
+    this.monster = new Monster();
+    return this.monster;
+  }
+  public String[] getVillain(){
+    return this.villain;
   }
 
   public void setItem(String item) {

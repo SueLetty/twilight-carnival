@@ -30,8 +30,8 @@ public class Script {
   }
   public void load(){
     try{
-      String saveFile = "script.json";
-      Reader reader = Files.newBufferedReader(Paths.get(saveFile));
+      String fileName = "script.json";
+      Reader reader = Files.newBufferedReader(Paths.get(fileName));
       Gson gson = new Gson();
       script = gson.fromJson(reader, Script.class);
       System.out.println(script.getHelp());
