@@ -1,26 +1,33 @@
 [
   {
     "name": "Ball Pit",
-    "surroundings": {
-      "North": "Cotton Candy Stand",
-      "South": "Dreamland Gate",
-      "East": "Popcorn Stand",
-      "West": "Hot Dog Stand"
-    }
+    "item": "NULL",
+    "surroundings": [
+      "Cotton Candy Stand",
+      "Dreamland Gate",
+      "Popcorn Stand",
+      "Hot Dog Stand"
+    ],
+    "villain": [],
+    "tools": [],
+    "unReachableDirection": "NULL"
   },
   {
     "name": "Gift Shop",
-    "surroundings": {
-      "South": "Hot Dog Stand",
-      "East": "Cotton Candy Stand"
-    },
-    "monster": {
-      "Name": "Balloon Dog",
-      "Weakness": "needle",
-      "LostMessage": "lets out a continuous cry. You are quickly surrounded by other balloon animals and they grab you. You start to float away to never to be seen again. Game Over.",
-      "WinMessage": "Quickly you prick the Balloon dog with a needle, and it drops a key. You pick it up.",
-      "Key": "Silver Key"
-    },
+    "item": "NULL",
+    "surroundings": [
+      "",
+      "Hot Dog Stand",
+      "Cotton Candy Stand",
+      ""
+    ],
+    "villain": [
+      "Balloon Dog Monster",
+      "needle",
+      "lets out a continuous cry. You are quickly surrounded by other balloon animals and they grab you. You start to float away to never to be seen again. Game Over.",
+      "Quickly you prick the Balloon dog with a needle, and it drops a key. You pick it up.",
+      "Silver Key"
+    ],
     "tools": [
       "needle",
       "rubber duck",
@@ -31,18 +38,20 @@
   },
   {
     "name": "Cotton Candy Stand",
-    "surroundings": {
-      "South": "Ball Pit",
-      "East": "Safe Area",
-      "West": "Gift Shop"
-    },
-    "monster": {
-      "Name": "Cotton Candy Monster",
-      "Weakness": "water",
-      "LostMessage": "The Cotton Candy Monster did not like that. The Monster grabs you spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.",
-      "WinMessage": "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a key. You pick it up.",
-      "Key": "Gold Key"
-    },
+    "item": "NULL",
+    "surroundings": [
+      "",
+      "Ball Pit",
+      "Safe Area",
+      "Gift Shop"
+    ],
+    "villain": [
+      "Cotton Candy Monster",
+      "water",
+      "The Cotton Candy Monster did not like that. The Monster grabs you spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.",
+      "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a key. You pick it up.",
+      "Gold Key"
+    ],
     "tools": [
       "fork",
       "sugar",
@@ -53,26 +62,33 @@
   },
   {
     "name": "Safe Area",
-    "Item": "Map",
-    "surroundings": {
-      "South": "Popcorn Stand",
-      "West": "Cotton Candy Stand"
-    },
+    "item": "map",
+    "surroundings": [
+      "",
+      "Popcorn Stand",
+      "",
+      "Cotton Candy Stand"
+    ],
+    "villain": [],
+    "tools": [],
     "unReachableDirection": "a pile of peanuts"
   },
   {
     "name": "Popcorn Stand",
-    "surroundings": {
-      "North": "Safe Area",
-      "West": "Ball Pit"
-    },
-    "monster": {
-      "Name": "Popcorn Snake",
-      "Weakness": "Popcorn Snake",
-      "LostMessage": "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.",
-      "WinMessage": "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
-      "Key": "Bronze Key"
-    },
+    "item": "NULL",
+    "surroundings": [
+      "Safe Area",
+      "",
+      "",
+      "Ball Pit"
+    ],
+    "villain": [
+      "Popcorn Snake Monster",
+      "broom",
+      "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.",
+      "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
+      "Bronze Key"
+    ],
     "tools": [
       "broom",
       "candy",
@@ -83,18 +99,28 @@
   },
   {
     "name": "Hot Dog Stand",
-    "Item": "master key",
-    "surroundings": {
-      "North": "Gift Shop",
-      "East": "Ball Pit",
-    },
+    "item": "master key",
+    "surroundings": [
+      "Gift Shop",
+      "",
+      "Ball Pit",
+      ""
+    ],
+    "villain": [],
+    "tools": [],
     "unReachableDirection": "a pile of mustard bottles"
   },
   {
     "name": "Dreamland Gate",
-    "surroundings": {
-      "North": "Ball Pit"
-    },
+    "item": "NULL",
+    "surroundings": [
+      "Ball Pit",
+      "",
+      "",
+      ""
+    ],
+    "villain": [],
+    "tools": [],
     "unReachableDirection": "wrought iron fencing"
   }
 ]
