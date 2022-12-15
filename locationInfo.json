@@ -25,8 +25,8 @@
       "Balloon Dog Monster",
       "needle",
       "*lets out a continuous cry*. You are quickly surrounded by other balloon animals and they grab you. You start to float away never to be seen again. Game Over.",
-      "Quickly you prick the Balloon Dog with a needle, and it drops a silver key. You pick it up.",
-      "Silver Key"
+      "Quickly you prick the Balloon Dog with a needle, and it drops a silver key.",
+      "silver key"
     ],
     "tools": [
       "needle",
@@ -49,8 +49,8 @@
       "Cotton Candy Monster",
       "water",
       "The Cotton Candy Monster did not like that. The Monster grabs you and spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.",
-      "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a gold key. You pick it up.",
-      "Gold Key"
+      "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a gold key.",
+      "gold key"
     ],
     "tools": [
       "fork",
@@ -86,8 +86,8 @@
       "Popcorn Snake Monster",
       "broom",
       "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.",
-      "You grab the broom, sweep up the Popcorn Snake into the trash and tie it up. It leaves behind a bronze key. You pick it up.",
-      "Bronze Key"
+      "You grab the broom, sweep up the Popcorn Snake into the trash and tie it up. It leaves behind a bronze key.",
+      "bronze key"
     ],
     "tools": [
       "broom",
