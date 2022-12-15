@@ -31,6 +31,7 @@ public class InputValidator {
     boolean nounCondition = false;
 
     String[] unfilteredString = input.split(" ");
+
     if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
       System.out.println("Try keyword \"use\" with an [item].");
       result = false;
