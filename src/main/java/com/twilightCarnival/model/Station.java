@@ -31,7 +31,7 @@ public class Station {
   }
   public void displayTools(){
     for(int i = 0; i < getTools().length; i++){
-      System.out.println(i+1 + ", " + getTools()[i]);
+      System.out.println(i+1 + ". " + getTools()[i]);
     }
   }
   public String getName() {
