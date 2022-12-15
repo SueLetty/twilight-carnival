@@ -35,6 +35,19 @@ public class Music extends JFrame {
     } catch (LineUnavailableException e) {
       e.printStackTrace();
     }
+
+  }
+  public void turnOn(){
+
+  }
+  public void turnOff(){
+
+  }
+  public void volumeUp(){
+
+  }
+  public void volumeDown(){
+    
   }
 
 public static void main(String[] args) {
