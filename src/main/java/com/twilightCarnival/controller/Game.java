@@ -31,7 +31,7 @@ public class Game {
 
   }
   public void playAgain(){
-    getTryAgainMessage();
+    System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if(input.equalsIgnoreCase("y")){
@@ -157,13 +157,14 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
-        System.out.println("You have " + player.getToken() + "tokens.");
-        System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+        System.out.println("You have " + player.getToken() + " tokens.");
         boolean condition = false;
         do{
+          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
           Scanner scanner = new Scanner(System.in);
           String input = scanner.nextLine();
           if(input.equalsIgnoreCase("y")){
+            System.out.println("Choose a tool to defeat monster. Example: use water");
             player.setToken(player.getToken()-1);
             condition = false;
           }else if(input.equalsIgnoreCase("n")){
@@ -174,8 +175,6 @@ public class Game {
             condition = true;
           }
         }while(condition);
-
-
       }else{
         for(Station s:stations){
           if(s.getName().equals(player.getCurrentLocation())){
