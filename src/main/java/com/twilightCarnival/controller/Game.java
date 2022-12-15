@@ -116,8 +116,19 @@ public class Game {
    * when the user type "quit", it quits the game
    */
   public void quit(){
-    System.out.println("Thank you! Have a great day!");
-    System.exit(0);
+    System.out.println("Do you really want to quit the game?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      System.out.println("Thank you! Have a great day!");
+      System.exit(0);
+    }else if(input.equalsIgnoreCase("n")){
+      System.out.println("Thanks for staying with us! Please enter a command to continue");
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      quit();
+    }
+
 
   }
   public void help(){
