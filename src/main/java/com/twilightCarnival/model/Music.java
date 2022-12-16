@@ -42,4 +42,11 @@ public class Music {
 
   }
 
+  public void volumeUp(){
+
+  }
+  public void volumeDown(){
+
+  }
+
 }
