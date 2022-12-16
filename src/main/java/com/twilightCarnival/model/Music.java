@@ -22,13 +22,13 @@ public class Music {
         Clip musicClip = AudioSystem.getClip();
         musicClip.open(audioInput);
         musicClip.start();
-        musicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        //musicClip.loop(Clip.LOOP_CONTINUOUSLY);
 
 
       }
       else
       {
-        System.out.println("Can't find file");
+        System.out.println("Can't find music file");
       }
     }
     catch(Exception ex)
