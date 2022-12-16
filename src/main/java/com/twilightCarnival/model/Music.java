@@ -8,11 +8,14 @@ import javax.sound.sampled.Clip;
 
 public class Music {
 
+  private static Clip musicClip;
+
+
   public static void playMusic(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
-      Clip musicClip = AudioSystem.getClip();
+      musicClip = AudioSystem.getClip();
       musicClip.open(audioInput);
       musicClip.start();
       //musicClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -24,7 +27,9 @@ public class Music {
   }
 
 
-  public void stopMusic() {
+  public static void stopMusic() {
+  musicClip.stop();
+  musicClip.close();
 
   }
 
