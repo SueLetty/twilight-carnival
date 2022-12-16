@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="twilight-carnival:jar3">
+    <output-path>$PROJECT_DIR$/out/artifacts/twilight_carnival_jar3</output-path>
+    <root id="archive" name="twilight-carnival.jar">
+      <element id="module-output" name="twilight-carnival" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.10/gson-2.10.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
