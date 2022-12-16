@@ -1,16 +1,13 @@
 package com.twilightCarnival.view;
 
-import com.twilightCarnival.controller.Game;
 import com.twilightCarnival.controller.StartGame;
-import com.twilightCarnival.model.InputValidator;
+import com.twilightCarnival.model.Music;
 import java.util.Scanner;
+
 public class Play {
 
   public static void main(String[] args) {
     StartGame startGame = new StartGame();
-<<<<<<< Updated upstream
-    startGame.start();
-=======
     String musicPath = "audio/new-music.wav";
     Music.playMusic(musicPath);
     System.out.println(startGame.getTitleCard1());
@@ -33,9 +30,6 @@ public class Play {
         condition = true;
       }
     }while(condition);
-
-
->>>>>>> Stashed changes
 
   }
 }

@@ -2,6 +2,8 @@ package com.twilightCarnival.controller;
 
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
+import com.twilightCarnival.model.Music;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StartGame {
@@ -52,8 +54,6 @@ public class StartGame {
    * start() starts the game, with splash screen and following method to begin the logic.
    */
   public void start(){
-    System.out.println(titleCard1);
-    System.out.println(clown);
     game.display();
     System.out.println("\nPress the \"Enter\" key to continue.");
     Scanner input = new Scanner(System.in);
@@ -115,7 +115,6 @@ public class StartGame {
         System.out.println("You do not have a map.");
       }
     } else if (verb.equals("pickup")) {
-
       game.getItem(noun);
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
@@ -123,5 +122,16 @@ public class StartGame {
     } else if (verb.equals("use")){
       game.defeatMonsterOrLoseGame(noun);
     }
+  }
+  public Game getGame() {
+    return game;
+  }
+
+  public String getClown() {
+    return clown;
+  }
+
+  public String getTitleCard1() {
+    return titleCard1;
   }
 }

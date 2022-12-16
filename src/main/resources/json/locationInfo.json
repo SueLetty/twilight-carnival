@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Ball Pit",
+    "item": "NULL",
+    "surroundings": [
+      "Cotton Candy Stand",
+      "Dreamland Gate",
+      "Popcorn Stand",
+      "Hot Dog Stand"
+    ],
+    "villain": [],
+    "tools": [],
+    "unReachableDirection": "NULL"
+  },
+  {
+    "name": "Gift Shop",
+    "item": "NULL",
+    "surroundings": [
+      "",
+      "Hot Dog Stand",
+      "Cotton Candy Stand",
+      ""
+    ],
+    "villain": [
+      "Balloon Dog Monster",
+      "needle",
+      "*lets out a continuous cry*. \nYou are quickly surrounded by other balloon animals and they grab you. \nYou start to float away never to be seen again. Game Over.",
+      "Quickly you prick the Balloon Dog with a needle, and it drops a silver key.",
+      "silver key"
+    ],
+    "tools": [
+      "needle",
+      "rubber duck",
+      "soda",
+      "water"
+    ],
+    "unReachableDirection": "A pile of bobble heads are in your way. Please choose another direction."
+  },
+  {
+    "name": "Cotton Candy Stand",
+    "item": "NULL",
+    "surroundings": [
+      "",
+      "Ball Pit",
+      "Safe Area",
+      "Gift Shop"
+    ],
+    "villain": [
+      "Cotton Candy Monster",
+      "water",
+      "The Cotton Candy Monster did not like that. \nThe Monster grabs you and spins you in the cotton candy machine. \nYou are now a Cotton Candy Monster. Game Over.",
+      "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. \nWithin the goo there is a gold key.",
+      "gold key"
+    ],
+    "tools": [
+      "fork",
+      "sugar",
+      "cup",
+      "water"
+    ],
+    "unReachableDirection": "A pile of paper cones are in your way. Please choose another direction."
+  },
+  {
+    "name": "Safe Area",
+    "item": "map",
+    "surroundings": [
+      "",
+      "Popcorn Stand",
+      "",
+      "Cotton Candy Stand"
+    ],
+    "villain": [],
+    "tools": [],
+    "unReachableDirection": "A pile of peanuts are in your way. Please choose another direction."
+  },
+  {
+    "name": "Popcorn Stand",
+    "item": "NULL",
+    "surroundings": [
+      "Safe Area",
+      "",
+      "",
+      "Ball Pit"
+    ],
+    "villain": [
+      "Popcorn Snake Monster",
+      "broom",
+      "The Popcorn Snake is not fazed by your actions. \nIt completely wraps around you, and drags you into the popcorn machine. \nYou are now a popcorn snake. Game Over.",
+      "You grab the broom, sweep up the Popcorn Snake into the trash and tie it up. \nIt leaves behind a bronze key.",
+      "bronze key"
+    ],
+    "tools": [
+      "broom",
+      "candy",
+      "butter",
+      "cup"
+    ],
+    "unReachableDirection": "A pile of paper bags filled with popcorn kernels are in your way. Please choose another direction."
+  },
+  {
+    "name": "Hot Dog Stand",
+    "item": "master key",
+    "surroundings": [
+      "Gift Shop",
+      "",
+      "Ball Pit",
+      ""
+    ],
+    "villain": [],
+    "tools": [],
+    "unReachableDirection": "A pile of mustard bottles are in your way. Please choose another direction."
+  },
+  {
+    "name": "Dreamland Gate",
+    "item": "NULL",
+    "surroundings": [
+      "Ball Pit",
+      "",
+      "",
+      ""
+    ],
+    "villain": [],
+    "tools": [],
+    "unReachableDirection": "A wrought iron fence is in your way. Please choose another direction."
+  }
+]
