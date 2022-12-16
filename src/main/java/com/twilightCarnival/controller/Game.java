@@ -62,6 +62,7 @@ public class Game {
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println("=============================================================================================\n\n");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
+
     System.out.println("=============================================================================================");
 
     for(Station s: stations){
@@ -93,7 +94,8 @@ public class Game {
    */
   public void viewMap(){
     if(player.hasMap()){
-      System.out.println("Your current location surroundings are: ");
+
+      System.out.println("Your current location surroundings are below. \n(Green is for visited locations, and Red is for unvisited locations.)");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){

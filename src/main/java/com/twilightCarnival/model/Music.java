@@ -15,7 +15,6 @@ public class Music {
     {
       File musicPath = new File(musicLocation);
 
-
       if(musicPath.exists())
       {
         AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
