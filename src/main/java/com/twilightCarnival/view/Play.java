@@ -20,14 +20,16 @@ public class Play {
       if(input.equalsIgnoreCase("y")){
         startGame.start();
       }else if(input.equalsIgnoreCase("n")){
-        startGame.getGame().quit();
+        if(startGame.getGame().quit()){
+          startGame.start();
+        }else{
+          startGame.getGame().quitFromStaredGame();
+        }
       }else{
         System.out.println("It is not a valid input.");
         condition = true;
       }
     }while(condition);
-
-
 
   }
 }

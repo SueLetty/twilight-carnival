@@ -90,7 +90,7 @@ public class StartGame {
         }
 
       }else if (userChoice.equalsIgnoreCase("quit")) {
-        game.quit();
+        game.quitFromStaredGame();
       } else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1], validator);
