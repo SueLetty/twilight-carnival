@@ -1,6 +1,7 @@
 package com.twilightCarnival.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * InputValidator checks user's input and assigns to a field proper input choices if valid.
@@ -13,8 +14,10 @@ public class InputValidator {
   private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab", "pick-up"};
   private final String[] mapVerbs = {"use", "open", "view", "render"};
   private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
-  private final String[] nouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
+  private final String[] pickupNouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
       "silver key"};
+  private String[] combatNouns = null;
+  private final String[] combatNumbers = {"1", "2", "3", "4"};
   private final Directions[] directions = Directions.values();
 
   /**
@@ -27,32 +30,41 @@ public class InputValidator {
     boolean result = false;
     boolean verbCondition = false;
     boolean nounCondition = false;
-    String tempVerb;
-    String tempNoun;
+
     String[] unfilteredString = input.split(" ");
-    for (String str : unfilteredString) {
-      if (!verbCondition) {
-        verbCondition = isAValidVerb(str);
-      } else if (!nounCondition) {
-        nounCondition = isAValidNoun(str);
-      }
-    }
-    if (verbCondition && nounCondition) {
-      this.input[0] = inputVerb;
-      this.input[1] = inputNoun;
 
-      if (validCombination()) {
-        result = true;
-      } else {
-        System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
-        System.out.println("Try something like:\n \t> open map\n \t> go north\n");
-      }
-    } else {
-      System.out.println("Could not collect a valid input.");
-      System.out.println("Try something like:\n \t> pickup map\n \t> go south\n");
+    if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
+      System.out.println("Try keyword \"use\" with an [item].");
       result = false;
-    }
+    }else {
+      for (String str : unfilteredString) {
+        if(Objects.equals(str, "") || Objects.equals(str, " ")){
+          break;
+        }
+        if (!verbCondition) {
+          verbCondition = isAValidVerb(str);
+        } else if (!nounCondition) {
+          nounCondition = isAValidNoun(str);
+        }
+      }
+      if (verbCondition && nounCondition) {
+        this.input[0] = inputVerb;
+        this.input[1] = inputNoun;
 
+        if (validCombination()) {
+          result = true;
+        } else {
+          System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
+          System.out.println("Try something like:\n \t> open map\n \t> go north");
+          System.out.println("For combat try:\n \t> use [item]");
+        }
+      } else {
+        System.out.println("Could not collect a valid input.");
+        System.out.println("Try something like:\n \t> use map\n \t> go south");
+        System.out.println("For combat try:\n \t> use [item]");
+        result = false;
+      }
+    }
     return result;
   }
 
@@ -74,7 +86,10 @@ public class InputValidator {
    */
   private boolean isAValidVerb(String verb) {
     boolean isVerb = false;
-    if (Arrays.asList(pickUpVerbs).contains(verb.toLowerCase())) {
+    if (verb.equalsIgnoreCase("use") && combatNouns.length > 0){
+      inputVerb = "use";
+      isVerb = true;
+    } else if (Arrays.asList(pickUpVerbs).contains(verb.toLowerCase())) {
       inputVerb = "pickup";
       isVerb = true;
     } else if (Arrays.asList(mapVerbs).contains(verb.toLowerCase())) {
@@ -97,7 +112,7 @@ public class InputValidator {
    */
   private boolean isAValidNoun(String noun) {
     boolean isNoun = false;
-    if (Arrays.asList(nouns).contains(noun.toLowerCase())) {
+    if (Arrays.asList(pickupNouns).contains(noun.toLowerCase())) {
       if (noun.equalsIgnoreCase("key")){
         inputNoun = "master key";
       }
@@ -105,8 +120,11 @@ public class InputValidator {
         inputNoun = noun.toLowerCase();
       }
       isNoun = true;
-    } else if (Arrays.asList(directions).toString().contains(noun.toUpperCase())) {
+    } else if (containsDirection(noun)) {
       inputNoun = noun.toUpperCase();
+      isNoun = true;
+    } else if (Arrays.asList(combatNouns).toString().contains(noun.toLowerCase())) {
+      inputNoun = noun.toLowerCase();
       isNoun = true;
     }
     return isNoun;
@@ -120,9 +138,12 @@ public class InputValidator {
    */
   private boolean validCombination() {
     boolean result = false;
+    if (input[1].equalsIgnoreCase("map") && inputVerb.equalsIgnoreCase("use")){
+      input[0] = "open";
+    }
     switch (input[0]) {
       case "pickup":
-        if (Arrays.asList(nouns).contains(input[1].toLowerCase())) {
+        if (Arrays.asList(pickupNouns).contains(input[1].toLowerCase())) {
           result = true;
         }
         break;
@@ -136,9 +157,64 @@ public class InputValidator {
           result = true;
         }
         break;
+      case "use":
+        if(Arrays.asList(pickupNouns).contains(input[1].toLowerCase())
+            || Arrays.asList(combatNouns).contains(input[1].toLowerCase())){
+          result = true;
+        }
+        break;
       default:
         result = false;
     }
+    return result;
+  }
+
+  /**
+   * generateCombatTools is called to populate the combatNouns for proper input to be used for combat.
+   * Dynamic for per room.
+   * @param station for which the tools and monster are, get the information to assign to field.
+   */
+  public void generateCombatTools(Station station){
+    String[] tools = station.getTools();
+    if (tools != null){
+      for (int i = 0; i < tools.length; i++){
+        tools[i] = tools[i].toLowerCase();
+      }
+    }
+    combatNouns = tools;
+  }
+
+  /**
+   * Check if a combat tool exists in the dynamic generated combatNouns array. Might be redundant.
+   * @param noun weapon/tool to be used against a monster.
+   * @return if the tool exists in the room.
+   */
+  public boolean isCombatTool(String noun){
+    boolean result = false;
+    if(combatNouns == null){
+      result = false;
+    }
+
+    assert combatNouns != null;
+    if(Arrays.asList(combatNouns).contains(noun.toLowerCase())){
+      result = true;
+    }
+    return result;
+  }
+
+  /**
+   * containsDirection() compares the enum directions explicitly.
+   * @param direction String value of Heading NORTH,SOUTH,EAST,WEST.
+   * @return bool if the direction is contained in directions field.
+   */
+  private boolean containsDirection(String direction){
+    boolean result = false;
+    for (Directions d : directions) {
+      if(d.toString().equalsIgnoreCase(direction)){
+        result = true;
+      }
+    }
+
     return result;
   }
 }

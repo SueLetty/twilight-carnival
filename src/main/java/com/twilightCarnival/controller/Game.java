@@ -1,123 +1,59 @@
 package com.twilightCarnival.controller;
 import com.twilightCarnival.model.Directions;
-import com.twilightCarnival.model.Monster;
 import com.twilightCarnival.model.Player;
-
+import com.twilightCarnival.model.Script;
+import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
+
+
 
 public class Game {
 
   private Player player;
-  private String welcomeMessage;
-  private String introduction;
-  private String winMessage;
-  private String instructionForTools;
+  private Script script;
+  private SetMap map;
   private List<Station> stations;
-  private String helpMessage;
-  private String tryAgainMessage;
-  private Directions direction;
-  private Monster cottonCandyMonster;
-  private Monster balloonDog;
-  private Monster popcornSnake;
+  private Stack<String> stationsVisited = new Stack<>();
 
-  private String[] cottonCandyTools =new String[]{"fork","sugar","cup","water"};
-  private String[] balloonDogTools = new String[]{"needle", "rubber duck", "soda", "water"};
-  private String[] popcornSnakeTools = new String[]{"broom", "candy", "butter", "cup"};
-
-  private HashMap<Directions, String> ballPitSurroundings = new HashMap<>();
-  private HashMap<Directions, String> giftShopSurroundings = new HashMap<>();
-  private HashMap<Directions, String> cottonCandyStandSurroundings = new HashMap<>();
-  private HashMap<Directions, String> safeAreaSurroundings = new HashMap<>();
-  private HashMap<Directions, String> popcornStandSurroundings = new HashMap<>();
-  private HashMap<Directions, String> hotDogStandSurroundings = new HashMap<>();
-  private HashMap<Directions, String> dreamlandGateSurroundings = new HashMap<>();
-
-  private Station cottonCandyStand;
-  private Station hotDogStand;
-  private Station popcornStand;
-  private Station giftShop;
-  private Station safeArea;
-  private Station ballPit;
-  private Station dreamlandGate;
   public Game() {
     player = new Player();
-    tryAgainMessage = "Do you want to play again?(y/n)";
-    welcomeMessage = "Welcome to Twilight Carnival!";
-    helpMessage = "1. Go [direction] (example: go north, go south, go west, go east)\n2. Pickup [ItemName] (example: pickup map)\n3. View map (if you have a map in your inventory) ";
-    stations = new ArrayList<>();
-    cottonCandyMonster = new Monster("Cotton Candy Monster", "water","Gold Key",
-                          "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. Within the goo there is a key. You pick it up.",
-                          "The Cotton Candy Monster did not like that. The Monster grabs you spins you in the cotton candy machine. You are now a Cotton Candy Monster. Game Over.");
-    balloonDog = new Monster("Balloon Dog Monster","needle","Silver Key",
-                          "Quickly you prick the Balloon dog with a needle, and it drops a key. You pick it up.",
-                          "lets out a continuous cry. You are quickly surrounded by other balloon animals and they grab you. You start to float away to never to be seen again. Game Over.");
-    popcornSnake = new Monster("Popcorn Snake Monster","Popcorn Snake","Bronze Key",
-                          "You grab the broom and sweep up Popcorn Snake into the trash. It leaves behind a key. You pick it up.",
-                          "The Popcorn Snake is not fazed by your actions. It completely wraps around you, and drags you into the popcorn machine. You are now a popcorn snake. Game Over.");
-    ballPitSurroundings.put(Directions.NORTH, "Cotton Candy Stand");
-    ballPitSurroundings.put(Directions.SOUTH, "Dreamland Gate");
-    ballPitSurroundings.put(Directions.EAST, "Popcorn Stand");
-    ballPitSurroundings.put(Directions.WEST, "Hot Dog Stand");
+    script= new Script();
+    script.load();
+    map = new SetMap();
+    map.load();
+    for(Station s: map.getStations()){
+      s.setMonster(s.getVillain());
+    }
+    stations = map.getStations();
 
-    giftShopSurroundings.put(Directions.SOUTH, "Hot Dog Stand");
-    giftShopSurroundings.put(Directions.EAST, "Cotton Candy Stand");
-
-    cottonCandyStandSurroundings.put(Directions.SOUTH, "Ball Pit");
-    cottonCandyStandSurroundings.put(Directions.EAST, "Safe Area");
-    cottonCandyStandSurroundings.put(Directions.WEST, "Gift Shop");
-
-    safeAreaSurroundings.put(Directions.SOUTH, "Popcorn Stand");
-    safeAreaSurroundings.put(Directions.WEST, "Cotton Candy Stand");
-
-    popcornStandSurroundings.put(Directions.NORTH, "Safe Area");
-    popcornStandSurroundings.put(Directions.WEST, "Ball Pit");
-
-    hotDogStandSurroundings.put(Directions.NORTH, "Gift Shop");
-    hotDogStandSurroundings.put(Directions.EAST, "Ball Pit");
-
-    dreamlandGateSurroundings.put(Directions.NORTH, "Ball Pit");
-    cottonCandyStand = new Station("Cotton Candy Stand", cottonCandyMonster,cottonCandyTools, null,cottonCandyStandSurroundings, "There is a pile of paper cones");
-    hotDogStand = new Station("Hot Dog Stand", null,null, "master key",hotDogStandSurroundings, "There is a pile of mustard bottles");
-    popcornStand = new Station("Popcorn Stand", popcornSnake,popcornSnakeTools, null,popcornStandSurroundings, "There is a pile of kernels paper bags");
-    giftShop = new Station("Gift Shop", balloonDog,balloonDogTools, null,giftShopSurroundings, "There is a pile of bobble heads");
-    safeArea = new Station("Safe Area", null,null, "map",safeAreaSurroundings, "There is a pile of peanuts");
-    ballPit = new Station("Ball Pit", null,null, null,ballPitSurroundings, null);
-    dreamlandGate = new Station("Dreamland Gate",null,null, null,dreamlandGateSurroundings, "There is wrought iron fencing");
-
-    stations.add(cottonCandyStand);
-    stations.add(hotDogStand);
-    stations.add(popcornStand);
-    stations.add(giftShop);
-    stations.add(safeArea);
-    stations.add(ballPit);
-    stations.add(dreamlandGate);
-
-    welcomeMessage = "Welcome to Twilight Carnival!";
-    introduction = "You’re at the carnival with your friends after one too many drinks you end up falling asleep in a ball pit. \nOnce you awake later on that evening, you notice that the carnival has changed into something not so welcoming. \nJourney through the carnival to find four keys to help you escape the Twilight Carnival!";
-    winMessage = "You hear, \"Thank you for visiting, come again, and bring your friends.\" \n\nYou turn around, you wake up.";
-    instructionForTools = "Choose one of the items to defeat the monster. If you select the wrong item then you will be defeated.";
   }
   public void playAgain(){
-
-    StartGame startGame = new StartGame();
-    startGame.start();
-
-
+    System.out.println(getTryAgainMessage());
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      StartGame startGame = new StartGame();
+      startGame.start();
+    }else if(input.equalsIgnoreCase("n")){
+      quit();
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      playAgain();
+    }
   }
   public void getItem(String item){
 
     for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && s.hasItem() && item.equals(s.getItem())){
+      if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
         System.out.printf("You picked up the %s and added it to your inventory\n", item);
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
       } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem()== null){
-        System.out.println("There is no items you can pickup.");
+        System.out.println("There are no items you can pickup.");
       }
     }
   }
@@ -125,36 +61,51 @@ public class Game {
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println("=============================================================================================\n\n");
-    System.out.println("Available command: go [direction]");
+    System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
+
     System.out.println("=============================================================================================");
 
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){
         System.out.println("There is a map in your inventory.");
-        System.out.println("You can view map");
+        System.out.println("You can view map.");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && s.hasItem()){
-        System.out.println("There is a " + s.getItem());
-        System.out.println("You can pickup " + s.getItem());
+      if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
+        System.out.println("There is a " + s.getItem() + ".");
+        System.out.println("You can pickup " + s.getItem() + ".");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
-        System.out.println("There is a " + s.getMonster().getName());
-//        System.out.println("if there is a monster, choose one of the tools displayed. Type 1, 2, 3, or 4");
-//        s.displayTools();
+      if(s.getName().equals(player.getCurrentLocation())  && s.getMonster().getName() != null && s.getMonster().isAlive()){
+        System.out.println("There is a " + s.getMonster().getName() + "!");
+        System.out.println("Choose one of the tools displayed to defeat the" + " " +s.getMonster().getName() + "." + " " + "Example: use water.");
+        s.displayTools();
       }
+
 
     }
     System.out.println("=============================================================================================");
 
   }
 
+  /**
+   * viewMap() will display the locations adjacent to the player's current location.
+   *  It will color red if not visited before and green if previously visited.
+   *  red = \u001B[31m
+   *  green = \u001B[32m
+   */
   public void viewMap(){
     if(player.hasMap()){
-      System.out.println("Your current location surroundings are: ");
+
+      System.out.println("Your current location surroundings are below. \n(Green is for visited locations, and Red is for unvisited locations.)");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
-            System.out.println(direction + ": " + s.getSurroundings().get(direction));
+            String adjacentLocation = s.getSurroundings().get(direction);
+            if(hasBeenVisited(adjacentLocation)){
+              System.out.println(direction + ": " + "\u001B[32m" + adjacentLocation + "\u001B[0m");
+            }else {
+              System.out.println(direction + ": " + "\u001B[31m" + adjacentLocation + "\u001B[0m");
+
+            }
           }
         }
       }
@@ -166,46 +117,130 @@ public class Game {
   /**
    * when the user type "quit", it quits the game
    */
-  public void quit(){
-    System.out.println("Thank you! Have a great day!");
-    System.exit(0);
-
+  public void quitFromStaredGame(){
+    System.out.println("Do you really want to quit the game?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      System.out.println("Thank you! Have a great day!");
+      System.exit(0);
+    }else if(input.equalsIgnoreCase("n")){
+      System.out.println("Thanks for staying with us! Please enter a command to continue");
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      quitFromStaredGame();
+    }
+  }
+  public boolean quit(){
+    System.out.println("are you sure?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      System.out.println("Thank you! Have a great day!");
+      System.exit(0);
+    }else if(input.equalsIgnoreCase("n")){
+      System.out.println("You can start the game.");
+      return true;
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      quit();
+    }
+    return false;
   }
   public void help(){
     System.out.println(getHelpMessage());
 
   }
   public void display(){
-    System.out.println(getWelcomeMessage());
     System.out.println(getIntroduction());
 
   }
 
-  public void defeatMonster(int input){
-
+  public boolean isMonsterDefeated(String noun){
     for(Station s:stations){
-      if(s.getName().equals(player.getCurrentLocation()) && s.hasMonster()){
-        if(s.getTools()[input-1].equals(s.getMonster().getWeakness())){
-          System.out.println(s.getMonster().getWinMessage());
-          getPlayer().setInventory(s.getItem());
-        }else{
-          System.out.println(s.getMonster().getLostMessage());
+      if(s.getName().equals(player.getCurrentLocation()) && s.getMonster() != null){
+        if(noun.equals(s.getMonster().getWeakness())){
+          return true;
         }
-        return;
+
       }
     }
+    return false;
+  }
+  public void defeatMonsterOrLoseGame(String noun){
+    if(isMonsterDefeated(noun)){
+      for(Station s:stations){
+        if(s.getName().equals(player.getCurrentLocation())){
+          s.getMonster().setStatus(false);
+          player.setInventory(s.getMonster().getKey());
+          System.out.println(s.getMonster().getWinMessage());
+          System.out.println("You earned a " + s.getMonster().getKey()+".");
+          System.out.println("It is in your inventory now.");
+          s.getMonster().setKey(null);
+          return;
 
+        }
+      }
 
+    }else{
+      if(player.getToken() > 0){
+        System.out.println("You have " + player.getToken() + " tokens.");
+        boolean condition = false;
+        do{
+          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+          Scanner scanner = new Scanner(System.in);
+          String input = scanner.nextLine();
+          if(input.equalsIgnoreCase("y")){
+            System.out.println("Choose a tool to defeat monster. Example: use water");
+            player.setToken(player.getToken()-1);
+            condition = false;
+          }else if(input.equalsIgnoreCase("n")){
+            System.out.println("You can explore other stations.");
+            condition = false;
+          } else{
+            System.out.println("That is not valid input. Please type y or n.");
+            condition = true;
+          }
+        }while(condition);
+      }else{
+        for(Station s:stations){
+          if(s.getName().equals(player.getCurrentLocation())){
+            System.out.println(s.getMonster().getLostMessage());
+            playAgain();
+            return;
+          }
+        }
+      }
+    }
   }
 
-  public Player getPlayer() {
-    return player;
-  }
+  public void win(){
+    if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+      if(player.getInventory().contains("master key")
+          && player.getInventory().contains("gold key")
+          && player.getInventory().contains("silver key")
+          && player.getInventory().contains("bronze key")){
+        System.out.println(getWinMessage());
+        playAgain();
+      }
 
+    }
+    System.out.println("You don't have enough keys to escape."
+        + "\nYou need to go to defeat monsters and earn more keys."
+        + "\nYou need four keys to open Dreamland Gate to escape.");
+
+  }
+  /**
+   * changingLocations will change the player's current location to chosen valid location.
+   *  stationsVisited is tracked here through trackLocation() method call. Needs to be called before
+   *  setting new location.
+   * @param direction the user wants to move.
+   */
   public void changingLocation(Directions direction){
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation())){
         if(s.getSurroundings().containsKey(direction)){
+          trackLocation();
           player.setCurrentLocation(s.getSurroundings().get(direction));
           System.out.print("\033[H\033[2J");
           System.out.flush();
@@ -222,107 +257,64 @@ public class Game {
 
 
   /**
-   * Players are presented with a Title.Splash Screen
-   * @return a welcome message
+   * Method tracks the current player and adds it to the stationsVisited.
    */
-  public String getWelcomeMessage() {
-    return welcomeMessage;
+  private void trackLocation(){
+    if(!hasBeenVisited(player.getCurrentLocation())){
+      stationsVisited.push(player.getCurrentLocation().toLowerCase());
+    }
   }
 
-  public List<Station> getStations() {
-    for(Station s: stations){
-      System.out.println(s);
+  /**
+   * hasBeenVisited() will check if the location has been tracked in stationsVisited.
+   * @param location to searched in tracked locations.
+   * @return true if visited, otherwise false.
+   */
+  private boolean hasBeenVisited(String location){
+    return stationsVisited.contains(location.toLowerCase());
+  }
+
+  public Player getPlayer() {
+    return player;
+
+  }
+
+
+  /**
+   * getCurrentStation gets the current station the player is located in. we could always track it
+   * in a field, but this was created in absence of that.
+   * @return current station.
+   */
+  public Station getCurrentStation(){
+    Station currentStation = null;
+    for (Station station: stations){
+      if (station.getName().equalsIgnoreCase(player.getCurrentLocation())){
+        currentStation = station;
+      }
     }
-    return stations;
+    return currentStation;
   }
 
   public String getHelpMessage() {
-    return helpMessage;
+    return script.getScript().getHelp();
   }
 
   public String getTryAgainMessage() {
-    return tryAgainMessage;
-  }
-
-  public Directions getDirection() {
-    return direction;
-  }
-
-  public void setDirection(Directions direction) {
-    this.direction = direction;
-  }
-
-  public void setStations(Station station) {
-    this.stations.add(station);
+    return script.getScript().getPlayAgainMessage();
   }
 
   public String getIntroduction() {
-    return introduction;
+    return script.getScript().getIntroduction();
   }
 
   public String getWinMessage() {
-    return winMessage;
+    return script.getScript().getWinMessage();
   }
 
   public String getInstructionForTools() {
-    return instructionForTools;
+    return script.getScript().getToolMessage();
   }
 
-  public Monster getCottonCandyMonster() {
-    return cottonCandyMonster;
-  }
-
-  public Monster getBalloonDog() {
-    return balloonDog;
-  }
-
-  public Monster getPopcornSnake() {
-    return popcornSnake;
-  }
-
-  public Station getCottonCandyStand() {
-    return cottonCandyStand;
-  }
-
-  public Station getHotDogStand() {
-    return hotDogStand;
-  }
-
-  public Station getPopcornStand() {
-    return popcornStand;
-  }
-
-  public Station getGiftShop() {
-    return giftShop;
-  }
-
-  public Station getSafeArea() {
-    return safeArea;
-  }
-
-  public Station getBallPit() {
-    return ballPit;
-  }
-
-  public Station getDreamlandGate() {
-    return dreamlandGate;
-  }
-//  public List<String> getInputs() {
-//    if(inputs != null){
-//      for(String list: inputs){
-//        System.out.println(list);
-//      }
-//    }else{
-//      System.out.println("input is null");
-//    }
-//
-//
-//    return inputs;
-//  }
-//
-//  public void setInputs(List<String> inputs) {
-//    this.inputs = inputs;
-//  }
 }
 
 
