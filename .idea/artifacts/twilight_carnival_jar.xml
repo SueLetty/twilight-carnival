@@ -1,8 +1,11 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="twilight-carnival:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/twilight_carnival_jar</output-path>
-    <root id="archive" name="project.jar">
+    <root id="archive" name="twilight-carnival.jar">
       <element id="module-output" name="twilight-carnival" />
+      <element id="library" level="project" name="google.code.gson" />
+      <element id="file-copy" path="$PROJECT_DIR$/script.json" />
+      <element id="file-copy" path="$PROJECT_DIR$/locationInfo.json" />
     </root>
   </artifact>
 </component>
