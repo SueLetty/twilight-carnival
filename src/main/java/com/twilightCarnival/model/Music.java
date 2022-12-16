@@ -10,6 +10,9 @@ import java.io.*;
 
 public class Music {
 
+  private static Clip musicClip;
+
+
   public static void playMusic(String musicLocation) {
     try
     {
@@ -18,8 +21,9 @@ public class Music {
 
       if(musicPath.exists())
       {
+
         AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-        Clip musicClip = AudioSystem.getClip();
+        musicClip = AudioSystem.getClip();
         musicClip.open(audioInput);
         musicClip.start();
         //musicClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -39,8 +43,9 @@ public class Music {
   }
 
 
-  public void stopMusic() {
-
+  public static void stopMusic() {
+  musicClip.stop();
+  musicClip.close();
 
   }
 

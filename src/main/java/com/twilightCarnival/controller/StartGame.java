@@ -62,6 +62,7 @@ public class StartGame {
     System.out.println("\nPress the \"Enter\" key to continue.");
     Scanner input = new Scanner(System.in);
     input.nextLine();
+    //Music.stopMusic();
     System.out.print("\033[H\033[2J");
     System.out.flush();
     game.status();
