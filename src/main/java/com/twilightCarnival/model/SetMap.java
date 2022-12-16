@@ -36,6 +36,11 @@ public class SetMap {
     return stations;
   }
 
+  /**
+   * get inputStream so json can work
+   * @param fileName the file path in resources folder
+   * @return InputStream
+   */
   private static InputStream getFileFromResources(String fileName){
     ClassLoader classLoader = SetMap.class.getClassLoader();
     InputStream inputStream = classLoader.getResourceAsStream(fileName);

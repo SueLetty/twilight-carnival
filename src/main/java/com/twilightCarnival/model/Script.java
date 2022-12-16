@@ -72,7 +72,7 @@ public class Script {
   }
 
   private static InputStream getFileFromResources(String fileName){
-    ClassLoader classLoader = SetMap.class.getClassLoader();
+    ClassLoader classLoader = Script.class.getClassLoader();
     InputStream inputStream = classLoader.getResourceAsStream(fileName);
     if (inputStream == null){
       throw new IllegalArgumentException("file not found: " + fileName);
