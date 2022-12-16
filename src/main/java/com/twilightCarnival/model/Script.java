@@ -1,7 +1,10 @@
 package com.twilightCarnival.model;
 
 import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,10 +32,11 @@ public class Script {
     this.playAgainMessage = playAgainMessage;
   }
   public void load(){
-    try{
-      String fileName = "script.json";
-      Reader reader = Files.newBufferedReader(Paths.get(fileName));
+    try{ // TODO: 12/15/2022 read in file with inputstream? like getResourceAsStream()???
+      String fileName = "json/script.json";
       Gson gson = new Gson();
+      InputStream inputStream = getFileFromResources(fileName);
+      BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
       script = gson.fromJson(reader, Script.class);
 
     } catch (IOException e) {
@@ -65,5 +69,15 @@ public class Script {
 
   public Script getScript() {
     return script;
+  }
+
+  private static InputStream getFileFromResources(String fileName){
+    ClassLoader classLoader = Script.class.getClassLoader();
+    InputStream inputStream = classLoader.getResourceAsStream(fileName);
+    if (inputStream == null){
+      throw new IllegalArgumentException("file not found: " + fileName);
+    } else {
+      return inputStream;
+    }
   }
 }

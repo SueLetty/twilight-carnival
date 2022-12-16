@@ -54,15 +54,10 @@ public class StartGame {
    * start() starts the game, with splash screen and following method to begin the logic.
    */
   public void start(){
-    String musicPath = "src/main/resources/audio/new-music.wav";
-    Music.playMusic(musicPath);
-    System.out.println(titleCard1);
-    System.out.println(clown);
     game.display();
     System.out.println("\nPress the \"Enter\" key to continue.");
     Scanner input = new Scanner(System.in);
     input.nextLine();
-    //Music.stopMusic();
     System.out.print("\033[H\033[2J");
     System.out.flush();
     game.status();
@@ -127,5 +122,16 @@ public class StartGame {
     } else if (verb.equals("use")){
       game.defeatMonsterOrLoseGame(noun);
     }
+  }
+  public Game getGame() {
+    return game;
+  }
+
+  public String getClown() {
+    return clown;
+  }
+
+  public String getTitleCard1() {
+    return titleCard1;
   }
 }
