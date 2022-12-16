@@ -2,6 +2,7 @@ package com.twilightCarnival.controller;
 
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
+import com.twilightCarnival.model.Music;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -53,6 +54,8 @@ public class StartGame {
    * start() starts the game, with splash screen and following method to begin the logic.
    */
   public void start(){
+    String musicPath = "src/main/resources/audio/new-music.wav";
+    Music.playMusic(musicPath);
     System.out.println(titleCard1);
     System.out.println(clown);
     game.display();
