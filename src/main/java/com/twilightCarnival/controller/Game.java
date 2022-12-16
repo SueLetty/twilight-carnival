@@ -61,7 +61,7 @@ public class Game {
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println("=============================================================================================\n\n");
-    System.out.println("Available commands: go [direction], help");
+    System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
     System.out.println("=============================================================================================");
 
     for(Station s: stations){

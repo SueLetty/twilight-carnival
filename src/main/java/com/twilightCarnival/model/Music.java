@@ -35,6 +35,19 @@ public class Music {
     {
       ex.printStackTrace();
     }
+
+  }
+  public void turnOn(){
+
+  }
+  public void turnOff(){
+
+  }
+  public void volumeUp(){
+
+  }
+  public void volumeDown(){
+    
   }
 
   public void stopMusic() {
