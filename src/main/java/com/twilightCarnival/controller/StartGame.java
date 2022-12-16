@@ -2,6 +2,8 @@ package com.twilightCarnival.controller;
 
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
+import com.twilightCarnival.model.Music;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StartGame {
@@ -52,6 +54,8 @@ public class StartGame {
    * start() starts the game, with splash screen and following method to begin the logic.
    */
   public void start(){
+    String musicPath = "src/main/resources/audio/new-music.wav";
+    Music.playMusic(musicPath);
     System.out.println(titleCard1);
     System.out.println(clown);
     game.display();
@@ -86,23 +90,11 @@ public class StartGame {
         if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
           game.win();
         }else{
-          System.out.println("It would be best if I used these keys at the Dream Land Gate.");
+          System.out.println("It would be best if you used these keys at the Dream Land Gate.");
         }
 
       }else if (userChoice.equalsIgnoreCase("quit")) {
-        System.out.println("Are you sure you want to quit?(y/n)");
-        boolean condition = false;
-        do {
-
-          if(input.nextLine().equalsIgnoreCase("y")) {
-            game.quit();
-          }else if(input.nextLine().equalsIgnoreCase("n")){
-            System.out.println("Thanks for staying with us! Please enter a command to continue");
-          } else {
-            System.out.println("That is not valid input. Please type y or n.");
-            condition = true;
-          }
-        }while(condition);
+        game.quit();
       } else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1], validator);
@@ -127,7 +119,6 @@ public class StartGame {
         System.out.println("You do not have a map.");
       }
     } else if (verb.equals("pickup")) {
-
       game.getItem(noun);
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {

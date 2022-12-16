@@ -1,6 +1,7 @@
 package com.twilightCarnival.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * InputValidator checks user's input and assigns to a field proper input choices if valid.
@@ -31,11 +32,15 @@ public class InputValidator {
     boolean nounCondition = false;
 
     String[] unfilteredString = input.split(" ");
+
     if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
       System.out.println("Try keyword \"use\" with an [item].");
       result = false;
     }else {
       for (String str : unfilteredString) {
+        if(Objects.equals(str, "") || Objects.equals(str, " ")){
+          break;
+        }
         if (!verbCondition) {
           verbCondition = isAValidVerb(str);
         } else if (!nounCondition) {
@@ -50,11 +55,13 @@ public class InputValidator {
           result = true;
         } else {
           System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
-          System.out.println("Try something like:\n \t> open map\n \t> go north\n");
+          System.out.println("Try something like:\n \t> open map\n \t> go north");
+          System.out.println("For combat try:\n \t> use [item]");
         }
       } else {
         System.out.println("Could not collect a valid input.");
-        System.out.println("Try something like:\n \t> pickup map\n \t> go south\n");
+        System.out.println("Try something like:\n \t> use map\n \t> go south");
+        System.out.println("For combat try:\n \t> use [item]");
         result = false;
       }
     }
@@ -79,7 +86,10 @@ public class InputValidator {
    */
   private boolean isAValidVerb(String verb) {
     boolean isVerb = false;
-    if (Arrays.asList(pickUpVerbs).contains(verb.toLowerCase())) {
+    if (verb.equalsIgnoreCase("use") && combatNouns.length > 0){
+      inputVerb = "use";
+      isVerb = true;
+    } else if (Arrays.asList(pickUpVerbs).contains(verb.toLowerCase())) {
       inputVerb = "pickup";
       isVerb = true;
     } else if (Arrays.asList(mapVerbs).contains(verb.toLowerCase())) {
@@ -110,7 +120,7 @@ public class InputValidator {
         inputNoun = noun.toLowerCase();
       }
       isNoun = true;
-    } else if (Arrays.asList(directions).toString().contains(noun.toUpperCase())) {
+    } else if (containsDirection(noun)) {
       inputNoun = noun.toUpperCase();
       isNoun = true;
     } else if (Arrays.asList(combatNouns).toString().contains(noun.toLowerCase())) {
@@ -128,8 +138,8 @@ public class InputValidator {
    */
   private boolean validCombination() {
     boolean result = false;
-    if (Arrays.asList(combatNouns).contains(input[1])){
-      input[0] = "use";
+    if (input[1].equalsIgnoreCase("map") && inputVerb.equalsIgnoreCase("use")){
+      input[0] = "open";
     }
     switch (input[0]) {
       case "pickup":
@@ -189,6 +199,22 @@ public class InputValidator {
     if(Arrays.asList(combatNouns).contains(noun.toLowerCase())){
       result = true;
     }
+    return result;
+  }
+
+  /**
+   * containsDirection() compares the enum directions explicitly.
+   * @param direction String value of Heading NORTH,SOUTH,EAST,WEST.
+   * @return bool if the direction is contained in directions field.
+   */
+  private boolean containsDirection(String direction){
+    boolean result = false;
+    for (Directions d : directions) {
+      if(d.toString().equalsIgnoreCase(direction)){
+        result = true;
+      }
+    }
+
     return result;
   }
 }

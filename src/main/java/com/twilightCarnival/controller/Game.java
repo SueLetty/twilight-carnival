@@ -31,7 +31,7 @@ public class Game {
 
   }
   public void playAgain(){
-    getTryAgainMessage();
+    System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if(input.equalsIgnoreCase("y")){
@@ -61,7 +61,7 @@ public class Game {
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println("=============================================================================================\n\n");
-    System.out.println("Available commands: go [direction], help, quit, use [item], unlock");
+    System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
 
     System.out.println("=============================================================================================");
 
@@ -118,8 +118,19 @@ public class Game {
    * when the user type "quit", it quits the game
    */
   public void quit(){
-    System.out.println("Thank you! Have a great day!");
-    System.exit(0);
+    System.out.println("Do you really want to quit the game?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if(input.equalsIgnoreCase("y")){
+      System.out.println("Thank you! Have a great day!");
+      System.exit(0);
+    }else if(input.equalsIgnoreCase("n")){
+      System.out.println("Thanks for staying with us! Please enter a command to continue");
+    } else{
+      System.out.println("That is not valid input. Please type y or n.");
+      quit();
+    }
+
 
   }
   public void help(){
@@ -159,13 +170,14 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
-        System.out.println("You have " + player.getToken() + "tokens.");
-        System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+        System.out.println("You have " + player.getToken() + " tokens.");
         boolean condition = false;
         do{
+          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
           Scanner scanner = new Scanner(System.in);
           String input = scanner.nextLine();
           if(input.equalsIgnoreCase("y")){
+            System.out.println("Choose a tool to defeat monster. Example: use water");
             player.setToken(player.getToken()-1);
             condition = false;
           }else if(input.equalsIgnoreCase("n")){
@@ -176,8 +188,6 @@ public class Game {
             condition = true;
           }
         }while(condition);
-
-
       }else{
         for(Station s:stations){
           if(s.getName().equals(player.getCurrentLocation())){
