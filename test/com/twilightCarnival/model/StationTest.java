@@ -9,7 +9,7 @@ import org.junit.Test;
 public class StationTest {
   public static Station station;
   @BeforeClass
-  public static void beforeClass() throws Exception {
+  public static void beforeClass(){
     String name = "Gift Shop";
     String[] villain = new String[]{"Balloon Dog Monster",
         "needle",
@@ -17,7 +17,6 @@ public class StationTest {
         "Quickly you prick the Balloon Dog with a needle, and it drops a silver key.",
         "silver key"};
     String item = "Gold Key";
-    Monster monster = new Monster();
     String[] surroundings = new String[]{"Hot Dog Stand", "Popcorn Stand", "",""};
     String[] tools = new String[]{"cup","water","candy","sugar"};
     String unReachableDirection = "Cannot go this way";
@@ -25,7 +24,7 @@ public class StationTest {
   }
 
   @Test
-  public void displayTools() {
+  public void testDisplayTools() {
     String expected = "1. cup\n2. water\n3. candy\n4. sugar";
     System.out.println(expected);
     station.displayTools();
@@ -33,12 +32,14 @@ public class StationTest {
   }
 
   @Test
-  public void getName() {
-    assertTrue("Gift Shop".equals(station.getName()));
+  public void testGetName() {
+    String expected = "Gift Shop";
+    String actual = station.getName();
+    assertEquals(expected,actual);
   }
 
   @Test
-  public void getMonster() {
+  public void testGetMonster() {
     Monster expected = new Monster("Balloon Dog Monster",
         "needle",
         "*lets out a continuous cry*. \nYou are quickly surrounded by other balloon animals and they grab you. \nYou start to float away never to be seen again. Game Over.",
@@ -54,21 +55,21 @@ public class StationTest {
   }
 
   @Test
-  public void getTools() {
+  public void testGetTools() {
     String[] expected = new String[]{"cup","water","candy","sugar"};
     String[] actual = station.getTools();
     assertArrayEquals(expected,actual);
   }
 
   @Test
-  public void getItem() {
+  public void testGetItem() {
     String expected = "Gold Key";
     String actual = station.getItem();
     assertEquals(expected,actual);
   }
 
   @Test
-  public void getSurroundings() {
+  public void testGetSurroundings() {
     HashMap<Directions,String> expected = new HashMap<>();
     expected.put(Directions.NORTH,"Hot Dog Stand");
     expected.put(Directions.SOUTH,"Popcorn Stand");
@@ -77,14 +78,14 @@ public class StationTest {
   }
 
   @Test
-  public void getUnreachableDirectionMessage() {
+  public void testGetUnreachableDirectionMessage() {
     String expected = "Cannot go this way";
     String actual = station.getUnreachableDirectionMessage();
     assertEquals(expected,actual);
   }
 
   @Test
-  public void setMonster() {
+  public void testSetMonster() {
     String[] villain = new String[]{"Balloon Dog Monster",
         "needle",
         "*lets out a continuous cry*. \nYou are quickly surrounded by other balloon animals and they grab you. \nYou start to float away never to be seen again. Game Over.",
@@ -106,18 +107,20 @@ public class StationTest {
   }
 
   @Test
-  public void getVillain() {
+  public void testGetVillain() {
     String[] expected = new String[]{"Balloon Dog Monster",
         "needle",
         "*lets out a continuous cry*. \nYou are quickly surrounded by other balloon animals and they grab you. \nYou start to float away never to be seen again. Game Over.",
         "Quickly you prick the Balloon Dog with a needle, and it drops a silver key.",
         "silver key"};
     String[] actual = station.getVillain();
-    assertEquals(expected,actual);
+    for(int i = 0; i < expected.length; i++){
+      assertEquals(expected[i],actual[i]);
+    }
   }
 
   @Test
-  public void setItem() {
+  public void testSetItem() {
     String expected = "master key";
     station.setItem(expected);
     String actual = station.getItem();
