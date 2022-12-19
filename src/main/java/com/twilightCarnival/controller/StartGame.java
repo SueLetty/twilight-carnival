@@ -53,7 +53,9 @@ public class StartGame {
   /**
    * start() starts the game, with splash screen and following method to begin the logic.
    */
-  public void start(){
+  public void start() throws InterruptedException {
+    String musicPath = "audio/Some-Dreamy-Place.wav";
+    Music.playMusic(musicPath);
     game.display();
     System.out.println("\nPress the \"Enter\" key to continue.");
     Scanner input = new Scanner(System.in);
@@ -70,7 +72,7 @@ public class StartGame {
    * userInput is the main loop to handle user input from 'help', 'quit', and input commands like
    * 'go north'
    */
-  private void userInput(){
+  private void userInput() throws InterruptedException {
     InputValidator validator = new InputValidator();
     String musicPath = "audio/Some-Dreamy-Place.wav";
     String[] validInput = new String[2];
@@ -89,7 +91,7 @@ public class StartGame {
         game.quitFromStaredGame();
       }
       else if (userChoice.equalsIgnoreCase("mute")) {
-        Music.stopMusic();
+        Music.muteMusic();
       }
       else if (userChoice.equalsIgnoreCase("unmute")) {
         Music.playMusic(musicPath);
@@ -123,7 +125,8 @@ public class StartGame {
    * @param noun      filtered noun handled by InputValidator.isValid()
    * @param validator
    */
-  private void operation(String verb, String noun, InputValidator validator){
+  private void operation(String verb, String noun, InputValidator validator)
+      throws InterruptedException {
     if (verb.equals("open") && noun.equals("map")){
       if (game.getPlayer().hasMap()){
         game.viewMap();
@@ -144,10 +147,11 @@ public class StartGame {
    * unlockAction() handles the multiple ways the user will use the keyword "unlock" checking if
    * player has all keys, at-least one key, and has/has not visited the DreamLand Gate.
    */
-  private void unlockAction(){
+  private void unlockAction() throws InterruptedException {
     boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
     boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
     if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+      Music.stopMusic();
       game.win();
     }else if (visitedGate && game.hasAllKeys() && notAtGate){
       System.out.println("> It would be best if I used these keys at the Dreamland Gate.");

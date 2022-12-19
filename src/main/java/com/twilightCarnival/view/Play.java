@@ -6,10 +6,8 @@ import java.util.Scanner;
 
 public class Play {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     StartGame startGame = new StartGame();
-    String musicPath = "audio/Some-Dreamy-Place.wav";
-    Music.playMusic(musicPath);
     System.out.println(startGame.getTitleCard1());
     System.out.println(startGame.getClown());
     boolean condition = false;
