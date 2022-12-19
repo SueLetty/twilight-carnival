@@ -93,7 +93,19 @@ public class StartGame {
       }
       else if (userChoice.equalsIgnoreCase("unmute")) {
         Music.playMusic(musicPath);
-        System.out.println("Game unmuted. Please enter a command");
+        System.out.println("Game unmuted. Please enter a command to continue.");
+      }
+      else if (userChoice.equalsIgnoreCase("lv")) {
+        Music.volumeLow();
+        System.out.println("Low Volume. [Type 'hv',or 'mdv' to control volume]-  Please enter a command to continue.");
+      }
+      else if (userChoice.equalsIgnoreCase("mdv")) {
+        Music.volumeMedium();
+        System.out.println("Medium Volume. [Type 'hv',or 'lv' to control volume]-  Please enter a command to continue.");
+      }
+      else if (userChoice.equalsIgnoreCase("hv")) {
+        Music.volumeHigh();
+        System.out.println("High Volume. [Type 'lv',or 'mdv' to control volume]-  Please enter a command to continue.");
       }
       else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
