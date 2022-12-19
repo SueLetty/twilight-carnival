@@ -32,8 +32,10 @@ public class Game {
     stations = map.getStations();
 
   }
+  private Music music = new Music();
+
   public void playAgain() throws InterruptedException {
-    Music.stopMusic();
+    music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -52,6 +54,7 @@ public class Game {
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
         System.out.printf("You picked up the %s and added it to your inventory\n", item);
+        music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
@@ -97,7 +100,7 @@ public class Game {
    */
   public void viewMap(){
     if(player.hasMap()){
-
+      music.openMap();
       System.out.println("Your current location surroundings are below. \n(Green is for visited locations, and Red is for unvisited locations.)");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
@@ -120,7 +123,7 @@ public class Game {
   /**
    * when the user type "quit", it quits the game
    */
-  public void quitFromStaredGame(){
+  public void quitFromStartedGame(){
     System.out.println("Do you really want to quit the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -131,7 +134,7 @@ public class Game {
       System.out.println("Thanks for staying with us! Please enter a command to continue");
     } else{
       System.out.println("That is not valid input. Please type y or n.");
-      quitFromStaredGame();
+      quitFromStartedGame();
     }
   }
   public boolean quit(){
@@ -223,7 +226,7 @@ public class Game {
       if(hasAllKeys()){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        Music.playMusic(musicPath);
+        music.playMusic(musicPath);
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(6);
         System.out.print("\033[H\033[2J");
