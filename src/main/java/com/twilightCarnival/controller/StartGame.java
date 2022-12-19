@@ -91,7 +91,7 @@ public class StartGame {
         }
 
       }else if (userChoice.equalsIgnoreCase("quit")) {
-        game.quit();
+        game.quitFromStaredGame();
       }
       else if (userChoice.equalsIgnoreCase("mute")) {
         Music.stopMusic();
