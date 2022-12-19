@@ -24,17 +24,17 @@
     "villain": [
       "Balloon Dog Monster",
       "needle",
-      "*lets out a continuous cry*. \nYou are quickly surrounded by other balloon animals and they grab you. \nYou start to float away never to be seen again. Game Over.",
-      "Quickly you prick the Balloon Dog with a needle, and it drops a silver key.",
+      "> The Balloon Dog lets out an continuous cry. \n> I cover my ears to protect from the high pitch scream.\n> Then I notice I am quickly surrounded by other balloon animals.\n> They grab me and carry me off.\n> After what feels like hours, they drop me off.\n> I notice a nearby sign...\n> \"Welcome to Ohio\"\n Game Over.",
+      "> I quickly grab the needle and prick the Balloon Dog\n> Within the rubber debris there is a silver key.",
       "silver key"
     ],
     "tools": [
       "needle",
-      "duck",
+      "broom",
       "soda",
       "water"
     ],
-    "unReachableDirection": "A pile of bobble heads are in your way. Please choose another direction."
+    "unReachableDirection": "> There are giant piles of bobble heads in the way.\n> I should head in another direction."
   },
   {
     "name": "Cotton Candy Stand",
@@ -48,8 +48,8 @@
     "villain": [
       "Cotton Candy Monster",
       "water",
-      "The Cotton Candy Monster did not like that. \nThe Monster grabs you and spins you in the cotton candy machine. \nYou are now a Cotton Candy Monster. Game Over.",
-      "The Cotton Candy Monster shrivels up and deteriorates into a pink goo. \nWithin the goo there is a gold key.",
+      "> The Cotton Candy Monster did not like that. \n> The Monster grabs me and spins me in the cotton candy machine. \n> I am thrown out, and find myself near a mirror.\n> I pick myself up and look into the mirror.\n> I am now a Cotton Candy Monster.\nGame Over.",
+      "> The Cotton Candy Monster shrivels up and turns into a pink goo. \n> I notice within the goo leftover there is a gold key.",
       "gold key"
     ],
     "tools": [
@@ -58,7 +58,7 @@
       "cup",
       "water"
     ],
-    "unReachableDirection": "A pile of paper cones are in your way. Please choose another direction."
+    "unReachableDirection": "> It appears that there are piles of paper cones in my way.\n> I should choose another direction."
   },
   {
     "name": "Safe Area",
@@ -71,7 +71,7 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "A pile of peanuts are in your way. Please choose another direction."
+    "unReachableDirection": "> Piles of peanuts are in the way.\n> I should choose another direction."
   },
   {
     "name": "Popcorn Stand",
@@ -85,8 +85,8 @@
     "villain": [
       "Popcorn Snake Monster",
       "broom",
-      "The Popcorn Snake is not fazed by your actions. \nIt completely wraps around you, and drags you into the popcorn machine. \nYou are now a popcorn snake. Game Over.",
-      "You grab the broom, sweep up the Popcorn Snake into the trash and tie it up. \nIt leaves behind a bronze key.",
+      "> The Popcorn Snake is not fazed by my actions. \n> It completely coils around me, and drags me into the popcorn machine. \n> The machine is very hot, and I cannot see.\n> After an what feels like an hour I burst out the machine.\n> I try to move my arms and legs, but I feel no response.\n> I look down, and only see a popcorn tail.\n> I am now a popcorn snake.\n Game Over.",
+      "> I grab the broom and sweep up the Popcorn Snake into the trash\n> I tie up the bag. \n> Within some the leftover popcorn is a bronze key.",
       "bronze key"
     ],
     "tools": [
@@ -95,7 +95,7 @@
       "butter",
       "cup"
     ],
-    "unReachableDirection": "A pile of paper bags filled with popcorn kernels are in your way. Please choose another direction."
+    "unReachableDirection": "> Mountains of paper bags filled with popcorn kernels are in the way.\n> I should choose another direction."
   },
   {
     "name": "Hot Dog Stand",
@@ -108,7 +108,7 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "A pile of mustard bottles are in your way. Please choose another direction."
+    "unReachableDirection": "> Comically large mustard bottles are in the way.\n> I should choose another direction."
   },
   {
     "name": "Dreamland Gate",
@@ -121,6 +121,6 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "A wrought iron fence is in your way. Please choose another direction."
+    "unReachableDirection": "> There is wrought iron fencing is in the way.\n> I should choose another direction."
   }
 ]
