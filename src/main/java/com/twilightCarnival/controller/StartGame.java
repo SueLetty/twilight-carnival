@@ -72,6 +72,7 @@ public class StartGame {
    */
   private void userInput(){
     InputValidator validator = new InputValidator();
+    String musicPath = "audio/Some-Dreamy-Place.wav";
     String[] validInput = new String[2];
     Scanner input = new Scanner(System.in);
     String userChoice = "";
@@ -91,7 +92,15 @@ public class StartGame {
 
       }else if (userChoice.equalsIgnoreCase("quit")) {
         game.quit();
-      } else if (validator.isValid(userChoice)) {
+      }
+      else if (userChoice.equalsIgnoreCase("mute")) {
+        Music.stopMusic();
+      }
+      else if (userChoice.equalsIgnoreCase("unmute")) {
+        Music.playMusic(musicPath);
+        System.out.println("Game unmuted. Please enter a command");
+      }
+      else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1], validator);
       }

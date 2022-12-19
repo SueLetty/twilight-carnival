@@ -1,6 +1,7 @@
 package com.twilightCarnival.model;
 
 import java.net.URL;
+import java.util.Scanner;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -28,9 +29,19 @@ public class Music {
 
 
   public static void stopMusic() {
-  musicClip.stop();
-  musicClip.close();
-
+    System.out.println("Do you really want to mute the game?(y/n)");
+    Scanner scanner = new Scanner(System.in);
+    String input = scanner.nextLine();
+    if (input.equalsIgnoreCase("y")) {
+      System.out.println("Game muted. Please enter a command");
+      musicClip.stop();
+      musicClip.close();
+    } else if (input.equalsIgnoreCase("n")) {
+      System.out.println("Please enter a command to continue");
+    } else {
+      System.out.println("That is not valid input. Please type y or n.");
+      stopMusic();
+    }
   }
 
   public void volumeUp() {

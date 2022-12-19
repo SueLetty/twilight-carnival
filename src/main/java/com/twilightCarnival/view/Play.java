@@ -8,7 +8,7 @@ public class Play {
 
   public static void main(String[] args) {
     StartGame startGame = new StartGame();
-    String musicPath = "audio/new-music.wav";
+    String musicPath = "audio/Some-Dreamy-Place.wav";
     Music.playMusic(musicPath);
     System.out.println(startGame.getTitleCard1());
     System.out.println(startGame.getClown());
