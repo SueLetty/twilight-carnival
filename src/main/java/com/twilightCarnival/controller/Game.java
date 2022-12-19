@@ -198,7 +198,7 @@ public class Game {
             System.out.println("You can explore other stations.");
             condition = false;
           } else{
-            System.out.println("That is not valid input. Please type y or n.");
+            System.out.println("Should I give it a token?(y) Or hold on to it?(n)");
             condition = true;
           }
         }while(condition);
@@ -216,10 +216,7 @@ public class Game {
 
   public void win(){
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
-      if(player.getInventory().contains("master key")
-          && player.getInventory().contains("gold key")
-          && player.getInventory().contains("silver key")
-          && player.getInventory().contains("bronze key")){
+      if(hasAllKeys()){
         System.out.println(getWinMessage());
         playAgain();
       }
@@ -230,6 +227,44 @@ public class Game {
         + "\nYou need four keys to open Dreamland Gate to escape.");
 
   }
+
+  /**
+   * hasAllKeys is used to check if the player has all keys.
+   *  for win condition and the use of "unlock" command and not at the final gate.
+   * @return true if all keys are in inventory.
+   */
+  public boolean hasAllKeys(){
+    boolean results = false;
+    boolean hasMasterKey = player.getInventory().contains("master key");
+    boolean hasGoldKey = player.getInventory().contains("gold key");
+    boolean hasSilverKey = player.getInventory().contains("silver key");
+    boolean hasBronzeKey = player.getInventory().contains("bronze key");
+
+    if(hasBronzeKey && hasGoldKey && hasMasterKey && hasSilverKey){
+      results = true;
+    }
+
+    return results;
+  }
+
+  /**
+   * hasAKey is used to check if the player has at-least one key.
+   * @return true if there is one key in inventory.
+   */
+  public boolean hasAKey(){
+    boolean results = false;
+    boolean hasMasterKey = player.getInventory().contains("master key");
+    boolean hasGoldKey = player.getInventory().contains("gold key");
+    boolean hasSilverKey = player.getInventory().contains("silver key");
+    boolean hasBronzeKey = player.getInventory().contains("bronze key");
+
+    if(hasBronzeKey || hasGoldKey || hasMasterKey || hasSilverKey){
+      results = true;
+    }
+
+    return results;
+  }
+
   /**
    * changingLocations will change the player's current location to chosen valid location.
    *  stationsVisited is tracked here through trackLocation() method call. Needs to be called before
@@ -270,7 +305,7 @@ public class Game {
    * @param location to searched in tracked locations.
    * @return true if visited, otherwise false.
    */
-  private boolean hasBeenVisited(String location){
+  public boolean hasBeenVisited(String location){
     return stationsVisited.contains(location.toLowerCase());
   }
 
