@@ -134,7 +134,7 @@ public class StartGame {
     } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && !notAtGate) {
       System.out.println("> I am going to need more keys. There are 4 locks on the door.");
     } else if (!visitedGate && game.hasAllKeys() && notAtGate) {
-      System.out.println("> I wonder what all these keys could unlock. Nothing where I am currently");
+      System.out.println("> I wonder what all these keys could unlock. Nothing where I am currently.");
     } else if (!visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate) {
       System.out.println("> I do not see anything I could unlock in this area.");
     } else {
