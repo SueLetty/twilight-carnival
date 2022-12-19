@@ -84,12 +84,7 @@ public class StartGame {
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
       } else if (userChoice.equalsIgnoreCase("unlock")){
-        if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
-          game.win();
-        }else{
-          System.out.println("It would be best if you used these keys at the Dream Land Gate.");
-        }
-
+        unlockAction();
       }else if (userChoice.equalsIgnoreCase("quit")) {
         game.quitFromStaredGame();
       }
@@ -108,7 +103,7 @@ public class StartGame {
     }
   }
 
-  // TODO: 12/14/2022 handle the combat input
+  // TODO: 12/19/2022 change method signature to reflect changes.
   /**
    * operation handles the logic of valid input and carries out desired action.
    *
@@ -132,6 +127,31 @@ public class StartGame {
       game.defeatMonsterOrLoseGame(noun);
     }
   }
+
+  /**
+   * unlockAction() handles the multiple ways the user will use the keyword "unlock" checking if
+   * player has all keys, at-least one key, and has/has not visited the DreamLand Gate.
+   */
+  private void unlockAction(){
+    boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
+    boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
+    if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+      game.win();
+    }else if (visitedGate && game.hasAllKeys() && notAtGate){
+      System.out.println("> It would be best if I used these keys at the Dreamland Gate.");
+    } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate){
+      System.out.println("> I think I might need more keys, and I am not at the gate.");
+    } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && !notAtGate) {
+      System.out.println("> I am going to need more keys. There are 4 locks on the door.");
+    } else if (!visitedGate && game.hasAllKeys() && notAtGate) {
+      System.out.println("> I wonder what all these keys could unlock. Nothing where I am currently.");
+    } else if (!visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate) {
+      System.out.println("> I do not see anything I could unlock in this area.");
+    } else {
+      System.out.println("> What am I trying to unlock with no keys.");
+    }
+  }
+
   public Game getGame() {
     return game;
   }

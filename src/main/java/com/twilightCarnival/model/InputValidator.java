@@ -34,7 +34,7 @@ public class InputValidator {
     String[] unfilteredString = input.split(" ");
 
     if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
-      System.out.println("Try keyword \"use\" with an [item].");
+      System.out.println("I should try to \"use\" an [item].");
       result = false;
     }else {
       for (String str : unfilteredString) {
@@ -54,14 +54,11 @@ public class InputValidator {
         if (validCombination()) {
           result = true;
         } else {
-          System.out.printf("You cannot \"%s %s\", it is not a valid input.\n", this.input[0], this.input[1]);
-          System.out.println("Try something like:\n \t> open map\n \t> go north");
-          System.out.println("For combat try:\n \t> use [item]");
+          System.out.printf("> I do not think I can \"%s %s.\" I should try something different.\n", this.input[0], this.input[1]);
         }
       } else {
-        System.out.println("Could not collect a valid input.");
-        System.out.println("Try something like:\n \t> use map\n \t> go south");
-        System.out.println("For combat try:\n \t> use [item]");
+        System.out.println("> I must not be in the right headspace. Maybe I should go about this in another way.");
+        System.out.println("> Why do I find myself in situations where I need " +"\u001B[32m" + "help" + "\u001B[0m" + ".");
         result = false;
       }
     }
