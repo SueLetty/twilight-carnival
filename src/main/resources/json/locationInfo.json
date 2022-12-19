@@ -86,7 +86,7 @@
       "Popcorn Snake Monster",
       "broom",
       "> The Popcorn Snake is not fazed by my actions. \n> It completely coils around me, and drags me into the popcorn machine. \n> The machine is very hot, and I cannot see.\n> After an what feels like an hour I burst out the machine.\n> I try to move my arms and legs, but I feel no response.\n> I look down, and only see a popcorn tail.\n> I am now a popcorn snake.\n Game Over.",
-      "> I grab the broom and sweep up the Popcorn Snake into the trash\n> I tie up the bag. \n> Within some the leftover popcorn is a bronze key.",
+      "> I grab the broom and sweep up the Popcorn Snake into the trash\n> I tie up the bag. \n> Within some of the leftover popcorn is a bronze key.",
       "bronze key"
     ],
     "tools": [
@@ -121,6 +121,6 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "> There is wrought iron fencing is in the way.\n> I should choose another direction."
+    "unReachableDirection": "> There is wrought iron fencing in the way.\n> I should choose another direction."
   }
 ]

@@ -234,8 +234,6 @@ public class Game {
         Music.playMusic(musicPath);
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(6);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         playAgain();
       }
 
