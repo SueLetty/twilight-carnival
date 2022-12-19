@@ -10,10 +10,10 @@ import javax.sound.sampled.FloatControl;
 
 public class Music {
 
-  private static Clip musicClip;
+  private Clip musicClip;
 
 
-  public static void playMusic(String musicLocation) {
+  public void playMusic(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
@@ -29,8 +29,24 @@ public class Music {
 
   }
 
+  public void playSoundFX(String musicLocation) {
+    try {
+      URL url = Music.class.getClassLoader().getResource(musicLocation);
+      AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
+      musicClip = AudioSystem.getClip();
+      musicClip.open(audioInput);
+      volumeMedium();
+      musicClip.start();
 
-  public static void muteMusic() {
+
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+  }
+
+
+  public void muteMusic() {
     System.out.println("Do you really want to mute the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -45,26 +61,46 @@ public class Music {
       muteMusic();
     }
   }
-  public static void stopMusic(){
+  public void stopMusic(){
     musicClip.stop();
     musicClip.close();
   }
-  public static void volumeHigh() {
+  public void volumeHigh() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
     gainControl.setValue(6.0f);
   }
 
-  public static void volumeMedium() {
+  public void volumeMedium() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
     gainControl.setValue(-6.0f);
   }
 
-  public static void volumeLow() {
+  public void volumeLow() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
     gainControl.setValue(-20.0f);
+  }
+
+  public void openMap() {
+    String musicPath = "audio/openMap.wav";
+    playSoundFX(musicPath);
+  }
+
+  public void enterMonsterRoom() {
+    String musicPath = "audio/enterMonsterRoom.wav";
+    playSoundFX(musicPath);
+  }
+
+  public void pickedUpItem() {
+    String musicPath = "audio/pickupFX.wav";
+    playSoundFX(musicPath);
+  }
+
+  public void unlockingGate() {
+    String musicPath = "audio/door-unlocking-with-keys.wav";
+    playSoundFX(musicPath);
   }
 
 }

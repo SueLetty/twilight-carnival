@@ -6,7 +6,6 @@ import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -33,8 +32,9 @@ public class Game {
     stations = map.getStations();
 
   }
+  private Music music = new Music();
+
   public void playAgain() throws InterruptedException {
-    Music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -52,19 +52,20 @@ public class Game {
 
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
-        System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
+        System.out.printf("You picked up the %s and added it to your inventory\n", item);
+        music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
       } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem()== null){
-        System.out.println("> There is not anything I really want to pickup.");
+        System.out.println("There are no items you can pickup.");
       }
     }
   }
   public void status(){
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
-    System.out.println("=============================================================================================");
+    System.out.println("=============================================================================================\n\n");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
 
     System.out.println("=============================================================================================");
@@ -94,6 +95,8 @@ public class Game {
   /**
    * viewMap() will display the locations adjacent to the player's current location.
    *  It will color red if not visited before and green if previously visited.
+   *  red = \u001B[31m
+   *  green = \u001B[32m
    */
   public void viewMap(){
     String redColor = "\u001B[31m";
@@ -103,6 +106,8 @@ public class Game {
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor + " for areas I visited, and "
           + redColor + "red" + clearColor + " for places I have not.");
+      music.openMap();
+      System.out.println("Your current location surroundings are below. \n(Green is for visited locations, and Red is for unvisited locations.)");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
@@ -124,7 +129,7 @@ public class Game {
   /**
    * when the user type "quit", it quits the game
    */
-  public void quitFromStaredGame(){
+  public void quitFromStartedGame(){
     System.out.println("Do you really want to quit the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -134,8 +139,8 @@ public class Game {
     }else if(input.equalsIgnoreCase("n")){
       System.out.println("Thanks for staying with us! Please enter a command to continue");
     } else{
-      System.out.println("That is not valid input. Please type y or n.\n");
-      quitFromStaredGame();
+      System.out.println("That is not valid input. Please type y or n.");
+      quitFromStartedGame();
     }
   }
   public boolean quit(){
@@ -231,7 +236,7 @@ public class Game {
       if(hasAllKeys()){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        Music.playMusic(musicPath);
+        music.playMusic(musicPath);
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(6);
         playAgain();

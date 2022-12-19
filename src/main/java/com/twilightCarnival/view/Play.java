@@ -20,7 +20,7 @@ public class Play {
         if(startGame.getGame().quit()){
           startGame.start();
         }else{
-          startGame.getGame().quitFromStaredGame();
+          startGame.getGame().quitFromStartedGame();
         }
       }else{
         System.out.println("It is not a valid input. Please use 'y' or 'n'.");
