@@ -118,6 +118,10 @@ public class StartGame {
     }
   }
 
+  /**
+   * unlockAction() handles the multiple ways the user will use the keyword "unlock" checking if
+   * player has all keys, at-least one key, and has/has not visited the DreamLand Gate.
+   */
   private void unlockAction(){
     boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
     boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
