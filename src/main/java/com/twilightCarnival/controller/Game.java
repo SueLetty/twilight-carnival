@@ -1,5 +1,7 @@
 package com.twilightCarnival.controller;
+
 import com.twilightCarnival.model.Directions;
+import com.twilightCarnival.model.Music;
 import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
@@ -8,7 +10,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-
+import java.util.concurrent.TimeUnit;
 
 
 public class Game {
@@ -31,7 +33,8 @@ public class Game {
     stations = map.getStations();
 
   }
-  public void playAgain(){
+  public void playAgain() throws InterruptedException {
+    Music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -171,7 +174,7 @@ public class Game {
     }
     return false;
   }
-  public void defeatMonsterOrLoseGame(String noun){
+  public void defeatMonsterOrLoseGame(String noun) throws InterruptedException {
     if(isMonsterDefeated(noun)){
       for(Station s:stations){
         if(s.getName().equals(player.getCurrentLocation())){
@@ -222,10 +225,17 @@ public class Game {
     }
   }
 
-  public void win(){
+  public void win() throws InterruptedException {
+    String musicPath = "audio/winning.wav";
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
       if(hasAllKeys()){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        Music.playMusic(musicPath);
         System.out.println(getWinMessage());
+        TimeUnit.SECONDS.sleep(6);
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         playAgain();
       }
 
