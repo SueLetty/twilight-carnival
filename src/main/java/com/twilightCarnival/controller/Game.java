@@ -4,6 +4,7 @@ import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -185,23 +186,27 @@ public class Game {
         }
       }
 
-    }else{ // TODO: 12/19/2022 I am here at lunch, changing narrative for defeat/retry
+    }else{
       if(player.getToken() > 0){
+        String monster = getCurrentStation().getMonster().getName();
+        System.out.println("> The " + monster + " was not pleased by my action.");
+        System.out.println("> The monster reaches out and demands a token.");
         System.out.println("> I currently have " + player.getToken() + " tokens.");
         boolean condition = false;
         do{
-          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+          System.out.println("> Do I want to give 1 token to appease this monster?(y/n)");
           Scanner scanner = new Scanner(System.in);
           String input = scanner.nextLine();
           if(input.equalsIgnoreCase("y")){
-            System.out.println("Choose a tool to defeat monster. Example: use water");
+            System.out.println("> I give the " + monster + " a token.");
             player.setToken(player.getToken()-1);
             condition = false;
           }else if(input.equalsIgnoreCase("n")){
-            System.out.println("You can explore other stations.");
+            System.out.println("> I decline to give a token.");
+            System.out.println("> Maybe I should visit other areas.");
             condition = false;
           } else{
-            System.out.println("Should I give it a token?(y) Or hold on to it?(n)");
+            System.out.println("> Should I give it a token?(y) Or hold on to it?(n)");
             condition = true;
           }
         }while(condition);
@@ -225,9 +230,9 @@ public class Game {
       }
 
     }
-    System.out.println("You don't have enough keys to escape."
-        + "\nYou need to go to defeat monsters and earn more keys."
-        + "\nYou need four keys to open Dreamland Gate to escape.");
+    System.out.println("> I don't have enough keys to escape."
+        + "\n> There are a total of four locks on the gate."
+        + "\n> Perhaps the monsters have keys or there is one somewhere to be found.");
 
   }
 
