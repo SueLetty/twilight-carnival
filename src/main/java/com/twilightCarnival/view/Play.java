@@ -24,7 +24,7 @@ public class Play {
           startGame.getGame().quitFromStaredGame();
         }
       }else{
-        System.out.println("It is not a valid input.");
+        System.out.println("It is not a valid input. Please use 'y' or 'n'.");
         condition = true;
       }
     }while(condition);

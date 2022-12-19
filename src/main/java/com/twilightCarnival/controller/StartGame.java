@@ -82,7 +82,8 @@ public class StartGame {
       userChoice = input.nextLine();
       validator.generateCombatTools(game.getCurrentStation());
       if (userChoice.equals("")){
-        System.out.println("Please enter a command.");
+        System.out.println("> I don't think standing around doing anything will get me out of here.");
+        System.out.println("> Maybe I might need some " + "\u001B[32m" + "help" + "\u001B[0m" + ".");
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
       } else if (userChoice.equalsIgnoreCase("unlock")){
@@ -131,7 +132,7 @@ public class StartGame {
       if (game.getPlayer().hasMap()){
         game.viewMap();
       }else {
-        System.out.println("You do not have a map.");
+        System.out.println("> I do not have a map to open.");
       }
     } else if (verb.equals("pickup")) {
       game.getItem(noun);
