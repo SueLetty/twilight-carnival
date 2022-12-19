@@ -34,7 +34,7 @@ public class InputValidator {
     String[] unfilteredString = input.split(" ");
 
     if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
-      System.out.println("I should try to \"use\" an [item].");
+      System.out.println("> It might be best if I try to " + "\u001B[32m" + "use" + "\u001B[0m" + " an " + "\u001B[32m" + "[item]" + "\u001B[0m" + ".");
       result = false;
     }else {
       for (String str : unfilteredString) {

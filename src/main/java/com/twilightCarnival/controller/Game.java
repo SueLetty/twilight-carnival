@@ -6,6 +6,7 @@ import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -53,36 +54,37 @@ public class Game {
 
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
-        System.out.printf("You picked up the %s and added it to your inventory\n", item);
+        System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
         music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
       } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem()== null){
-        System.out.println("There are no items you can pickup.");
+        System.out.println("> There is not anything I really want to pickup.");
       }
     }
   }
   public void status(){
     System.out.println("=============================================================================================");
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
-    System.out.println("=============================================================================================\n\n");
+    System.out.println("=============================================================================================");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
 
     System.out.println("=============================================================================================");
-
+    // TODO: 12/19/2022 Add station description within this loop.
     for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){
-        System.out.println("There is a map in your inventory.");
-        System.out.println("You can view map.");
+      if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){ // TODO: 12/19/2022 remove this and only prompt on pickup?
+        System.out.println("> I am carrying a map.");
+        System.out.println("> I can view the map anytime.\n");
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
-        System.out.println("There is a " + s.getItem() + ".");
-        System.out.println("You can pickup " + s.getItem() + ".");
+        System.out.println("> There is a " + s.getItem() + ".");
+        System.out.println("> " + s.getItem() + " might be something I want to pickup.\n");
       }
       if(s.getName().equals(player.getCurrentLocation())  && s.getMonster().getName() != null && s.getMonster().isAlive()){
-        System.out.println("There is a " + s.getMonster().getName() + "!");
-        System.out.println("Choose one of the tools displayed to defeat the" + " " +s.getMonster().getName() + "." + " " + "Example: use water.");
+        System.out.println("> There is a " + s.getMonster().getName() + "!");
+        System.out.println("> I see some items in the area.\n"
+            + "> I could use some of them on the " +s.getMonster().getName() + ".\n");
         s.displayTools();
       }
 
@@ -95,28 +97,31 @@ public class Game {
   /**
    * viewMap() will display the locations adjacent to the player's current location.
    *  It will color red if not visited before and green if previously visited.
-   *  red = \u001B[31m
-   *  green = \u001B[32m
    */
   public void viewMap(){
+    String redColor = "\u001B[31m";
+    String greenColor = "\u001B[32m";
+    String clearColor = "\u001B[0m";
     if(player.hasMap()){
       music.openMap();
-      System.out.println("Your current location surroundings are below. \n(Green is for visited locations, and Red is for unvisited locations.)");
+      System.out.println("> I look at my map and see my current surroundings.\n"
+          + "> I marked locations" + greenColor + " green" + clearColor + " for areas I visited, and "
+          + redColor + "red" + clearColor + " for places I have not.");
       for(Station s: stations){
         if(s.getName().equals(player.getCurrentLocation())){
           for(Directions direction: s.getSurroundings().keySet()){
             String adjacentLocation = s.getSurroundings().get(direction);
             if(hasBeenVisited(adjacentLocation)){
-              System.out.println(direction + ": " + "\u001B[32m" + adjacentLocation + "\u001B[0m");
+              System.out.println(direction + ": " + greenColor + adjacentLocation + clearColor);
             }else {
-              System.out.println(direction + ": " + "\u001B[31m" + adjacentLocation + "\u001B[0m");
+              System.out.println(direction + ": " + redColor + adjacentLocation + clearColor);
 
             }
           }
         }
       }
     }else{
-      System.out.println("You don't have a map to view.");
+      System.out.println("> I don't know why I tried to use a map, when I don't have one.\n");
     }
   }
 
@@ -128,12 +133,12 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if(input.equalsIgnoreCase("y")){
-      System.out.println("Thank you! Have a great day!");
+      System.out.println("Thank you! Have a great day!\n");
       System.exit(0);
     }else if(input.equalsIgnoreCase("n")){
       System.out.println("Thanks for staying with us! Please enter a command to continue");
     } else{
-      System.out.println("That is not valid input. Please type y or n.");
+      System.out.println("That is not valid input. Please type y or n.\n");
       quitFromStartedGame();
     }
   }
@@ -142,13 +147,13 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if(input.equalsIgnoreCase("y")){
-      System.out.println("Thank you! Have a great day!");
+      System.out.println("Thank you! Have a great day!\n");
       System.exit(0);
     }else if(input.equalsIgnoreCase("n")){
-      System.out.println("You can start the game.");
+      System.out.println("You can start the game.\n");
       return true;
     } else{
-      System.out.println("That is not valid input. Please type y or n.");
+      System.out.println("That is not valid input. Please type y or n.\n");
       quit();
     }
     return false;
@@ -180,8 +185,8 @@ public class Game {
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
           System.out.println(s.getMonster().getWinMessage());
-          System.out.println("You earned a " + s.getMonster().getKey()+".");
-          System.out.println("It is in your inventory now.");
+          System.out.println("> That " + s.getMonster().getKey()+" looks important.");
+          System.out.println("> I'll put it in my pocket for safe keeping.\n");
           s.getMonster().setKey(null);
           return;
 
@@ -190,21 +195,25 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
-        System.out.println("You have " + player.getToken() + " tokens.");
+        String monster = getCurrentStation().getMonster().getName();
+        System.out.println("> The " + monster + " was not pleased by my action.");
+        System.out.println("> The monster reaches out and demands a token.");
+        System.out.println("> I currently have " + player.getToken() + " tokens.");
         boolean condition = false;
         do{
-          System.out.println("Do you want to use 1 token to defeat the monster again?(y/n)");
+          System.out.println("> Do I want to give 1 token to appease this monster?(y/n)");
           Scanner scanner = new Scanner(System.in);
           String input = scanner.nextLine();
           if(input.equalsIgnoreCase("y")){
-            System.out.println("Choose a tool to defeat monster. Example: use water");
+            System.out.println("> I give the " + monster + " a token.");
             player.setToken(player.getToken()-1);
             condition = false;
           }else if(input.equalsIgnoreCase("n")){
-            System.out.println("You can explore other stations.");
+            System.out.println("> I decline to give a token.");
+            System.out.println("> Maybe I should visit other areas.");
             condition = false;
           } else{
-            System.out.println("Should I give it a token?(y) Or hold on to it?(n)");
+            System.out.println("> Should I give it a token?(y) Or hold on to it?(n)");
             condition = true;
           }
         }while(condition);
@@ -229,15 +238,13 @@ public class Game {
         music.playMusic(musicPath);
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(6);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         playAgain();
       }
 
     }
-    System.out.println("You don't have enough keys to escape."
-        + "\nYou need to go to defeat monsters and earn more keys."
-        + "\nYou need four keys to open Dreamland Gate to escape.");
+    System.out.println("> I don't have enough keys to escape."
+        + "\n> There are a total of four locks on the gate."
+        + "\n> Perhaps the monsters have keys or there is one somewhere to be found.");
 
   }
 
