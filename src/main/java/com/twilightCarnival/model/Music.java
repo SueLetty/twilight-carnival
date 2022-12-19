@@ -30,7 +30,7 @@ public class Music {
   }
 
 
-  public static void stopMusic() {
+  public static void muteMusic() {
     System.out.println("Do you really want to mute the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -42,10 +42,13 @@ public class Music {
       System.out.println("Please enter a command to continue");
     } else {
       System.out.println("That is not valid input. Please type y or n.");
-      stopMusic();
+      muteMusic();
     }
   }
-
+  public static void stopMusic(){
+    musicClip.stop();
+    musicClip.close();
+  }
   public static void volumeHigh() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);

@@ -24,14 +24,6 @@ public class StationTest {
   }
 
   @Test
-  public void testDisplayTools() {
-    String expected = "1. cup\n2. water\n3. candy\n4. sugar";
-    System.out.println(expected);
-    station.displayTools();
-
-  }
-
-  @Test
   public void testGetName() {
     String expected = "Gift Shop";
     String actual = station.getName();
