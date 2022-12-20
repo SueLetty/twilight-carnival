@@ -5,6 +5,8 @@ import com.twilightCarnival.model.Music;
 import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
+import com.twilightCarnival.model.SoundEffect;
+import com.twilightCarnival.model.SoundEffect.Volume;
 import com.twilightCarnival.model.Station;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +21,12 @@ public class Game {
   private SetMap map;
   private List<Station> stations;
   private Stack<String> stationsVisited = new Stack<>();
+  private final SoundEffect openmap = SoundEffect.OPENMAP;
+  private final SoundEffect pickedUp = SoundEffect.PICKUP;
+  private final SoundEffect earnedKey = SoundEffect.EARNEDKEY;
+  private final SoundEffect monsterGrowl = SoundEffect.MONSTERGROWL;
+  private final SoundEffect unlock = SoundEffect.UNLOCK;
+
 
   public Game() {
     player = new Player();
@@ -50,11 +58,20 @@ public class Game {
     }
   }
   public void getItem(String item){
-
+    String musicPath = "audio/pickupFX.wav";
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
-        music.pickedUpItem();
+        //pickedUp.play();
+        if(SoundEffect.volume.equals(Volume.OFF)){
+          //music.muteSoundFX(musicPath);
+          pickedUp.stop();
+        }
+        if (SoundEffect.volume.equals(Volume.ON)){
+          music.playSoundFX("audio/pickupFX.wav");
+          pickedUp.play();
+        }
+        //music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
@@ -98,11 +115,19 @@ public class Game {
    *  It will color red if not visited before and green if previously visited.
    */
   public void viewMap(){
+    String musicPath = "audio/openMap.wav";
     String redColor = "\u001B[31m";
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
     if(player.hasMap()){
-      music.openMap();
+      if(SoundEffect.volume.equals(Volume.OFF)){
+        music.muteSoundFX(musicPath);
+        openmap.stop();
+      }
+      else{
+        SoundEffect.volume.equals(Volume.ON);
+        openmap.play();
+      }
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor + " for areas I visited, and "
           + redColor + "red" + clearColor + " for places I have not.");
@@ -178,10 +203,19 @@ public class Game {
     return false;
   }
   public void defeatMonsterOrLoseGame(String noun) throws InterruptedException {
+    String musicPath = "audio/earnAKey.wav";
+    String musicPath2 = "audio/enterMonsterRoom.wav";
     if(isMonsterDefeated(noun)){
       for(Station s:stations){
         if(s.getName().equals(player.getCurrentLocation())){
-          music.earnedKey();
+          if(SoundEffect.volume.equals(Volume.OFF)){
+            music.muteSoundFX(musicPath);
+            earnedKey.stop();
+          }
+          else{
+            SoundEffect.volume.equals(Volume.ON);
+            earnedKey.play();
+          }
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
           System.out.println(s.getMonster().getWinMessage());
@@ -195,7 +229,16 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
-        music.monsterGrowl();
+
+        if(SoundEffect.volume.equals(Volume.OFF)){
+          music.muteSoundFX(musicPath2);
+          monsterGrowl.stop();
+        }
+        else{
+          SoundEffect.volume.equals(Volume.ON);
+          monsterGrowl.play();
+        }
+
         String monster = getCurrentStation().getMonster().getName();
         System.out.println("> The " + monster + " was not pleased by my action.");
         System.out.println("> The monster reaches out and demands a token.");
@@ -232,10 +275,19 @@ public class Game {
 
   public void win() throws InterruptedException {
     String musicPath = "audio/winning.wav";
+    String musicPath2 = "audio/door-unlocking-with-keys.wav";
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
       if(hasAllKeys()){
         System.out.println("unlocking gate...");
-        music.unlockingGate();
+        if(SoundEffect.volume.equals(Volume.OFF)){
+          music.muteSoundFX(musicPath2);
+          unlock.stop();
+        }
+        else{
+          SoundEffect.volume.equals(Volume.ON);
+          unlock.play();
+        }
+        unlock.play();
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
