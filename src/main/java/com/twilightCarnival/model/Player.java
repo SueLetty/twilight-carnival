@@ -3,6 +3,7 @@ package com.twilightCarnival.model;
 import java.util.HashSet;
 
 public class Player {
+
   private HashSet<String> inventory;
   private int token;
   private final int NUMBER_OF_TOKENS = 3;
@@ -32,6 +33,7 @@ public class Player {
   public int numberOfKeys() {
     return hasMap() ? inventory.size() - 1 : inventory.size();
   }
+
   public HashSet<String> getInventory() {
     return inventory;
   }

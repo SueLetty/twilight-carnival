@@ -26,8 +26,6 @@ public class Play {
         if (!startGame.getGame().quit()) {
           music.stopMusic();
           startGame.start();
-        } else {
-          startGame.getGame().quitFromStartedGame();
         }
       } else {
         System.out.println("It is not a valid input. Please use 'y' or 'n'.");

@@ -64,10 +64,11 @@ public class Music {
     }
   }
 
-  public void stopMusic(){
+  public void stopMusic() {
     musicClip.stop();
     musicClip.close();
   }
+
   public void volumeHigh() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -110,10 +111,12 @@ public class Music {
     String musicPath = "audio/door-unlocking-with-keys.wav";
     playSoundFX(musicPath);
   }
+
   public void deathMusic() {
     String musicPath = "audio/losingGame.wav";
     playSoundFX(musicPath);
   }
+
   public void winMusic() {
     String musicPath = "audio/winning.wav";
     playSoundFX(musicPath);
