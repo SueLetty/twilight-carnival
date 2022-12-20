@@ -37,7 +37,6 @@ public class Game {
   }
 
   public void playAgain() throws InterruptedException {
-    music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -243,11 +242,10 @@ public class Game {
           }
         } while (condition);
       } else {
-
+        music.deathMusic();
         for (Station s : stations) {
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
-            music.deathMusic();
             playAgain();
             return;
           }
@@ -257,7 +255,6 @@ public class Game {
   }
 
   public void win() throws InterruptedException {
-    String musicPath = "audio/winning.wav";
     if (player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
       if (hasAllKeys()) {
 
@@ -266,16 +263,18 @@ public class Game {
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        music.playMusic(musicPath);
+        music.winMusic();
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(10);
         playAgain();
+        music.stopMusic();
       }
 
     }
     System.out.println("> I don't have enough keys to escape."
         + "\n> There are a total of four locks on the gate."
         + "\n> Perhaps the monsters have keys or there is one somewhere to be found.");
+
 
   }
 

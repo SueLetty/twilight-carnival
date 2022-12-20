@@ -159,7 +159,7 @@ public class StartGame {
     boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
     boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
     if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
-      music.stopMusic();
+//      music.stopMusic();
       game.win();
     }else if (visitedGate && game.hasAllKeys() && notAtGate){
       System.out.println("> It would be best if I used these keys at the Dreamland Gate.");
