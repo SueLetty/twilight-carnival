@@ -16,6 +16,7 @@ public class Music {
   public void playMusic(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
+      assert url != null;
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
       musicClip = AudioSystem.getClip();
       musicClip.open(audioInput);
@@ -32,6 +33,7 @@ public class Music {
   public void playSoundFX(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
+      assert url != null;
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
       musicClip = AudioSystem.getClip();
       musicClip.open(audioInput);
@@ -44,7 +46,6 @@ public class Music {
     }
 
   }
-
 
   public void muteMusic() {
     System.out.println("Do you really want to mute the game?(y/n)");
@@ -61,6 +62,7 @@ public class Music {
       muteMusic();
     }
   }
+
   public void stopMusic(){
     musicClip.stop();
     musicClip.close();
@@ -105,6 +107,10 @@ public class Music {
 
   public void unlockingGate() {
     String musicPath = "audio/door-unlocking-with-keys.wav";
+    playSoundFX(musicPath);
+  }
+  public void deathMusic() {
+    String musicPath = "audio/losingGame.wav";
     playSoundFX(musicPath);
   }
 

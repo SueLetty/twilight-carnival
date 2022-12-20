@@ -10,23 +10,23 @@ public class Play {
     System.out.println(startGame.getTitleCard1());
     System.out.println(startGame.getClown());
     boolean condition = false;
-    do{
+    do {
       System.out.println("Do you want to start a new game?(y/n)");
       Scanner scanner = new Scanner(System.in);
       String input = scanner.nextLine();
-      if(input.equalsIgnoreCase("y")){
+      if (input.equalsIgnoreCase("y")) {
         startGame.start();
-      }else if(input.equalsIgnoreCase("n")){
-        if(startGame.getGame().quit()){
+      } else if (input.equalsIgnoreCase("n")) {
+        if (startGame.getGame().quit()) {
           startGame.start();
-        }else{
+        } else {
           startGame.getGame().quitFromStartedGame();
         }
-      }else{
+      } else {
         System.out.println("It is not a valid input. Please use 'y' or 'n'.");
         condition = true;
       }
-    }while(condition);
+    } while (condition);
 
   }
 }

@@ -6,11 +6,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MonsterTest {
+
   public static Monster monster;
 
   @BeforeClass
-  public static void beforeClass(){
-    monster = new Monster("Balloon Dog Monster", "needle", "You carried by other balloon monsters", "You defeated the monster!","gold key");
+  public static void beforeClass() {
+    monster = new Monster("Balloon Dog Monster", "needle", "You carried by other balloon monsters",
+        "You defeated the monster!", "gold key");
   }
 
   @Test

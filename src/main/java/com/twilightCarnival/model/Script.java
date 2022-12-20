@@ -2,15 +2,13 @@ package com.twilightCarnival.model;
 
 import com.google.gson.Gson;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 
 public class Script {
+
   private Script script;
   private String introduction;
   private String directions;
@@ -20,10 +18,11 @@ public class Script {
   private String playAgainMessage;
 
   public Script() {
-
   }
 
-  public Script(String introduction, String directions, String toolMessage, String winMessage, String help, String playAgainMessage){
+  public Script(Script script, String introduction, String directions, String toolMessage,
+      String winMessage, String help, String playAgainMessage) {
+    this.script = script;
     this.introduction = introduction;
     this.directions = directions;
     this.toolMessage = toolMessage;
@@ -31,18 +30,17 @@ public class Script {
     this.help = help;
     this.playAgainMessage = playAgainMessage;
   }
-  public void load(){
-    try{ // TODO: 12/15/2022 read in file with inputstream? like getResourceAsStream()???
-      String fileName = "json/script.json";
-      Gson gson = new Gson();
-      InputStream inputStream = getFileFromResources(fileName);
-      BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-      script = gson.fromJson(reader, Script.class);
 
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void load() {
+    String fileName = "json/script.json";
+    Gson gson = new Gson();
+    InputStream inputStream = getFileFromResources(fileName);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
+        StandardCharsets.UTF_8));
+    script = gson.fromJson(reader, Script.class);
+
   }
+
   public String getIntroduction() {
     return introduction;
   }
@@ -71,10 +69,10 @@ public class Script {
     return script;
   }
 
-  private static InputStream getFileFromResources(String fileName){
+  private static InputStream getFileFromResources(String fileName) {
     ClassLoader classLoader = Script.class.getClassLoader();
     InputStream inputStream = classLoader.getResourceAsStream(fileName);
-    if (inputStream == null){
+    if (inputStream == null) {
       throw new IllegalArgumentException("file not found: " + fileName);
     } else {
       return inputStream;
