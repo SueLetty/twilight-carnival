@@ -49,7 +49,7 @@ public class StartGame {
 
   private final Game game;
   private final Music music;
-  public StartGame(){
+  public StartGame() throws InterruptedException {
     game = new Game();
     music = new Music();
   }
@@ -69,7 +69,6 @@ public class StartGame {
     System.out.flush();
     game.status();
     userInput();
-
   }
 
 
@@ -81,10 +80,8 @@ public class StartGame {
     InputValidator validator = new InputValidator();
     String musicPath = "audio/Some-Dreamy-Place.wav";
     String[] validInput = new String[2];
-//    Scanner input = new Scanner(System.in);
-//    String userChoice = "";
+
     while (true){
-//      userChoice = input.nextLine();
       Scanner input = new Scanner(System.in);
       String userChoice = input.nextLine();
       validator.generateCombatTools(game.getCurrentStation());
@@ -148,6 +145,10 @@ public class StartGame {
       game.changingLocation(Directions.valueOf(noun));
     } else if (verb.equals("use")){
       game.defeatMonsterOrLoseGame(noun);
+      if(game.getResult()){
+        music.stopMusic();
+        game.playAgain();
+      }
     }
   }
 

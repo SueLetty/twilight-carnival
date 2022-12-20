@@ -113,5 +113,9 @@ public class Music {
     String musicPath = "audio/losingGame.wav";
     playSoundFX(musicPath);
   }
+  public void winMusic() {
+    String musicPath = "audio/winning.wav";
+    playSoundFX(musicPath);
+  }
 
 }
