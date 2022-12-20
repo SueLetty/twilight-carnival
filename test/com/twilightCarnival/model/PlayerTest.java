@@ -6,9 +6,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PlayerTest {
+
   public static Player player;
+
   @BeforeClass
-  public static void beforeClass(){
+  public static void beforeClass() {
     player = new Player();
   }
 
@@ -21,14 +23,14 @@ public class PlayerTest {
   public void testNumberOfKeys() {
     int expected = 1;
     int actual = player.getInventory().size();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 
   @Test
   public void testGetInventory() {
     int expected = 1;
     int actual = player.getInventory().size();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -41,14 +43,15 @@ public class PlayerTest {
     player.setInventory("Key1");
     String expected = "Key1";
     String actual = player.displayInventory();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
   }
+
   @Test
   public void testGetToken() {
     int expected = 3;
     int actual = player.getToken();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -56,14 +59,14 @@ public class PlayerTest {
     player.setToken(2);
     int expected = 2;
     int actual = player.getToken();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 
   @Test
   public void testGetCurrentLocation() {
     String expected = "Moon";
     String actual = player.getCurrentLocation();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -71,6 +74,6 @@ public class PlayerTest {
     player.setCurrentLocation("Moon");
     String expected = "Moon";
     String actual = player.getCurrentLocation();
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
   }
 }

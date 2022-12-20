@@ -16,6 +16,7 @@ public class Music {
   public void playMusic(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
+      assert url != null;
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
       musicClip = AudioSystem.getClip();
       musicClip.open(audioInput);
@@ -32,6 +33,7 @@ public class Music {
   public void playSoundFX(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
+      assert url != null;
       AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
       musicClip = AudioSystem.getClip();
       musicClip.open(audioInput);
@@ -61,6 +63,7 @@ public class Music {
       muteMusic();
     }
   }
+
   public void stopMusic(){
     musicClip.stop();
     musicClip.close();

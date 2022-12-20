@@ -3,6 +3,7 @@ package com.twilightCarnival.model;
 import java.util.HashMap;
 
 public class Station {
+
   private String name;
   private String item;
   private String[] villain;
@@ -13,7 +14,8 @@ public class Station {
 
   private String unReachableDirection;
 
-  public Station(String name, String[] villain, String[] tools, String item, String[] surroundings, String unReachableDirection){
+  public Station(String name, String[] villain, String[] tools, String item, String[] surroundings,
+      String unReachableDirection) {
     this.name = name;
     this.villain = villain;
     this.monster = setMonster(this.villain);
@@ -23,9 +25,9 @@ public class Station {
     this.unReachableDirection = unReachableDirection;
   }
 
-  public void displayTools(){
-    for(int i = 0; i < getTools().length; i++){
-      System.out.println(i+1 + ". " + getTools()[i]);
+  public void displayTools() {
+    for (int i = 0; i < getTools().length; i++) {
+      System.out.println(i + 1 + ". " + getTools()[i]);
     }
   }
 
@@ -34,7 +36,7 @@ public class Station {
     return name;
   }
 
-  public Monster getMonster(){
+  public Monster getMonster() {
     return this.monster;
   }
 
@@ -48,16 +50,16 @@ public class Station {
 
   public HashMap<Directions, String> getSurroundings() {
     HashMap<Directions, String> result = new HashMap<>();
-    if(surroundings[0].length() > 0){
+    if (surroundings[0].length() > 0) {
       result.put(Directions.NORTH, surroundings[0]);
     }
-    if(surroundings[1].length() > 0){
+    if (surroundings[1].length() > 0) {
       result.put(Directions.SOUTH, surroundings[1]);
     }
-    if(surroundings[2].length() > 0){
+    if (surroundings[2].length() > 0) {
       result.put(Directions.EAST, surroundings[2]);
     }
-    if(surroundings[3].length() > 0){
+    if (surroundings[3].length() > 0) {
       result.put(Directions.WEST, surroundings[3]);
     }
 
@@ -70,14 +72,15 @@ public class Station {
   }
 
   public Monster setMonster(String[] villain) {
-    if(villain.length > 0){
-      this.monster = new Monster(villain[0], villain[1], villain[2],villain[3],villain[4]);
+    if (villain.length > 0) {
+      this.monster = new Monster(villain[0], villain[1], villain[2], villain[3], villain[4]);
       return this.monster;
     }
     this.monster = new Monster();
     return this.monster;
   }
-  public String[] getVillain(){
+
+  public String[] getVillain() {
     return this.villain;
   }
 
