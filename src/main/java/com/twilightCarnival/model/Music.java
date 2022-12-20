@@ -110,5 +110,9 @@ public class Music {
     String musicPath = "audio/door-unlocking-with-keys.wav";
     playSoundFX(musicPath);
   }
+  public void deathMusic() {
+    String musicPath = "audio/losingGame.wav";
+    playSoundFX(musicPath);
+  }
 
 }
