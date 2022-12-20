@@ -20,6 +20,7 @@ public class Game {
   private List<Station> stations;
   private Stack<String> stationsVisited = new Stack<>();
   private Music music;
+  private boolean result;
 
   public Game() {
 
@@ -33,11 +34,11 @@ public class Game {
       s.setMonster(s.getVillain());
     }
     stations = map.getStations();
+    result = false;
 
   }
 
   public void playAgain() throws InterruptedException {
-    music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -95,7 +96,7 @@ public class Game {
   public void getItem(String item) {
 
     for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
+      if(s.getName().equals(player.getCurrentLocation()) && s.getItem()!=null && s.getItem().equals(item)){
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
 
         music.pickedUpItem();
@@ -203,7 +204,7 @@ public class Game {
   public void defeatMonsterOrLoseGame(String noun) throws InterruptedException {
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
-        if (s.getName().equals(player.getCurrentLocation())) {
+        if (s.getName().equals(player.getCurrentLocation()) && s.getMonster().isAlive()) {
           music.earnedKey();
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
@@ -213,6 +214,8 @@ public class Game {
           s.getMonster().setKey(null);
           return;
 
+        }else if(s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()){
+          System.out.println("I already defeated the monster. I should go ro explore other places.");
         }
       }
 
@@ -242,12 +245,13 @@ public class Game {
           }
         } while (condition);
       } else {
-
         for (Station s : stations) {
+          music.deathMusic();
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
-            music.deathMusic();
-            playAgain();
+            result = true;
+//            playAgain();
+
             return;
           }
         }
@@ -256,16 +260,14 @@ public class Game {
   }
 
   public void win() throws InterruptedException {
-    String musicPath = "audio/winning.wav";
     if (player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
       if (hasAllKeys()) {
-
         System.out.println("unlocking gate...");
         music.unlockingGate();
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        music.playMusic(musicPath);
+        music.winMusic();
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(10);
         playAgain();
@@ -275,6 +277,7 @@ public class Game {
     System.out.println("> I don't have enough keys to escape."
         + "\n> There are a total of four locks on the gate."
         + "\n> Perhaps the monsters have keys or there is one somewhere to be found.");
+
 
   }
 
@@ -399,7 +402,9 @@ public class Game {
     return script.getScript().getWinMessage();
   }
 
-
+  public boolean getResult() {
+    return result;
+  }
 }
 
 

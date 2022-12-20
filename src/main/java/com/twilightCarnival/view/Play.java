@@ -1,11 +1,15 @@
 package com.twilightCarnival.view;
 
 import com.twilightCarnival.controller.StartGame;
+import com.twilightCarnival.model.Music;
 import java.util.Scanner;
 
 public class Play {
 
   public static void main(String[] args) throws InterruptedException {
+    String musicPath = "audio/introMusic.wav";
+    Music music = new Music();
+    music.playMusic(musicPath);
     StartGame startGame = new StartGame();
     System.out.println(startGame.getTitleCard1());
     System.out.println(startGame.getClown());
@@ -15,9 +19,11 @@ public class Play {
       Scanner scanner = new Scanner(System.in);
       String input = scanner.nextLine();
       if (input.equalsIgnoreCase("y")) {
+        music.stopMusic();
         startGame.start();
       } else if (input.equalsIgnoreCase("n")) {
-        if (startGame.getGame().quit()) {
+        if (!startGame.getGame().quit()) {
+          music.stopMusic();
           startGame.start();
         } else {
           startGame.getGame().quitFromStartedGame();
