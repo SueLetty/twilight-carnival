@@ -11,7 +11,7 @@
     "villain": [],
     "tools": [],
     "unReachableDirection": "NULL",
-    "locationDescription": "\t-The balls within the ball pit have lost all color. From colorful red balls to a dull grey.\n \t-There is partial power throughout the park making visibility poor.\n"
+    "locationDescription": "-The balls within the ball pit have lost all color.\n-From colorful red balls to a dull grey.\n-There is partial power throughout the park making visibility poor."
   },
   {
     "name": "Gift Shop",
@@ -36,7 +36,7 @@
       "water"
     ],
     "unReachableDirection": "> There are giant piles of bobble heads in the way.\n> I should head in another direction.",
-    "locationDescription": "The Gift Shop has balloon dog."
+    "locationDescription": "-The Gift Shop appears to be in ruins.\n-Lights flickering and rubber squeaking throughout the shop.\n-Shelves tipped over and the contents spilled everywhere."
   },
   {
     "name": "Cotton Candy Stand",
@@ -61,7 +61,7 @@
       "water"
     ],
     "unReachableDirection": "> It appears that there are piles of paper cones in my way.\n> I should choose another direction.",
-    "locationDescription": "The Cotton Candy Stand is has a monster."
+    "locationDescription": "-The Cotton Candy Stand appears is in disarray.\n-Stains of pink food coloring and paper cones litter the area.\n-There is a faint taste of sugar in the air."
   },
   {
     "name": "Safe Area",
@@ -75,7 +75,7 @@
     "villain": [],
     "tools": [],
     "unReachableDirection": "> Piles of peanuts are in the way.\n> I should choose another direction.",
-    "locationDescription": "The Safe Area is a Circus tent."
+    "locationDescription": "-What appears to be a small circus tent.\n-The area feels safe, and has power.\n-There might have been an elephant act here with excess peanuts in the tent."
   },
   {
     "name": "Popcorn Stand",
@@ -100,7 +100,7 @@
       "cup"
     ],
     "unReachableDirection": "> Mountains of paper bags filled with popcorn kernels are in the way.\n> I should choose another direction.",
-    "locationDescription": "The Popcorn Stand is where a snake is."
+    "locationDescription": "-The aroma of buttery popcorn fills the air, as the Popcorn Stand makes its presence known.\n-The area is well lit, and stand is overflowing with popcorn."
   },
   {
     "name": "Hot Dog Stand",
@@ -114,7 +114,7 @@
     "villain": [],
     "tools": [],
     "unReachableDirection": "> Comically large mustard bottles are in the way.\n> I should choose another direction.",
-    "locationDescription": "The Hot Dog Stand is where the manager lost their keys."
+    "locationDescription": "-The Hot Dog Stand has no power, yet the stand still contains hot dogs.\n-There is a foul odor closer to the stand, and the hot dogs are cold."
   },
   {
     "name": "Dreamland Gate",
@@ -128,6 +128,6 @@
     "villain": [],
     "tools": [],
     "unReachableDirection": "> There is wrought iron fencing in the way.\n> I should choose another direction.",
-    "locationDescription": "The Dreamland Gate is all locked up"
+    "locationDescription": "-There is large gate with fencing that reads \"Dreamland Gate.\"\n-The gate is closed and secured with 4 locks."
   }
 ]

@@ -68,17 +68,23 @@ public class Game {
     System.out.println("Location:" + player.getCurrentLocation() + "\t Tokens: " + player.getToken() + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println("=============================================================================================");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
-
     System.out.println("=============================================================================================");
-    // TODO: 12/19/2022 Add station description within this loop.
+    System.out.println(getCurrentStation().getLocationDescription());
+    System.out.println("=============================================================================================");
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){ // TODO: 12/19/2022 remove this and only prompt on pickup?
         System.out.println("> I am carrying a map.");
         System.out.println("> I can view the map anytime.\n");
       }
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
-        System.out.println("> There is a " + s.getItem() + ".");
-        System.out.println("> " + s.getItem() + " might be something I want to pickup.\n");
+        if (s.getName().equalsIgnoreCase("Hot Dog Stand")){
+          System.out.println("> I see something strange in the hot dog water.");
+          System.out.println("> There is a " + s.getItem() + " within the hot dog water.");
+          System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
+        }else {
+          System.out.println("> There is a " + s.getItem() + ".");
+          System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
+        }
       }
       if(s.getName().equals(player.getCurrentLocation())  && s.getMonster().getName() != null && s.getMonster().isAlive()){
         System.out.println("> There is a " + s.getMonster().getName() + "!");
@@ -142,7 +148,7 @@ public class Game {
     }
   }
   public boolean quit(){
-    System.out.println("are you sure?(y/n)");
+    System.out.println("Are you sure?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if(input.equalsIgnoreCase("y")){
