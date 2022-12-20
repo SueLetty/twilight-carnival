@@ -11,6 +11,7 @@ import javax.sound.sampled.FloatControl;
 public class Music {
 
   private Clip musicClip;
+  private boolean musicOn = true;
 
 
   public void playMusic(String musicLocation) {
@@ -118,4 +119,11 @@ public class Music {
     playSoundFX(musicPath);
   }
 
+  public boolean isMusicOn() {
+    return musicOn;
+  }
+
+  public void setMusicOn(boolean musicOn) {
+    this.musicOn = musicOn;
+  }
 }

@@ -10,6 +10,7 @@ public class Play {
     String musicPath = "audio/introMusic.wav";
     Music music = new Music();
     music.playMusic(musicPath);
+    music.volumeLow();
     StartGame startGame = new StartGame();
     System.out.println(startGame.getTitleCard1());
     System.out.println(startGame.getClown());
