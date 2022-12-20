@@ -88,13 +88,18 @@ public class Music {
     playSoundFX(musicPath);
   }
 
-  public void enterMonsterRoom() {
+  public void monsterGrowl() {
     String musicPath = "audio/enterMonsterRoom.wav";
     playSoundFX(musicPath);
   }
 
   public void pickedUpItem() {
     String musicPath = "audio/pickupFX.wav";
+    playSoundFX(musicPath);
+  }
+
+  public void earnedKey() {
+    String musicPath = "audio/earnAKey.wav";
     playSoundFX(musicPath);
   }
 
