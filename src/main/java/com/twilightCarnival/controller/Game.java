@@ -6,7 +6,6 @@ import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -182,6 +181,7 @@ public class Game {
     if(isMonsterDefeated(noun)){
       for(Station s:stations){
         if(s.getName().equals(player.getCurrentLocation())){
+          music.earnedKey();
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
           System.out.println(s.getMonster().getWinMessage());
@@ -195,6 +195,7 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
+        music.monsterGrowl();
         String monster = getCurrentStation().getMonster().getName();
         System.out.println("> The " + monster + " was not pleased by my action.");
         System.out.println("> The monster reaches out and demands a token.");
@@ -233,6 +234,9 @@ public class Game {
     String musicPath = "audio/winning.wav";
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
       if(hasAllKeys()){
+        System.out.println("unlocking gate...");
+        music.unlockingGate();
+        TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
         music.playMusic(musicPath);
