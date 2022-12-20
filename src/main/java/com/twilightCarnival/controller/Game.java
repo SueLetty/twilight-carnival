@@ -36,7 +36,6 @@ public class Game {
 
   }
 
-
   public void playAgain() throws InterruptedException {
     music.stopMusic();
     System.out.println(getTryAgainMessage());
@@ -97,7 +96,8 @@ public class Game {
 
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
-        System.out.printf("You picked up the %s and added it to your inventory\n", item);
+        System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
+
         music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
@@ -177,6 +177,7 @@ public class Game {
       System.out.println("> I don't know why I tried to use a map, when I don't have one.\n");
     }
   }
+
 
   public void help() {
     System.out.println(getHelpMessage());
@@ -259,6 +260,7 @@ public class Game {
     String musicPath = "audio/winning.wav";
     if (player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
       if (hasAllKeys()) {
+
         System.out.println("unlocking gate...");
         music.unlockingGate();
         TimeUnit.SECONDS.sleep(7);

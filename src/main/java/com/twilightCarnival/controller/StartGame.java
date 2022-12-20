@@ -54,6 +54,7 @@ public class StartGame {
     music = new Music();
   }
 
+
   /**
    * start() starts the game, with splash screen and following method to begin the logic.
    */

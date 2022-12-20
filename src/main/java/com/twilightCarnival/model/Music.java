@@ -47,7 +47,6 @@ public class Music {
 
   }
 
-
   public void muteMusic() {
     System.out.println("Do you really want to mute the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
