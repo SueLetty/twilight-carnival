@@ -250,8 +250,9 @@ public class Game {
           music.deathMusic();
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
-            playAgain();
             result = true;
+//            playAgain();
+
             return;
           }
         }
@@ -270,7 +271,6 @@ public class Game {
         music.winMusic();
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(10);
-        result = true;
         playAgain();
       }
 

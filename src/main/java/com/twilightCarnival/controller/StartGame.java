@@ -145,6 +145,10 @@ public class StartGame {
       game.changingLocation(Directions.valueOf(noun));
     } else if (verb.equals("use")){
       game.defeatMonsterOrLoseGame(noun);
+      if(game.getResult()){
+        music.stopMusic();
+        game.playAgain();
+      }
     }
   }
 
