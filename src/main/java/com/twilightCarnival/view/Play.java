@@ -1,7 +1,6 @@
 package com.twilightCarnival.view;
 
 import com.twilightCarnival.controller.StartGame;
-import com.twilightCarnival.model.Music;
 import java.util.Scanner;
 
 public class Play {

@@ -9,7 +9,7 @@ public class Player {
   private String currentLocation;
 
   public Player(){
-    this.inventory = new HashSet<>();
+    inventory = new HashSet<>();
     token = NUMBER_OF_TOKENS;
     currentLocation = "Ball Pit";
   }
@@ -18,18 +18,16 @@ public class Player {
   }
 
   public String displayInventory(){
-    String result="";
+    StringBuilder result= new StringBuilder();
     if(getInventory().size()!=0){
       for(String item: inventory){
-        result += item + ", ";
+        result.append(item).append(", ");
       }
     }
 
-    return result.replaceAll(", $","");
+    return result.toString().replaceAll(", $","");
   }
-  public int numberOfKeys(){
-    return hasMap() ? inventory.size() -1: inventory.size();
-  }
+
   public HashSet<String> getInventory() {
     return inventory;
   }
