@@ -217,7 +217,7 @@ public class Game {
 
         } else if (s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()) {
           System.out.println(
-              "I already defeated the monster. I should go ro explore other places.");
+              "> There is no longer a monster here.\n> I should go explore other areas.");
         }
       }
 
