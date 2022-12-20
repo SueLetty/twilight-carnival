@@ -1,7 +1,6 @@
 package com.twilightCarnival.view;
 
 import com.twilightCarnival.controller.StartGame;
-import com.twilightCarnival.model.Music;
 import java.util.Scanner;
 
 public class Play {
@@ -21,7 +20,7 @@ public class Play {
         if(startGame.getGame().quit()){
           startGame.start();
         }else{
-          startGame.getGame().quitFromStaredGame();
+          startGame.getGame().quitFromStartedGame();
         }
       }else{
         System.out.println("It is not a valid input. Please use 'y' or 'n'.");

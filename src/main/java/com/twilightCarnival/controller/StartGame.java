@@ -3,7 +3,6 @@ package com.twilightCarnival.controller;
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
 import com.twilightCarnival.model.Music;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class StartGame {
@@ -49,13 +48,14 @@ public class StartGame {
       + "                                                 `Y8P\"                                                                                                          \n \u001B[0m";
 
   private Game game = new Game();
+  private Music music = new Music();
 
   /**
    * start() starts the game, with splash screen and following method to begin the logic.
    */
   public void start() throws InterruptedException {
     String musicPath = "audio/Some-Dreamy-Place.wav";
-    Music.playMusic(musicPath);
+    music.playMusic(musicPath);
     game.display();
     System.out.println("\nPress the \"Enter\" key to continue.");
     Scanner input = new Scanner(System.in);
@@ -89,25 +89,25 @@ public class StartGame {
       } else if (userChoice.equalsIgnoreCase("unlock")){
         unlockAction();
       }else if (userChoice.equalsIgnoreCase("quit")) {
-        game.quitFromStaredGame();
+        game.quitFromStartedGame();
       }
       else if (userChoice.equalsIgnoreCase("mute")) {
-        Music.muteMusic();
+        music.muteMusic();
       }
       else if (userChoice.equalsIgnoreCase("unmute")) {
-        Music.playMusic(musicPath);
+        music.playMusic(musicPath);
         System.out.println("Game unmuted. Please enter a command to continue.");
       }
       else if (userChoice.equalsIgnoreCase("lv")) {
-        Music.volumeLow();
+        music.volumeLow();
         System.out.println("Low Volume. [Type 'hv',or 'mdv' to control volume]-  Please enter a command to continue.");
       }
       else if (userChoice.equalsIgnoreCase("mdv")) {
-        Music.volumeMedium();
+        music.volumeMedium();
         System.out.println("Medium Volume. [Type 'hv',or 'lv' to control volume]-  Please enter a command to continue.");
       }
       else if (userChoice.equalsIgnoreCase("hv")) {
-        Music.volumeHigh();
+        music.volumeHigh();
         System.out.println("High Volume. [Type 'lv',or 'mdv' to control volume]-  Please enter a command to continue.");
       }
       else if (validator.isValid(userChoice)) {
@@ -152,7 +152,7 @@ public class StartGame {
     boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
     boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
     if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
-      Music.stopMusic();
+      music.stopMusic();
       game.win();
     }else if (visitedGate && game.hasAllKeys() && notAtGate){
       System.out.println("> It would be best if I used these keys at the Dreamland Gate.");

@@ -6,7 +6,6 @@ import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
 import com.twilightCarnival.model.Station;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -33,8 +32,10 @@ public class Game {
     stations = map.getStations();
 
   }
+  private Music music = new Music();
+
   public void playAgain() throws InterruptedException {
-    Music.stopMusic();
+    music.stopMusic();
     System.out.println(getTryAgainMessage());
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -53,6 +54,7 @@ public class Game {
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem().equals(item)){
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
+        music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
@@ -100,6 +102,7 @@ public class Game {
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
     if(player.hasMap()){
+      music.openMap();
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor + " for areas I visited, and "
           + redColor + "red" + clearColor + " for places I have not.");
@@ -124,7 +127,7 @@ public class Game {
   /**
    * when the user type "quit", it quits the game
    */
-  public void quitFromStaredGame(){
+  public void quitFromStartedGame(){
     System.out.println("Do you really want to quit the game?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
@@ -135,7 +138,7 @@ public class Game {
       System.out.println("Thanks for staying with us! Please enter a command to continue");
     } else{
       System.out.println("That is not valid input. Please type y or n.\n");
-      quitFromStaredGame();
+      quitFromStartedGame();
     }
   }
   public boolean quit(){
@@ -178,6 +181,7 @@ public class Game {
     if(isMonsterDefeated(noun)){
       for(Station s:stations){
         if(s.getName().equals(player.getCurrentLocation())){
+          music.earnedKey();
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
           System.out.println(s.getMonster().getWinMessage());
@@ -191,6 +195,7 @@ public class Game {
 
     }else{
       if(player.getToken() > 0){
+        music.monsterGrowl();
         String monster = getCurrentStation().getMonster().getName();
         System.out.println("> The " + monster + " was not pleased by my action.");
         System.out.println("> The monster reaches out and demands a token.");
@@ -229,9 +234,12 @@ public class Game {
     String musicPath = "audio/winning.wav";
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
       if(hasAllKeys()){
+        System.out.println("unlocking gate...");
+        music.unlockingGate();
+        TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        Music.playMusic(musicPath);
+        music.playMusic(musicPath);
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(6);
         playAgain();
