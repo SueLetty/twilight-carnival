@@ -9,9 +9,9 @@ public class Station {
   private Monster monster;
   private String[] surroundings = new String[4];
   private String[] tools;
-
-
   private String unReachableDirection;
+
+  private String locationDescription;
 
   public Station(String name, String[] villain, String[] tools, String item, String[] surroundings, String unReachableDirection){
     this.name = name;
@@ -44,6 +44,10 @@ public class Station {
 
   public String getItem() {
     return item;
+  }
+
+  public String getLocationDescription(){
+    return locationDescription;
   }
 
   public HashMap<Directions, String> getSurroundings() {

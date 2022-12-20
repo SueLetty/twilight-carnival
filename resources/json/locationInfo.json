@@ -10,7 +10,8 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "NULL"
+    "unReachableDirection": "NULL",
+    "locationDescription": "\t-The balls within the ball pit have lost all color. From colorful red balls to a dull grey.\n \t-There is partial power throughout the park making visibility poor.\n"
   },
   {
     "name": "Gift Shop",
@@ -34,7 +35,8 @@
       "soda",
       "water"
     ],
-    "unReachableDirection": "> There are giant piles of bobble heads in the way.\n> I should head in another direction."
+    "unReachableDirection": "> There are giant piles of bobble heads in the way.\n> I should head in another direction.",
+    "locationDescription": "The Gift Shop has balloon dog."
   },
   {
     "name": "Cotton Candy Stand",
@@ -58,7 +60,8 @@
       "cup",
       "water"
     ],
-    "unReachableDirection": "> It appears that there are piles of paper cones in my way.\n> I should choose another direction."
+    "unReachableDirection": "> It appears that there are piles of paper cones in my way.\n> I should choose another direction.",
+    "locationDescription": "The Cotton Candy Stand is has a monster."
   },
   {
     "name": "Safe Area",
@@ -71,7 +74,8 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "> Piles of peanuts are in the way.\n> I should choose another direction."
+    "unReachableDirection": "> Piles of peanuts are in the way.\n> I should choose another direction.",
+    "locationDescription": "The Safe Area is a Circus tent."
   },
   {
     "name": "Popcorn Stand",
@@ -95,7 +99,8 @@
       "butter",
       "cup"
     ],
-    "unReachableDirection": "> Mountains of paper bags filled with popcorn kernels are in the way.\n> I should choose another direction."
+    "unReachableDirection": "> Mountains of paper bags filled with popcorn kernels are in the way.\n> I should choose another direction.",
+    "locationDescription": "The Popcorn Stand is where a snake is."
   },
   {
     "name": "Hot Dog Stand",
@@ -108,7 +113,8 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "> Comically large mustard bottles are in the way.\n> I should choose another direction."
+    "unReachableDirection": "> Comically large mustard bottles are in the way.\n> I should choose another direction.",
+    "locationDescription": "The Hot Dog Stand is where the manager lost their keys."
   },
   {
     "name": "Dreamland Gate",
@@ -121,6 +127,7 @@
     ],
     "villain": [],
     "tools": [],
-    "unReachableDirection": "> There is wrought iron fencing in the way.\n> I should choose another direction."
+    "unReachableDirection": "> There is wrought iron fencing in the way.\n> I should choose another direction.",
+    "locationDescription": "The Dreamland Gate is all locked up"
   }
 ]
