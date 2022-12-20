@@ -204,7 +204,6 @@ public class Game {
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
         if (s.getName().equals(player.getCurrentLocation())) {
-          TimeUnit.SECONDS.sleep(1);
           music.earnedKey();
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
@@ -243,6 +242,7 @@ public class Game {
           }
         } while (condition);
       } else {
+
         for (Station s : stations) {
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
