@@ -237,7 +237,7 @@ public class Game {
             System.out.println("> Maybe I should visit other areas.");
             condition = false;
           } else {
-            System.out.println("> Should I give it a token?(y) Or hold on to it?(n)");
+            System.out.println("> It seems like I need to make a decision.(y/n)");
             condition = true;
           }
         } while (condition);

@@ -89,7 +89,7 @@ public class StartGame {
       String userChoice = input.nextLine();
       validator.generateCombatTools(game.getCurrentStation());
       if (userChoice.equals("")){
-        System.out.println("> I don't think standing around doing anything will get me out of here.");
+        System.out.println("> I don't think standing around doing nothing will get me out of here.");
         System.out.println("> Maybe I might need some " + "\u001B[32m" + "help" + "\u001B[0m" + ".");
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
