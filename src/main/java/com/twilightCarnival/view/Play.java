@@ -22,7 +22,8 @@ public class Play {
         music.stopMusic();
         startGame.start();
       } else if (input.equalsIgnoreCase("n")) {
-        if (startGame.getGame().quit()) {
+        if (!startGame.getGame().quit()) {
+          music.stopMusic();
           startGame.start();
         } else {
           startGame.getGame().quitFromStartedGame();
