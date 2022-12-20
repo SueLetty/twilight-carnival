@@ -14,6 +14,7 @@ import javax.sound.sampled.FloatControl;
 public class Music {
 
   private Clip musicClip;
+  private boolean musicOn = true;
   //final Volume mute = volume.MUTE;
   private final SoundEffect[] soundEffects = SoundEffect.values();
   //private Volume volume = new Volume();
@@ -145,4 +146,11 @@ public class Music {
     playSoundFX(musicPath);
   }
 
+  public boolean isMusicOn() {
+    return musicOn;
+  }
+
+  public void setMusicOn(boolean musicOn) {
+    this.musicOn = musicOn;
+  }
 }

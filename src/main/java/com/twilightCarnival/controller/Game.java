@@ -85,7 +85,7 @@ public class Game {
 
   public boolean quit() {
     boolean result = false;
-    System.out.println("are you sure?(y/n)");
+    System.out.println("Are you sure?(y/n)");
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if (input.equalsIgnoreCase("y")) {
@@ -249,7 +249,7 @@ public class Game {
           return;
 
         }else if(s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()){
-          System.out.println("I already defeated the monster. I should go ro explore other places.");
+          System.out.println("> There is no longer a monster here.\n> I should go explore other areas.");
         }
       }
 
@@ -283,7 +283,7 @@ public class Game {
             System.out.println("> Maybe I should visit other areas.");
             condition = false;
           } else {
-            System.out.println("> Should I give it a token?(y) Or hold on to it?(n)");
+            System.out.println("> It seems like I need to make a decision.(y/n)");
             condition = true;
           }
         } while (condition);
