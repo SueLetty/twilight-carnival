@@ -46,9 +46,9 @@ public class Game {
       StartGame startGame = new StartGame();
       startGame.start();
     } else if (input.equalsIgnoreCase("n")) {
-      if(quit()){
+      if (quit()) {
         System.exit(0);
-      }else{
+      } else {
         playAgain();
       }
     } else {
@@ -95,15 +95,16 @@ public class Game {
 
   public void getItem(String item) {
 
-    for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && s.getItem()!=null && s.getItem().equals(item)){
+    for (Station s : stations) {
+      if (s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && s.getItem()
+          .equals(item)) {
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
 
         music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
-      } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem()== null){
+      } else if (s.getName().equals(player.getCurrentLocation()) && s.getItem() == null) {
         System.out.println("> There is not anything I really want to pickup.");
       }
     }
@@ -148,22 +149,22 @@ public class Game {
   }
 
   /**
-   * viewMap() will display the locations adjacent to the player's current location.
-   *  It will color red if not visited before and green if previously visited.
+   * viewMap() will display the locations adjacent to the player's current location. It will color
+   * red if not visited before and green if previously visited.
    */
   public void viewMap() throws InterruptedException {
     String redColor = "\u001B[31m";
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
-    if(player.hasMap()){
+    if (player.hasMap()) {
       music.openMap();
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor
           + " for areas I visited, and "
           + redColor + "red" + clearColor + " for places I have not.");
-      for(Station s: stations){
-        if(s.getName().equals(player.getCurrentLocation())){
-          for(Directions direction: s.getSurroundings().keySet()){
+      for (Station s : stations) {
+        if (s.getName().equals(player.getCurrentLocation())) {
+          for (Directions direction : s.getSurroundings().keySet()) {
             String adjacentLocation = s.getSurroundings().get(direction);
             if (hasBeenVisited(adjacentLocation)) {
               System.out.println(direction + ": " + greenColor + adjacentLocation + clearColor);
@@ -214,8 +215,9 @@ public class Game {
           s.getMonster().setKey(null);
           return;
 
-        }else if(s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()){
-          System.out.println("> There is no longer a monster here.\n> I should go explore other areas.");
+        } else if (s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()) {
+          System.out.println(
+              "> There is no longer a monster here.\n> I should go explore other areas.");
         }
       }
 
@@ -374,6 +376,7 @@ public class Game {
   /**
    * getCurrentStation gets the current station the player is located in. we could always track it
    * in a field, but this was created in absence of that.
+   *
    * @return current station.
    */
   public Station getCurrentStation() {

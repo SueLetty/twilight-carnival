@@ -49,6 +49,7 @@ public class StartGame {
 
   private final Game game;
   private final Music music;
+
   public StartGame() throws InterruptedException {
     game = new Game();
     music = new Music();
@@ -81,57 +82,61 @@ public class StartGame {
     String musicPath = "audio/Some-Dreamy-Place.wav";
     String[] validInput = new String[2];
 
-    while (true){
+    while (true) {
       Scanner input = new Scanner(System.in);
       String userChoice = input.nextLine();
       validator.generateCombatTools(game.getCurrentStation());
       System.out.println();
-      if (userChoice.equals("")){
-        System.out.println("> I don't think standing around doing nothing will get me out of here.");
-        System.out.println("> Maybe I might need some " + "\u001B[32m" + "help" + "\u001B[0m" + ".");
+      if (userChoice.equals("")) {
+        System.out.println(
+            "> I don't think standing around doing anything will get me out of here.");
+        System.out.println(
+            "> Maybe I might need some " + "\u001B[32m" + "help" + "\u001B[0m" + ".");
       } else if (userChoice.equalsIgnoreCase("help")) {
         game.help();
-      } else if (userChoice.equalsIgnoreCase("unlock")){
+      } else if (userChoice.equalsIgnoreCase("unlock")) {
         unlockAction();
-      }else if (userChoice.equalsIgnoreCase("quit")) {
+      } else if (userChoice.equalsIgnoreCase("quit")) {
         game.quitFromStartedGame();
-      }
-      else if (userChoice.equalsIgnoreCase("mute")) {
-        music.muteMusic();
-        music.setMusicOn(false);
-      }
-      else if (userChoice.equalsIgnoreCase("unmute")) {
+      } else if (userChoice.equalsIgnoreCase("mute")) {
+        if (music.isMusicOn()) {
+          music.muteMusic();
+          music.setMusicOn(false);
+        } else {
+          System.out.println("Music is currently muted.");
+        }
+
+      } else if (userChoice.equalsIgnoreCase("unmute")) {
         music.playMusic(musicPath);
         music.setMusicOn(true);
         System.out.println("Game unmuted. Please enter a command to continue.");
-      }
-      else if (userChoice.equalsIgnoreCase("lv")) {
-        if(music.isMusicOn()){
+      } else if (userChoice.equalsIgnoreCase("lv")) {
+        if (music.isMusicOn()) {
           music.volumeLow();
-          System.out.println("Low Volume. [Type 'hv',or 'mdv' to control volume]-  Please enter a command to continue.");
-        }else{
+          System.out.println(
+              "Low Volume. [Type 'hv',or 'mdv' to control volume]-  Please enter a command to continue.");
+        } else {
           System.out.println("Music is currently muted.");
         }
 
-      }
-      else if (userChoice.equalsIgnoreCase("mdv")) {
-        if(music.isMusicOn()){
+      } else if (userChoice.equalsIgnoreCase("mdv")) {
+        if (music.isMusicOn()) {
           music.volumeMedium();
-          System.out.println("Medium Volume. [Type 'hv',or 'lv' to control volume]-  Please enter a command to continue.");
-        }else{
+          System.out.println(
+              "Medium Volume. [Type 'hv',or 'lv' to control volume]-  Please enter a command to continue.");
+        } else {
           System.out.println("Music is currently muted.");
         }
 
-      }
-      else if (userChoice.equalsIgnoreCase("hv")) {
-        if(music.isMusicOn()){
+      } else if (userChoice.equalsIgnoreCase("hv")) {
+        if (music.isMusicOn()) {
           music.volumeHigh();
-          System.out.println("High Volume. [Type 'lv',or 'mdv' to control volume]-  Please enter a command to continue.");
-        }else{
+          System.out.println(
+              "High Volume. [Type 'lv',or 'mdv' to control volume]-  Please enter a command to continue.");
+        } else {
           System.out.println("Music is currently muted.");
         }
-      }
-      else if (validator.isValid(userChoice)) {
+      } else if (validator.isValid(userChoice)) {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1]);
       }
@@ -142,15 +147,15 @@ public class StartGame {
   /**
    * operation handles the logic of valid input and carries out desired action.
    *
-   * @param verb      is a filtered verb handled by InputValidator.isValid()
-   * @param noun      filtered noun handled by InputValidator.isValid()
+   * @param verb is a filtered verb handled by InputValidator.isValid()
+   * @param noun filtered noun handled by InputValidator.isValid()
    */
   private void operation(String verb, String noun)
       throws InterruptedException {
-    if (verb.equals("open") && noun.equals("map")){
-      if (game.getPlayer().hasMap()){
+    if (verb.equals("open") && noun.equals("map")) {
+      if (game.getPlayer().hasMap()) {
         game.viewMap();
-      }else {
+      } else {
         System.out.println("> I do not have a map to open.");
       }
     } else if (verb.equals("pickup")) {
@@ -158,9 +163,9 @@ public class StartGame {
       game.getPlayer().displayInventory();
     } else if (verb.equals("go")) {
       game.changingLocation(Directions.valueOf(noun));
-    } else if (verb.equals("use")){
+    } else if (verb.equals("use")) {
       game.defeatMonsterOrLoseGame(noun);
-      if(game.getResult()){
+      if (game.getResult()) {
         music.stopMusic();
         game.playAgain();
       }
@@ -174,17 +179,18 @@ public class StartGame {
   private void unlockAction() throws InterruptedException {
     boolean notAtGate = !game.getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate");
     boolean visitedGate = game.hasBeenVisited("Dreamland Gate");
-    if(game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
+    if (game.getPlayer().getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
       music.stopMusic();
       game.win();
-    }else if (visitedGate && game.hasAllKeys() && notAtGate){
+    } else if (visitedGate && game.hasAllKeys() && notAtGate) {
       System.out.println("> It would be best if I used these keys at the Dreamland Gate.");
-    } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate){
+    } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate) {
       System.out.println("> I think I might need more keys, and I am not at the gate.");
     } else if (visitedGate && !game.hasAllKeys() && game.hasAKey() && !notAtGate) {
       System.out.println("> I am going to need more keys. There are 4 locks on the door.");
     } else if (!visitedGate && game.hasAllKeys() && notAtGate) {
-      System.out.println("> I wonder what all these keys could unlock. Nothing where I am currently.");
+      System.out.println(
+          "> I wonder what all these keys could unlock. Nothing where I am currently.");
     } else if (!visitedGate && !game.hasAllKeys() && game.hasAKey() && notAtGate) {
       System.out.println("> I do not see anything I could unlock in this area.");
     } else {
