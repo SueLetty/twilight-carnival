@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class StartGame {
 
-  private final String clown = "       ,            _..._            ,\n"
+  private final String CLOWN = "       ,            _..._            ,\n"
       + "      {'.         .'     '.         .'}\n"
       + "     { ~ '.      _|=    __|_      .'  ~}\n"
       + "    { ~  ~ '-._ (___________) _.-'~  ~  }\n"
@@ -29,7 +29,7 @@ public class StartGame {
 //      + "https://asciiart.website/index.php?art=people/occupations/clowns\n";
 
 
-  private final String titleCard1 = "\n \u001B[32m"
+  private final String TITLE_CARD_1 = "\n \u001B[32m"
       + " ,ggggggggggggggg                                                             ,gggg,                                                                            \n"
       + "dP\"\"\"\"\"\"88\"\"\"\"\"\"\"               ,dPYb,                   ,dPYb,      I8     ,88\"\"\"Y8b,                                                                    ,dPYb,\n"
       + "Yb,_    88                      IP'`Yb                   IP'`Yb      I8    d8\"     `Y8                                                                    IP'`Yb\n"
@@ -47,8 +47,13 @@ public class StartGame {
       + "                                                `8, ,8I                                                                                                         \n"
       + "                                                 `Y8P\"                                                                                                          \n \u001B[0m";
 
-  private Game game = new Game();
-  private Music music = new Music();
+  private final Game game;
+  private final Music music;
+  public StartGame(){
+    game = new Game();
+    music = new Music();
+  }
+
 
   /**
    * start() starts the game, with splash screen and following method to begin the logic.
@@ -76,10 +81,12 @@ public class StartGame {
     InputValidator validator = new InputValidator();
     String musicPath = "audio/Some-Dreamy-Place.wav";
     String[] validInput = new String[2];
-    Scanner input = new Scanner(System.in);
-    String userChoice = "";
+//    Scanner input = new Scanner(System.in);
+//    String userChoice = "";
     while (true){
-      userChoice = input.nextLine();
+//      userChoice = input.nextLine();
+      Scanner input = new Scanner(System.in);
+      String userChoice = input.nextLine();
       validator.generateCombatTools(game.getCurrentStation());
       if (userChoice.equals("")){
         System.out.println("> I don't think standing around doing anything will get me out of here.");
@@ -114,7 +121,7 @@ public class StartGame {
         validInput = validator.getInput();
         operation(validInput[0], validInput[1], validator);
       }
-
+      System.out.println();
     }
   }
 
@@ -126,7 +133,7 @@ public class StartGame {
    * @param noun      filtered noun handled by InputValidator.isValid()
    * @param validator
    */
-  private void operation(String verb, String noun, InputValidator validator)
+  private void operation(String verb, String noun, InputValidator validator)//todo do we need validator parameter here?
       throws InterruptedException {
     if (verb.equals("open") && noun.equals("map")){
       if (game.getPlayer().hasMap()){
@@ -174,10 +181,10 @@ public class StartGame {
   }
 
   public String getClown() {
-    return clown;
+    return CLOWN;
   }
 
   public String getTitleCard1() {
-    return titleCard1;
+    return TITLE_CARD_1;
   }
 }

@@ -14,15 +14,17 @@ public class InputValidator {
   private final String[] pickUpVerbs = {"pickup", "acquire", "search", "grab", "pick-up"};
   private final String[] mapVerbs = {"use", "open", "view", "render"};
   private final String[] navigationVerbs = {"go", "travel", "walk", "move", "run", "sprint"};
-  private final String[] pickupNouns = {"map", "key", "master key", "keys", "bronze key", "gold key",
+  private final String[] pickupNouns = {"map", "key", "master key", "keys", "bronze key",
+      "gold key",
       "silver key"};
   private String[] combatNouns = null;
   private final String[] combatNumbers = {"1", "2", "3", "4"};
   private final Directions[] directions = Directions.values();
 
   /**
-   * isValid Method takes input string and populates private field that hold a proper input.
-   *  It does not handle conjunctions.
+   * isValid Method takes input string and populates private field that hold a proper input. It does
+   * not handle conjunctions.
+   *
    * @param input String the user inputs for an action of using an item or moving.
    * @return boolean that states the input is valid and the input is put in a String[] input field.
    */
@@ -33,12 +35,14 @@ public class InputValidator {
 
     String[] unfilteredString = input.split(" ");
 
-    if (Arrays.asList(combatNumbers).contains(unfilteredString[0])){
-      System.out.println("> It might be best if I try to " + "\u001B[32m" + "use" + "\u001B[0m" + " an " + "\u001B[32m" + "[item]" + "\u001B[0m" + ".");
+    if (Arrays.asList(combatNumbers).contains(unfilteredString[0])) {
+      System.out.println(
+          "> It might be best if I try to " + "\u001B[32m" + "use" + "\u001B[0m" + " an "
+              + "\u001B[32m" + "[item]" + "\u001B[0m" + ".");
       result = false;
-    }else {
+    } else {
       for (String str : unfilteredString) {
-        if(Objects.equals(str, "") || Objects.equals(str, " ")){
+        if (Objects.equals(str, "") || Objects.equals(str, " ")) {
           break;
         }
         if (!verbCondition) {
@@ -54,11 +58,15 @@ public class InputValidator {
         if (validCombination()) {
           result = true;
         } else {
-          System.out.printf("> I do not think I can \"%s %s.\" I should try something different.\n", this.input[0], this.input[1]);
+          System.out.printf("> I do not think I can \"%s %s.\" I should try something different.\n",
+              this.input[0], this.input[1]);
         }
       } else {
-        System.out.println("> I must not be in the right headspace. Maybe I should go about this in another way.");
-        System.out.println("> Why do I find myself in situations where I need " +"\u001B[32m" + "help" + "\u001B[0m" + ".");
+        System.out.println(
+            "> I must not be in the right headspace. Maybe I should go about this in another way.");
+        System.out.println(
+            "> Why do I find myself in situations where I need " + "\u001B[32m" + "help"
+                + "\u001B[0m" + ".");
         result = false;
       }
     }
@@ -83,7 +91,7 @@ public class InputValidator {
    */
   private boolean isAValidVerb(String verb) {
     boolean isVerb = false;
-    if (verb.equalsIgnoreCase("use") && combatNouns.length > 0){
+    if (verb.equalsIgnoreCase("use") && combatNouns.length > 0) {
       inputVerb = "use";
       isVerb = true;
     } else if (Arrays.asList(pickUpVerbs).contains(verb.toLowerCase())) {
@@ -110,10 +118,9 @@ public class InputValidator {
   private boolean isAValidNoun(String noun) {
     boolean isNoun = false;
     if (Arrays.asList(pickupNouns).contains(noun.toLowerCase())) {
-      if (noun.equalsIgnoreCase("key")){
+      if (noun.equalsIgnoreCase("key")) {
         inputNoun = "master key";
-      }
-      else {
+      } else {
         inputNoun = noun.toLowerCase();
       }
       isNoun = true;
@@ -128,14 +135,14 @@ public class InputValidator {
   }
 
   /**
-   * validCombination that will check for valid input combination.
-   *  Current valid combinations is tied to keywords given to input[0] during isAValid[Noun/Verb]()
-   *  methods.
+   * validCombination that will check for valid input combination. Current valid combinations is
+   * tied to keywords given to input[0] during isAValid[Noun/Verb]() methods.
+   *
    * @return boolean if the combination is valid/invalid.
    */
   private boolean validCombination() {
     boolean result = false;
-    if (input[1].equalsIgnoreCase("map") && inputVerb.equalsIgnoreCase("use")){
+    if (input[1].equalsIgnoreCase("map") && inputVerb.equalsIgnoreCase("use")) {
       input[0] = "open";
     }
     switch (input[0]) {
@@ -155,8 +162,8 @@ public class InputValidator {
         }
         break;
       case "use":
-        if(Arrays.asList(pickupNouns).contains(input[1].toLowerCase())
-            || Arrays.asList(combatNouns).contains(input[1].toLowerCase())){
+        if (Arrays.asList(pickupNouns).contains(input[1].toLowerCase())
+            || Arrays.asList(combatNouns).contains(input[1].toLowerCase())) {
           result = true;
         }
         break;
@@ -167,14 +174,15 @@ public class InputValidator {
   }
 
   /**
-   * generateCombatTools is called to populate the combatNouns for proper input to be used for combat.
-   * Dynamic for per room.
+   * generateCombatTools is called to populate the combatNouns for proper input to be used for
+   * combat. Dynamic for per room.
+   *
    * @param station for which the tools and monster are, get the information to assign to field.
    */
-  public void generateCombatTools(Station station){
+  public void generateCombatTools(Station station) {
     String[] tools = station.getTools();
-    if (tools != null){
-      for (int i = 0; i < tools.length; i++){
+    if (tools != null) {
+      for (int i = 0; i < tools.length; i++) {
         tools[i] = tools[i].toLowerCase();
       }
     }
@@ -183,17 +191,18 @@ public class InputValidator {
 
   /**
    * Check if a combat tool exists in the dynamic generated combatNouns array. Might be redundant.
+   *
    * @param noun weapon/tool to be used against a monster.
    * @return if the tool exists in the room.
    */
-  public boolean isCombatTool(String noun){
+  public boolean isCombatTool(String noun) {
     boolean result = false;
-    if(combatNouns == null){
+    if (combatNouns == null) {
       result = false;
     }
 
     assert combatNouns != null;
-    if(Arrays.asList(combatNouns).contains(noun.toLowerCase())){
+    if (Arrays.asList(combatNouns).contains(noun.toLowerCase())) {
       result = true;
     }
     return result;
@@ -201,13 +210,14 @@ public class InputValidator {
 
   /**
    * containsDirection() compares the enum directions explicitly.
+   *
    * @param direction String value of Heading NORTH,SOUTH,EAST,WEST.
    * @return bool if the direction is contained in directions field.
    */
-  private boolean containsDirection(String direction){
+  private boolean containsDirection(String direction) {
     boolean result = false;
     for (Directions d : directions) {
-      if(d.toString().equalsIgnoreCase(direction)){
+      if (d.toString().equalsIgnoreCase(direction)) {
         result = true;
       }
     }
