@@ -103,10 +103,10 @@ public class Game {
       if (s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && s.getItem()
           .equals(item)) {
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
-        if(SoundEffect.volume.equals(Volume.OFF)){
+        if (SoundEffect.volume.equals(Volume.OFF)) {
           soundEffect.stop();
         }
-        if (SoundEffect.volume.equals(Volume.ON)){
+        if (SoundEffect.volume.equals(Volume.ON)) {
           soundEffect.play("audio/pickupFX.wav");
         }
         player.setInventory(s.getItem());
@@ -126,20 +126,24 @@ public class Game {
     System.out.println(
         "=============================================================================================");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
-    System.out.println("=============================================================================================");
+    System.out.println(
+        "=============================================================================================");
     System.out.println(getCurrentStation().getLocationDescription());
-    System.out.println("=============================================================================================");
-    for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){ // TODO: 12/19/2022 remove this and only prompt on pickup?
+    System.out.println(
+        "=============================================================================================");
+    for (Station s : stations) {
+      if (s.getName().equals(player.getCurrentLocation())
+          && getPlayer().hasMap()) { // TODO: 12/19/2022 remove this and only prompt on pickup?
         System.out.println("> I am carrying a map.");
         System.out.println("> I can view the map anytime.\n");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
-        if (s.getName().equalsIgnoreCase("Hot Dog Stand")){
+      if (s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem()
+          .equalsIgnoreCase("NULL")) {
+        if (s.getName().equalsIgnoreCase("Hot Dog Stand")) {
           System.out.println("> I see something strange in the hot dog water.");
           System.out.println("> There is a " + s.getItem() + " within the hot dog water.");
           System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
-        }else {
+        } else {
           System.out.println("> There is a " + s.getItem() + ".");
           System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
         }
@@ -164,11 +168,10 @@ public class Game {
     String redColor = "\u001B[31m";
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
-    if(player.hasMap()){
-      if(SoundEffect.volume.equals(Volume.OFF)){
+    if (player.hasMap()) {
+      if (SoundEffect.volume.equals(Volume.OFF)) {
         soundEffect.stop();
-      }
-      else{
+      } else {
         SoundEffect.volume.equals(Volume.ON);
         soundEffect.play("audio/openMap.wav");
       }
@@ -220,10 +223,9 @@ public class Game {
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
         if (s.getName().equals(player.getCurrentLocation()) && s.getMonster().isAlive()) {
-          if(SoundEffect.volume.equals(Volume.OFF)){
+          if (SoundEffect.volume.equals(Volume.OFF)) {
             soundEffect.stop();
-          }
-          else{
+          } else {
             SoundEffect.volume.equals(Volume.ON);
             soundEffect.play("audio/earnAKey.wav");
           }
@@ -241,13 +243,12 @@ public class Game {
         }
       }
 
-    }else{
-      if(player.getToken() > 0){
+    } else {
+      if (player.getToken() > 0) {
 
-        if(SoundEffect.volume.equals(Volume.OFF)){
+        if (SoundEffect.volume.equals(Volume.OFF)) {
           soundEffect.stop();
-        }
-        else{
+        } else {
           SoundEffect.volume.equals(Volume.ON);
           soundEffect.play("audio/enterMonsterRoom.wav");
         }
@@ -276,10 +277,10 @@ public class Game {
         } while (condition);
       } else {
         for (Station s : stations) {
-          if(SoundEffect.volume.equals(Volume.OFF)){
+          if (SoundEffect.volume.equals(Volume.OFF)) {
             soundEffect.stop();
           }
-          if (SoundEffect.volume.equals(Volume.ON)){
+          if (SoundEffect.volume.equals(Volume.ON)) {
             soundEffect.play("audio/losingGame.wav");
           }
           if (s.getName().equals(player.getCurrentLocation())) {
@@ -295,23 +296,22 @@ public class Game {
   }
 
   public void win() throws InterruptedException {
-    if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
-      if(hasAllKeys()){
+    if (player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
+      if (hasAllKeys()) {
         System.out.println("unlocking gate...");
-        if(SoundEffect.volume.equals(Volume.OFF)){
+        if (SoundEffect.volume.equals(Volume.OFF)) {
           soundEffect.stop();
-        }
-        else{
+        } else {
           SoundEffect.volume.equals(Volume.ON);
           soundEffect.play("audio/door-unlocking-with-keys.wav");
         }
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        if(SoundEffect.volume.equals(Volume.OFF)){
+        if (SoundEffect.volume.equals(Volume.OFF)) {
           soundEffect.stop();
         }
-        if (SoundEffect.volume.equals(Volume.ON)){
+        if (SoundEffect.volume.equals(Volume.ON)) {
           soundEffect.play("audio/winning.wav");
         }
         System.out.println(getWinMessage());

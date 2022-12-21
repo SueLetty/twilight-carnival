@@ -31,7 +31,7 @@ public enum SoundEffect {
     }
   }
 
-  public void play(String soundFile){
+  public void play(String soundFile) {
     volume = Volume.ON;
     try {
       URL url = Music.class.getClassLoader().getResource(soundFile);
@@ -45,11 +45,9 @@ public enum SoundEffect {
     }
 
 
-
   }
 
-  public void stop()
-  {
+  public void stop() {
     volume = Volume.OFF;
     soundClip.stop();
     soundClip.close();
@@ -57,20 +55,17 @@ public enum SoundEffect {
 
   }
 
-  public static void mute()
-  {
+  public static void mute() {
     volume = Volume.OFF;
 
 
   }
 
-  public static void unmute()
-  {
+  public static void unmute() {
     volume = Volume.ON;
 
 
   }
-
 
 
 }
