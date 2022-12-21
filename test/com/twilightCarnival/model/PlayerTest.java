@@ -6,57 +6,74 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PlayerTest {
+
   public static Player player;
+
   @BeforeClass
-  public static void beforeClass() throws Exception {
+  public static void beforeClass() {
     player = new Player();
   }
 
   @Test
-  public void hasMap() {
+  public void testHasMap() {
     assertFalse(player.hasMap());
   }
 
   @Test
-  public void numberOfKeys() {
-    assertEquals(1,player.getInventory().size());
+  public void testNumberOfKeys() {
+    int expected = 1;
+    int actual = player.getInventory().size();
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void getInventory() {
-    assertEquals(0,player.getInventory().size());
+  public void testGetInventory() {
+    int expected = 1;
+    int actual = player.getInventory().size();
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void setInventory() {
+  public void testSetInventory() {
     player.setInventory("Key1");
   }
 
   @Test
-  public void displayInventory() {
-    String result = "Key1";
-    assertEquals(result,player.displayInventory());
+  public void testDisplayInventory() {
+    player.setInventory("Key1");
+    String expected = "Key1";
+    String actual = player.displayInventory();
+    assertEquals(expected, actual);
 
-  }
-  @Test
-  public void getToken() {
-    assertEquals(2,player.getToken());
   }
 
   @Test
-  public void setToken() {
+  public void testGetToken() {
+    int expected = 3;
+    int actual = player.getToken();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void testSetToken() {
     player.setToken(2);
-    assertEquals(2,player.getToken());
+    int expected = 2;
+    int actual = player.getToken();
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void getCurrentLocation() {
-    assertEquals("Ball Pit", player.getCurrentLocation());
+  public void testGetCurrentLocation() {
+    String expected = "Moon";
+    String actual = player.getCurrentLocation();
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void setCurrentLocation() {
+  public void testSetCurrentLocation() {
     player.setCurrentLocation("Moon");
-    assertTrue("Moon".equals(player.getCurrentLocation()));
+    String expected = "Moon";
+    String actual = player.getCurrentLocation();
+    assertEquals(expected, actual);
   }
 }
