@@ -51,6 +51,7 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
     if (input.equalsIgnoreCase("y")) {
+      soundEffect.stop();
       StartGame startGame = new StartGame();
       startGame.start();
     } else if (input.equalsIgnoreCase("n")) {
@@ -297,7 +298,6 @@ public class Game {
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
             result = true;
-//            playAgain();
 
             return;
           }
