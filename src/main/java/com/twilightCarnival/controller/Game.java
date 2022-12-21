@@ -107,7 +107,6 @@ public class Game {
           soundEffect.stop();
         }
         if (SoundEffect.volume.equals(Volume.ON)){
-          //music.pickedUpItem();
           soundEffect.play("audio/pickupFX.wav");
         }
         player.setInventory(s.getItem());
@@ -171,7 +170,6 @@ public class Game {
       }
       else{
         SoundEffect.volume.equals(Volume.ON);
-        //music.openMap();
         soundEffect.play("audio/openMap.wav");
       }
       System.out.println("> I look at my map and see my current surroundings.\n"
@@ -251,7 +249,6 @@ public class Game {
         }
         else{
           SoundEffect.volume.equals(Volume.ON);
-          //music.monsterGrowl();
           soundEffect.play("audio/enterMonsterRoom.wav");
         }
 
@@ -283,7 +280,6 @@ public class Game {
             soundEffect.stop();
           }
           if (SoundEffect.volume.equals(Volume.ON)){
-            //music.deathMusic();
             soundEffect.play("audio/losingGame.wav");
           }
           if (s.getName().equals(player.getCurrentLocation())) {
@@ -307,7 +303,6 @@ public class Game {
         }
         else{
           SoundEffect.volume.equals(Volume.ON);
-          //music.unlockingGate();
           soundEffect.play("audio/door-unlocking-with-keys.wav");
         }
         TimeUnit.SECONDS.sleep(7);
@@ -317,7 +312,6 @@ public class Game {
           soundEffect.stop();
         }
         if (SoundEffect.volume.equals(Volume.ON)){
-         // music.winMusic();
           soundEffect.play("audio/winning.wav");
         }
         System.out.println(getWinMessage());
