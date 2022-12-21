@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Game {
 
-  private final String RED_COLOR = "\u001B[31m";
-  private final String GREEN_COLOR = "\u001B[32m";
-  private final String CLEAR_COLOR = "\u001B[0m";
+  private static final String RED_COLOR = "\u001B[31m";
+  private static final String GREEN_COLOR = "\u001B[32m";
+  private static final String CLEAR_COLOR = "\u001B[0m";
 
   private Player player;
   private Script script;
