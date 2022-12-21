@@ -125,7 +125,7 @@ public class Game {
         + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println(
         "=============================================================================================");
-    System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
+    System.out.println("Available commands: go [direction], use [item], help, quit");
     System.out.println(
         "=============================================================================================");
     System.out.println(getCurrentStation().getLocationDescription());
