@@ -31,22 +31,6 @@ public class Music {
 
   }
 
-  public void playSoundFX(String musicLocation) {
-    try {
-      URL url = Music.class.getClassLoader().getResource(musicLocation);
-      assert url != null;
-      AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
-      musicClip = AudioSystem.getClip();
-      musicClip.open(audioInput);
-      volumeMedium();
-      musicClip.start();
-
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-
-  }
 
   public void muteMusic() {
     System.out.println("Do you really want to mute the game?(y/n)");
@@ -87,40 +71,6 @@ public class Music {
     gainControl.setValue(-20.0f);
   }
 
-  public void openMap() {
-    String musicPath = "audio/openMap.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void monsterGrowl() {
-    String musicPath = "audio/enterMonsterRoom.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void pickedUpItem() {
-    String musicPath = "audio/pickupFX.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void earnedKey() {
-    String musicPath = "audio/earnAKey.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void unlockingGate() {
-    String musicPath = "audio/door-unlocking-with-keys.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void deathMusic() {
-    String musicPath = "audio/losingGame.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void winMusic() {
-    String musicPath = "audio/winning.wav";
-    playSoundFX(musicPath);
-  }
 
   public boolean isMusicOn() {
     return musicOn;

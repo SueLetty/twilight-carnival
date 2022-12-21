@@ -5,6 +5,8 @@ import com.twilightCarnival.model.Music;
 import com.twilightCarnival.model.Player;
 import com.twilightCarnival.model.Script;
 import com.twilightCarnival.model.SetMap;
+import com.twilightCarnival.model.SoundEffect;
+import com.twilightCarnival.model.SoundEffect.Volume;
 import com.twilightCarnival.model.Station;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +21,8 @@ public class Game {
   private SetMap map;
   private List<Station> stations;
   private Stack<String> stationsVisited = new Stack<>();
+  private final SoundEffect soundEffect = SoundEffect.SOUNDEFFECT;
+
   private Music music;
   private boolean result;
 
@@ -99,8 +103,12 @@ public class Game {
       if (s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && s.getItem()
           .equals(item)) {
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
-
-        music.pickedUpItem();
+        if (SoundEffect.volume.equals(Volume.OFF)) {
+          soundEffect.stop();
+        }
+        if (SoundEffect.volume.equals(Volume.ON)) {
+          soundEffect.play("audio/pickupFX.wav");
+        }
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
@@ -118,20 +126,24 @@ public class Game {
     System.out.println(
         "=============================================================================================");
     System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
-    System.out.println("=============================================================================================");
+    System.out.println(
+        "=============================================================================================");
     System.out.println(getCurrentStation().getLocationDescription());
-    System.out.println("=============================================================================================");
-    for(Station s: stations){
-      if(s.getName().equals(player.getCurrentLocation()) && getPlayer().hasMap()){ // TODO: 12/19/2022 remove this and only prompt on pickup?
+    System.out.println(
+        "=============================================================================================");
+    for (Station s : stations) {
+      if (s.getName().equals(player.getCurrentLocation())
+          && getPlayer().hasMap()) { // TODO: 12/19/2022 remove this and only prompt on pickup?
         System.out.println("> I am carrying a map.");
         System.out.println("> I can view the map anytime.\n");
       }
-      if(s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem().equalsIgnoreCase("NULL")){
-        if (s.getName().equalsIgnoreCase("Hot Dog Stand")){
+      if (s.getName().equals(player.getCurrentLocation()) && s.getItem() != null && !s.getItem()
+          .equalsIgnoreCase("NULL")) {
+        if (s.getName().equalsIgnoreCase("Hot Dog Stand")) {
           System.out.println("> I see something strange in the hot dog water.");
           System.out.println("> There is a " + s.getItem() + " within the hot dog water.");
           System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
-        }else {
+        } else {
           System.out.println("> There is a " + s.getItem() + ".");
           System.out.println("> This " + s.getItem() + " might be something I want to pickup.\n");
         }
@@ -157,7 +169,12 @@ public class Game {
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
     if (player.hasMap()) {
-      music.openMap();
+      if (SoundEffect.volume.equals(Volume.OFF)) {
+        soundEffect.stop();
+      } else {
+        SoundEffect.volume.equals(Volume.ON);
+        soundEffect.play("audio/openMap.wav");
+      }
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor
           + " for areas I visited, and "
@@ -206,7 +223,12 @@ public class Game {
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
         if (s.getName().equals(player.getCurrentLocation()) && s.getMonster().isAlive()) {
-          music.earnedKey();
+          if (SoundEffect.volume.equals(Volume.OFF)) {
+            soundEffect.stop();
+          } else {
+            SoundEffect.volume.equals(Volume.ON);
+            soundEffect.play("audio/earnAKey.wav");
+          }
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
           System.out.println(s.getMonster().getWinMessage());
@@ -223,7 +245,14 @@ public class Game {
 
     } else {
       if (player.getToken() > 0) {
-        music.monsterGrowl();
+
+        if (SoundEffect.volume.equals(Volume.OFF)) {
+          soundEffect.stop();
+        } else {
+          SoundEffect.volume.equals(Volume.ON);
+          soundEffect.play("audio/enterMonsterRoom.wav");
+        }
+
         String monster = getCurrentStation().getMonster().getName();
         System.out.println("> The " + monster + " was not pleased by my action.");
         System.out.println("> The monster reaches out and demands a token.");
@@ -248,7 +277,12 @@ public class Game {
         } while (condition);
       } else {
         for (Station s : stations) {
-          music.deathMusic();
+          if (SoundEffect.volume.equals(Volume.OFF)) {
+            soundEffect.stop();
+          }
+          if (SoundEffect.volume.equals(Volume.ON)) {
+            soundEffect.play("audio/losingGame.wav");
+          }
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
             result = true;
@@ -265,11 +299,21 @@ public class Game {
     if (player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")) {
       if (hasAllKeys()) {
         System.out.println("unlocking gate...");
-        music.unlockingGate();
+        if (SoundEffect.volume.equals(Volume.OFF)) {
+          soundEffect.stop();
+        } else {
+          SoundEffect.volume.equals(Volume.ON);
+          soundEffect.play("audio/door-unlocking-with-keys.wav");
+        }
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        music.winMusic();
+        if (SoundEffect.volume.equals(Volume.OFF)) {
+          soundEffect.stop();
+        }
+        if (SoundEffect.volume.equals(Volume.ON)) {
+          soundEffect.play("audio/winning.wav");
+        }
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(10);
         playAgain();

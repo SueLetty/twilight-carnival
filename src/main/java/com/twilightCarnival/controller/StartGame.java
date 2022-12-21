@@ -3,6 +3,8 @@ package com.twilightCarnival.controller;
 import com.twilightCarnival.model.Directions;
 import com.twilightCarnival.model.InputValidator;
 import com.twilightCarnival.model.Music;
+import com.twilightCarnival.model.SoundEffect;
+import com.twilightCarnival.model.SoundEffect.Volume;
 import java.util.Scanner;
 
 public class StartGame {
@@ -100,6 +102,7 @@ public class StartGame {
         game.quitFromStartedGame();
       } else if (userChoice.equalsIgnoreCase("mute")) {
         if (music.isMusicOn()) {
+          SoundEffect.mute();
           music.muteMusic();
           music.setMusicOn(false);
         } else {
@@ -108,6 +111,8 @@ public class StartGame {
 
       } else if (userChoice.equalsIgnoreCase("unmute")) {
         music.playMusic(musicPath);
+        SoundEffect.unmute();
+
         music.setMusicOn(true);
         System.out.println("Game unmuted. Please enter a command to continue.");
       } else if (userChoice.equalsIgnoreCase("lv")) {
