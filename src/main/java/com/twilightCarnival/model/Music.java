@@ -1,8 +1,5 @@
 package com.twilightCarnival.model;
 
-import static com.twilightCarnival.model.SoundEffect.volume;
-
-import com.twilightCarnival.model.SoundEffect.Volume;
 import java.net.URL;
 import java.util.Scanner;
 import javax.sound.sampled.AudioInputStream;
@@ -15,9 +12,7 @@ public class Music {
 
   private Clip musicClip;
   private boolean musicOn = true;
-  //final Volume mute = volume.MUTE;
-  private final SoundEffect[] soundEffects = SoundEffect.values();
-  //private Volume volume = new Volume();
+
 
 
   public void playMusic(String musicLocation) {
@@ -30,40 +25,6 @@ public class Music {
       volumeMedium();
       musicClip.start();
       musicClip.loop(Clip.LOOP_CONTINUOUSLY);
-
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-
-  }
-
-  public void playSoundFX(String musicLocation) {
-    try {
-      URL url = Music.class.getClassLoader().getResource(musicLocation);
-      assert url != null;
-      AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
-      musicClip = AudioSystem.getClip();
-      musicClip.open(audioInput);
-      volumeMedium();
-      musicClip.start();
-
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-
-  }
-
-  public void muteSoundFX(String musicLocation) {
-    try {
-      URL url = Music.class.getClassLoader().getResource(musicLocation);
-      AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
-      musicClip = AudioSystem.getClip();
-      musicClip.open(audioInput);
-      //volumeMedium();
-      musicClip.stop();
-      musicClip.close();
 
 
     } catch (Exception ex) {
@@ -113,38 +74,6 @@ public class Music {
     gainControl.setValue(-20.0f);
   }
 
-  public void openMap() {
-    String musicPath = "audio/openMap.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void monsterGrowl() {
-    String musicPath = "audio/enterMonsterRoom.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void pickedUpItem() {
-    String musicPath = "audio/pickupFX.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void earnedKey() {
-    String musicPath = "audio/earnAKey.wav";
-    playSoundFX(musicPath);
-  }
-
-  public void unlockingGate() {
-    String musicPath = "audio/door-unlocking-with-keys.wav";
-    playSoundFX(musicPath);
-  }
-  public void deathMusic() {
-    String musicPath = "audio/losingGame.wav";
-    playSoundFX(musicPath);
-  }
-  public void winMusic() {
-    String musicPath = "audio/winning.wav";
-    playSoundFX(musicPath);
-  }
 
   public boolean isMusicOn() {
     return musicOn;

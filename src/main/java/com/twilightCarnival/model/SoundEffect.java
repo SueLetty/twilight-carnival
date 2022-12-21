@@ -6,13 +6,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public enum SoundEffect {
-  EARNEDKEY("audio/earnAKey.wav"),
-  UNLOCK("audio/door-unlocking-with-keys.wav"),
-  MONSTERGROWL("audio/enterMonsterRoom.wav"),
-  OPENMAP("audio/openMap.wav"),
-  PICKUP("audio/pickupFX.wav"),
-  BACKGROUND("audio/Some-Dreamy-Place.wav")
-  ;
+  SOUNDEFFECT("audio/winning.wav");
+
 
   public enum Volume {
     OFF,
@@ -36,31 +31,46 @@ public enum SoundEffect {
     }
   }
 
-  public void play(){
-//    if (volume != Volume.OFF) {
-      //volume = Volume.ON;
-      soundClip.start();     // Start playing
+  public void play(String soundFile){
+    volume = Volume.ON;
+    try {
+      URL url = Music.class.getClassLoader().getResource(soundFile);
+      AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
+      soundClip = AudioSystem.getClip();
+      soundClip.open(audioInput);
+      soundClip.start();
 
-//    }
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
 
 
 
   }
 
-  public void stop() //stop playing and rewind to be played again from the beginning
+  public void stop()
   {
-//    if (volume == Volume.OFF) {
     volume = Volume.OFF;
     soundClip.stop();
     soundClip.close();
     soundClip.setFramePosition(0);
-//  }
+
   }
 
-  public static void mute() //don't play sounds(Mute Sound is selected from Options menu)
+  public static void mute()
   {
     volume = Volume.OFF;
 
 
   }
+
+  public static void unmute()
+  {
+    volume = Volume.ON;
+
+
+  }
+
+
+
 }

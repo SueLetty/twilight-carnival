@@ -106,7 +106,7 @@ public class StartGame {
       }
       else if (userChoice.equalsIgnoreCase("unmute")) {
         music.playMusic(musicPath);
-        SoundEffect.volume.equals(Volume.ON);
+        SoundEffect.unmute();
 
         music.setMusicOn(true);
         System.out.println("Game unmuted. Please enter a command to continue.");

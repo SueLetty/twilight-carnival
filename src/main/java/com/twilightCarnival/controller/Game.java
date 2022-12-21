@@ -21,11 +21,7 @@ public class Game {
   private SetMap map;
   private List<Station> stations;
   private Stack<String> stationsVisited = new Stack<>();
-  private final SoundEffect openmap = SoundEffect.OPENMAP;
-  private final SoundEffect pickedUp = SoundEffect.PICKUP;
-  private final SoundEffect earnedKey = SoundEffect.EARNEDKEY;
-  private final SoundEffect monsterGrowl = SoundEffect.MONSTERGROWL;
-  private final SoundEffect unlock = SoundEffect.UNLOCK;
+  private final SoundEffect soundEffect = SoundEffect.SOUNDEFFECT;
 
   private Music music;
   private boolean result;
@@ -102,20 +98,16 @@ public class Game {
   }
 
   public void getItem(String item) {
-    String musicPath = "audio/pickupFX.wav";
     for(Station s: stations){
       if(s.getName().equals(player.getCurrentLocation()) && s.getItem()!=null && s.getItem().equals(item)){
         System.out.printf("> I pick up the %s and put it in my pockets.\n", item);
-        //pickedUp.play();
         if(SoundEffect.volume.equals(Volume.OFF)){
-          //music.muteSoundFX(musicPath);
-          pickedUp.stop();
+          soundEffect.stop();
         }
         if (SoundEffect.volume.equals(Volume.ON)){
-          music.playSoundFX(musicPath);
-          pickedUp.play();
+          //music.pickedUpItem();
+          soundEffect.play("audio/pickupFX.wav");
         }
-        //music.pickedUpItem();
         player.setInventory(s.getItem());
         s.setItem(null);
         return;
@@ -168,18 +160,17 @@ public class Game {
    *  It will color red if not visited before and green if previously visited.
    */
   public void viewMap() throws InterruptedException {
-    String musicPath = "audio/openMap.wav";
     String redColor = "\u001B[31m";
     String greenColor = "\u001B[32m";
     String clearColor = "\u001B[0m";
     if(player.hasMap()){
       if(SoundEffect.volume.equals(Volume.OFF)){
-        music.muteSoundFX(musicPath);
-        openmap.stop();
+        soundEffect.stop();
       }
       else{
         SoundEffect.volume.equals(Volume.ON);
-        openmap.play();
+        //music.openMap();
+        soundEffect.play("audio/openMap.wav");
       }
       System.out.println("> I look at my map and see my current surroundings.\n"
           + "> I marked locations" + greenColor + " green" + clearColor
@@ -226,19 +217,15 @@ public class Game {
   }
 
   public void defeatMonsterOrLoseGame(String noun) throws InterruptedException {
-    String musicPath = "audio/earnAKey.wav";
-    String musicPath2 = "audio/enterMonsterRoom.wav";
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
         if (s.getName().equals(player.getCurrentLocation()) && s.getMonster().isAlive()) {
-          //music.earnedKey();
           if(SoundEffect.volume.equals(Volume.OFF)){
-            music.muteSoundFX(musicPath);
-            earnedKey.stop();
+            soundEffect.stop();
           }
           else{
             SoundEffect.volume.equals(Volume.ON);
-            earnedKey.play();
+            soundEffect.play("audio/earnAKey.wav");
           }
           s.getMonster().setStatus(false);
           player.setInventory(s.getMonster().getKey());
@@ -257,12 +244,12 @@ public class Game {
       if(player.getToken() > 0){
 
         if(SoundEffect.volume.equals(Volume.OFF)){
-          music.muteSoundFX(musicPath2);
-          monsterGrowl.stop();
+          soundEffect.stop();
         }
         else{
           SoundEffect.volume.equals(Volume.ON);
-          monsterGrowl.play();
+          //music.monsterGrowl();
+          soundEffect.play("audio/enterMonsterRoom.wav");
         }
 
         String monster = getCurrentStation().getMonster().getName();
@@ -289,7 +276,13 @@ public class Game {
         } while (condition);
       } else {
         for (Station s : stations) {
-          music.deathMusic();
+          if(SoundEffect.volume.equals(Volume.OFF)){
+            soundEffect.stop();
+          }
+          if (SoundEffect.volume.equals(Volume.ON)){
+            //music.deathMusic();
+            soundEffect.play("audio/losingGame.wav");
+          }
           if (s.getName().equals(player.getCurrentLocation())) {
             System.out.println(s.getMonster().getLostMessage());
             result = true;
@@ -303,24 +296,27 @@ public class Game {
   }
 
   public void win() throws InterruptedException {
-    String musicPath = "audio/winning.wav";
-    String musicPath2 = "audio/door-unlocking-with-keys.wav";
     if(player.getCurrentLocation().equalsIgnoreCase("Dreamland Gate")){
       if(hasAllKeys()){
         System.out.println("unlocking gate...");
         if(SoundEffect.volume.equals(Volume.OFF)){
-          music.muteSoundFX(musicPath2);
-          unlock.stop();
+          soundEffect.stop();
         }
         else{
           SoundEffect.volume.equals(Volume.ON);
-          unlock.play();
+          //music.unlockingGate();
+          soundEffect.play("audio/door-unlocking-with-keys.wav");
         }
-        unlock.play();
         TimeUnit.SECONDS.sleep(7);
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        music.winMusic();
+        if(SoundEffect.volume.equals(Volume.OFF)){
+          soundEffect.stop();
+        }
+        if (SoundEffect.volume.equals(Volume.ON)){
+         // music.winMusic();
+          soundEffect.play("audio/winning.wav");
+        }
         System.out.println(getWinMessage());
         TimeUnit.SECONDS.sleep(10);
         playAgain();
