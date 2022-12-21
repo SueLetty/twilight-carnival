@@ -16,6 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Game {
 
+  private final String RED_COLOR = "\u001B[31m";
+  private final String GREEN_COLOR = "\u001B[32m";
+  private final String CLEAR_COLOR = "\u001B[0m";
+
   private Player player;
   private Script script;
   private SetMap map;
@@ -131,6 +135,9 @@ public class Game {
     System.out.println(getCurrentStation().getLocationDescription());
     System.out.println(
         "=============================================================================================");
+    if (getCurrentStation().getName().equalsIgnoreCase("Dreamland Gate")){
+      System.out.println("> If I get all 4 keys I could " + GREEN_COLOR + "unlock" + CLEAR_COLOR + " this gate.");
+    }
     for (Station s : stations) {
       if (s.getName().equals(player.getCurrentLocation())
           && getPlayer().hasMap()) { // TODO: 12/19/2022 remove this and only prompt on pickup?
@@ -165,9 +172,6 @@ public class Game {
    * red if not visited before and green if previously visited.
    */
   public void viewMap() throws InterruptedException {
-    String redColor = "\u001B[31m";
-    String greenColor = "\u001B[32m";
-    String clearColor = "\u001B[0m";
     if (player.hasMap()) {
       if (SoundEffect.volume.equals(Volume.OFF)) {
         soundEffect.stop();
@@ -176,17 +180,17 @@ public class Game {
         soundEffect.play("audio/openMap.wav");
       }
       System.out.println("> I look at my map and see my current surroundings.\n"
-          + "> I marked locations" + greenColor + " green" + clearColor
+          + "> I marked locations" + GREEN_COLOR + " green" + CLEAR_COLOR
           + " for areas I visited, and "
-          + redColor + "red" + clearColor + " for places I have not.");
+          + RED_COLOR + "red" + CLEAR_COLOR + " for places I have not.");
       for (Station s : stations) {
         if (s.getName().equals(player.getCurrentLocation())) {
           for (Directions direction : s.getSurroundings().keySet()) {
             String adjacentLocation = s.getSurroundings().get(direction);
             if (hasBeenVisited(adjacentLocation)) {
-              System.out.println(direction + ": " + greenColor + adjacentLocation + clearColor);
+              System.out.println(direction + ": " + GREEN_COLOR + adjacentLocation + CLEAR_COLOR);
             } else {
-              System.out.println(direction + ": " + redColor + adjacentLocation + clearColor);
+              System.out.println(direction + ": " + RED_COLOR + adjacentLocation + CLEAR_COLOR);
 
             }
           }
