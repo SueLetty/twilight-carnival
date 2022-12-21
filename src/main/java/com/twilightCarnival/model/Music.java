@@ -14,7 +14,6 @@ public class Music {
   private boolean musicOn = true;
 
 
-
   public void playMusic(String musicLocation) {
     try {
       URL url = Music.class.getClassLoader().getResource(musicLocation);
@@ -25,7 +24,6 @@ public class Music {
       volumeMedium();
       musicClip.start();
       musicClip.loop(Clip.LOOP_CONTINUOUSLY);
-
 
     } catch (Exception ex) {
       ex.printStackTrace();
@@ -42,8 +40,6 @@ public class Music {
       System.out.println("Game muted. Please enter a command.");
       musicClip.stop();
       musicClip.close();
-
-
     } else if (input.equalsIgnoreCase("n")) {
       System.out.println("Please enter a command to continue");
     } else {
@@ -52,10 +48,11 @@ public class Music {
     }
   }
 
-  public void stopMusic(){
+  public void stopMusic() {
     musicClip.stop();
     musicClip.close();
   }
+
   public void volumeHigh() {
     FloatControl gainControl =
         (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
