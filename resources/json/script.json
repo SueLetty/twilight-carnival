@@ -3,6 +3,6 @@
   "directions": "Go North, Go South, Go East, Go West",
   "toolMessage": "One of these items should defeat this monster.",
   "winMessage": "> I hear someone approach me from behind, and I hear, \"Thank you for visiting, come again, and bring your friends.\" \n> I quickly turn around, and then I wake up.",
-  "help": "1. Go [Direction] (example: go north, go south, go west, go east)\n2. Pickup [Item Name] (example: pickup map)\n3. View map (If you have a map in your inventory) \n4. Use [Tool] (when you encounter a monster.)\n5. Unlock (when you have enough keys and you are at the Dreamland Gate)\n6. Volume Control:\n    -'mute' to turn sound off\n    -'unmute' to turn sound on\n    -'hv' High Volume\n    -'mdv' Medium Volume\n    -'lv' Low Volume",
+  "help": "1. Go [Direction] (example: go north, go south, go west, go east)\n2. Pickup [Item] (example: pickup map)\n3. View map (If you have a map in your inventory) \n4. Use [Item] (when you encounter a monster.)\n5. Unlock (when you have enough keys and you are at the Dreamland Gate)\n6. Volume Control:\n    -'mute' to turn sound off\n    -'unmute' to turn sound on\n    -'hv' High Volume\n    -'mdv' Medium Volume\n    -'lv' Low Volume",
   "playAgainMessage": "Do you want to play again? (y/n)"
 }

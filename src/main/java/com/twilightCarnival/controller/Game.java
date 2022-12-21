@@ -129,7 +129,7 @@ public class Game {
         + "\tInventory: [" + player.displayInventory() + "]");
     System.out.println(
         "=============================================================================================");
-    System.out.println("Available commands: go [direction], help, quit, use [tool], unlock");
+    System.out.println("Available commands: go [direction], use [item], help, quit");
     System.out.println(
         "=============================================================================================");
     System.out.println(getCurrentStation().getLocationDescription());
@@ -226,7 +226,7 @@ public class Game {
   public void defeatMonsterOrLoseGame(String noun) throws InterruptedException {
     if (isMonsterDefeated(noun)) {
       for (Station s : stations) {
-        if (s.getName().equals(player.getCurrentLocation()) && s.getMonster().isAlive()) {
+        if (s.getName().equals(player.getCurrentLocation()) && s.getMonster() != null && s.getMonster().isAlive()) {
           if (SoundEffect.volume.equals(Volume.OFF)) {
             soundEffect.stop();
           } else {
@@ -241,13 +241,20 @@ public class Game {
           s.getMonster().setKey(null);
           return;
 
-        } else if (s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()) {
+        } else if (!s.getMonster().isAlive()) {
           System.out.println(
               "> There is no longer a monster here.\n> I should go explore other areas.");
         }
       }
 
     } else {
+      for (Station s : stations) {
+        if (s.getName().equals(player.getCurrentLocation()) && !s.getMonster().isAlive()) {
+          System.out.println(
+              "> There is no longer a monster here.\n> I should go explore other areas.");
+          return;
+        }
+      }
       if (player.getToken() > 0) {
 
         if (SoundEffect.volume.equals(Volume.OFF)) {
